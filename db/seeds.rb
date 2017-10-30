@@ -51,11 +51,13 @@ puts "#{User.count} users created."
 
 # Create Wikis
 users.each do |user|
-  user.wikis.create!(
-    title:    Faker::Lorem.word,
-    body:     Faker::Lorem.paragraph,
-    private:  false
-  )
+    5.times do
+    user.wikis.create!(
+      title:    Faker::Lorem.word,
+      body:     Faker::Lorem.paragraph,
+      private:  false
+    )
+  end
 end
 
 Wikis = Wiki.all

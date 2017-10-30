@@ -12,11 +12,13 @@ class WikisController < ApplicationController
   end
 
   def new
+    @user = current_user
     @wiki = Wiki.new
     authorize @wiki
   end
 
   def create
+    @user = current_user
     @wiki = Wiki.new(user: current_user)
     authorize @wiki
     @wiki.title = params[:wiki][:title]
@@ -71,6 +73,8 @@ class WikisController < ApplicationController
   end
 
   def authorize_user
+    @user = User.find(params[:id])
+    authorize @user
     unless current_user?
       flash[:alert] = "You must be a user to do that."
       redirect_to wikis_path
