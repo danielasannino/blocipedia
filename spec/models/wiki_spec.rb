@@ -1,8 +1,6 @@
 require 'rails_helper'
 
 RSpec.describe Wiki, type: :model do
-  let(:post) { create(:wiki) }
-  let(:user) { create(:user) }
 
 
   describe "attributes" do

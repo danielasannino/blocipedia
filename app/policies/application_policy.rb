@@ -11,11 +11,11 @@ class ApplicationPolicy
   end
 
   def show?
-    scope.where(:id => wiki.id).exists?
+    user.present? || user.admin?
   end
 
   def create?
-    false
+    user.present?
   end
 
   def new?
@@ -27,7 +27,7 @@ class ApplicationPolicy
   end
 
   def destroy?
-    false
+    user.admin?
   end
 
   def edit?

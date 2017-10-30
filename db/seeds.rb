@@ -1,6 +1,16 @@
 require 'faker'
 
-User.destroy_all
+def create_static_user(attributes)
+  unless User.find_by(email: attributes[:email])
+    static_user = User.create!(attributes)
+    static_user.skip_confirmation!
+    static_user.save!
+    puts "created static #{attributes[:name]}."
+    puts "Email: #{attributes[:email]} Password: #{attributes[:password]}"
+  else
+    puts "Skipped creation of \"#{attributes[:email]}\""
+  end
+end
 
 # Create Users
 10.times do
@@ -14,36 +24,32 @@ User.destroy_all
     user.save!
 end
 
+puts "Random Users created."
+
 
 
 # Create an admin user
-admin = User.new(
+create_static_user({
   name:       'Admin User',
   email:      'admin@test.com',
   password:   'password',
   role:       'admin'
-)
-admin.skip_confirmation!
-admin.save!
+})
 
 # Create a premium user
-premium = User.new(
+create_static_user({
   name:       'Premium User',
   email:      'premium@test.com',
   password:   'password',
   role:       'premium',
-)
-premium.skip_confirmation!
-premium.save!
+})
 
 # Create member user
-member = User.new(
+create_static_user({
   name:     'Member User',
   email:    'member@test.com',
   password: 'password',
-)
-member.skip_confirmation!
-member.save!
+})
 
 users = User.all
 
@@ -55,13 +61,14 @@ users.each do |user|
     user.wikis.create!(
       title:    Faker::Lorem.word,
       body:     Faker::Lorem.paragraph,
-      private:  false
+      private:  rand(1..5) !=1
     )
   end
 end
 
 Wikis = Wiki.all
 
-puts "#{Wiki.count} posts created"
+puts "#{Wiki.count} wikis created"
+puts "#{Wiki.where(private: true).count} private wikis created."
 
 puts "Seed finished"

@@ -1,7 +1,7 @@
 class WikiPolicy < ApplicationPolicy
 
   def index?
-    user.present?
+    user.admin? || user.wikis.count
   end
 
   def update?
@@ -21,30 +21,26 @@ class WikiPolicy < ApplicationPolicy
   end
 
   def show?
-    user.present?
+    user.present? && (!wiki.private || user.admin? || wiki.user_id == user.id)
   end
 
   def edit?
     user.present?
   end
 
-    class Scope
-    attr_reader :user, :scope
+  class Scope
+  attr_reader :user, :scope
 
-    def initialize(user, scope)
-      @user = user
-      @scope = scope
-    end
+  def initialize(user, scope)
+    @user = user
+    @scope = scope
+  end
 
     def resolve
-      wikis = []
-      if user.role == 'admin'
-        wikis = scope.all
-      elsif user.role == 'premium'
-        all_wikis = scope.all
-        all_wikis.each do |wiki|
-          if !wiki.private? || wiki.user == user || wiki.users.include?(user)
-            wikis << wiki
+      if user.admin? || user.premium?
+        return scope.all
+      else
+        return scope.where(private: false)
           end
         end
       else
@@ -56,6 +52,4 @@ class WikiPolicy < ApplicationPolicy
           end
         end
       end
-      wikis 
-    end
 end
