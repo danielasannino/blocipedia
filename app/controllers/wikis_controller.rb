@@ -1,18 +1,24 @@
 class WikisController < ApplicationController
+  before_action :authenticate_user!
+
   def index
     @wikis = Wiki.all
+    authorize @wikis
   end
 
   def show
     @wiki = Wiki.find(params[:id])
+    authorize @wiki
   end
 
   def new
     @wiki = Wiki.new
+    authorize @wiki
   end
 
   def create
     @wiki = Wiki.new(user: current_user)
+    authorize @wiki
     @wiki.title = params[:wiki][:title]
     @wiki.body = params[:wiki][:body]
 
@@ -27,10 +33,12 @@ class WikisController < ApplicationController
 
   def edit
     @wiki = Wiki.find(params[:id])
+    authorize @wiki
   end
 
   def update
     @wiki = Wiki.find(params[:id])
+    authorize @wiki
     @wiki.title = params[:wiki][:title]
     @wiki.body = params[:wiki][:body]
 
@@ -45,6 +53,7 @@ class WikisController < ApplicationController
 
   def destroy
     @wiki = Wiki.find(params[:id])
+    authorize @wiki
 
     if @wiki.destroy
       flash[:notice] = "\"#{@wiki.title}\" was deleted successfully."
@@ -54,4 +63,17 @@ class WikisController < ApplicationController
       render :show
     end
    end
+
+   private
+
+  def wiki_params
+    params.require(:wiki).permit(:title, :body, :private, :user)
+  end
+
+  def authorize_user
+    unless current_user?
+      flash[:alert] = "You must be a user to do that."
+      redirect_to wikis_path
+    end
+  end
 end
