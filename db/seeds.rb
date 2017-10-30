@@ -1,59 +1,37 @@
-require 'random_data'
+require 'faker'
+
+User.destroy_all
+
 # Create Users
-5.times do
-  User.create!(
-    email: RandomData.random_email,
-    password: RandomData.random_sentence
-  )
-end
-
-# Create admin user
-unless User.find_by(email: 'admin@test.com')
-  User.create!(
-    email: 'admin@test.com',
-    password: 'password',
-  )
-end
-
-unless User.find_by(email: 'member@test.com')
-  User.create!(
-    email: 'member@test.com',
-    password: 'password'
-  )
-end
-users = User.all
-
-puts "#{User.count} users created"
-
-# Create Wikis
 10.times do
-  Wiki.create!(
-    user: users.sample,
-    title:  RandomData.random_sentence,
-    body:   RandomData.random_paragraph
-  )
+
+  user = User.new(
+      name:      Faker::Name.name,
+      email:     Faker::Internet.email,
+      password: 'password'
+      )
+    user.skip_confirmation!
+    user.save!
 end
 
-wikis = Wiki.all
 
-puts "#{Wiki.count} posts created"
 
 # Create an admin user
 admin = User.new(
-  name: 'Admin User',
-  email: 'admin@test.com',
-  password: 'password',
-  role: 'admin'
+  name:       'Admin User',
+  email:      'admin@test.com',
+  password:   'password',
+  role:       'admin'
 )
 admin.skip_confirmation!
 admin.save!
 
 # Create a premium user
 premium = User.new(
-  name:      'Premium User',
-  email:     'premium@test.com',
-  password:  'password',
-  role:      'premium'
+  name:       'Premium User',
+  email:      'premium@test.com',
+  password:   'password',
+  role:       'premium',
 )
 premium.skip_confirmation!
 premium.save!
@@ -67,7 +45,21 @@ member = User.new(
 member.skip_confirmation!
 member.save!
 
+users = User.all
+
 puts "#{User.count} users created."
 
+# Create Wikis
+users.each do |user|
+  user.wikis.create!(
+    title:    Faker::Lorem.word,
+    body:     Faker::Lorem.paragraph,
+    private:  false
+  )
+end
+
+Wikis = Wiki.all
+
+puts "#{Wiki.count} posts created"
 
 puts "Seed finished"
