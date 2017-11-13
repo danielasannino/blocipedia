@@ -262,7 +262,7 @@ Did you mean?  welcome_about_path):
     17:           <li><%= link_to "Home", welcome_index_path %></li>
     18:           <li><%= link_to "About", welcome_about_path %></li>
     19:         <div class='user-info pull-right'>
-    20:           <% if user_signed_in? %>
+    20:           <% if current_user.present? %>
   
 app/views/layouts/application.html.erb:17:in `_app_views_layouts_application_html_erb___4442097489538500840_70120053343100'
 Started GET "/users/sign_up" for 127.0.0.1 at 2017-10-23 14:31:43 -0400
@@ -282,7 +282,7 @@ Did you mean?  welcome_about_path):
     17:           <li><%= link_to "Home", welcome_index_path %></li>
     18:           <li><%= link_to "About", welcome_about_path %></li>
     19:         <div class='user-info pull-right'>
-    20:           <% if user_signed_in? %>
+    20:           <% if current_user.present? %>
   
 app/views/layouts/application.html.erb:17:in `_app_views_layouts_application_html_erb___4442097489538500840_70120089223940'
 Started GET "/users/sign_up" for 127.0.0.1 at 2017-10-23 14:32:42 -0400
@@ -431,3 +431,2391 @@ Completed 200 OK in 3622ms (Views: 3617.7ms | ActiveRecord: 0.2ms)
             FROM sqlite_temp_master
             WHERE name='index_wikis_on_user_id' AND type='index'
 [0m
+  [1m[35m (0.8ms)[0m  [1m[34mSELECT "schema_migrations"."version" FROM "schema_migrations" ORDER BY "schema_migrations"."version" ASC[0m
+  [1m[35m (0.6ms)[0m  [1m[34mSELECT "ar_internal_metadata"."value" FROM "ar_internal_metadata" WHERE "ar_internal_metadata"."key" = ?[0m  [["key", "environment"]]
+  [1m[35m (0.1ms)[0m  [1m[34mSELECT "schema_migrations"."version" FROM "schema_migrations" ORDER BY "schema_migrations"."version" ASC[0m
+  [1m[35m (0.1ms)[0m  [1m[34mSELECT "ar_internal_metadata"."value" FROM "ar_internal_metadata" WHERE "ar_internal_metadata"."key" = ?[0m  [["key", "environment"]]
+  [1m[35m (0.1ms)[0m  [1m[34mSELECT "schema_migrations"."version" FROM "schema_migrations" ORDER BY "schema_migrations"."version" ASC[0m
+  [1m[35m (0.1ms)[0m  [1m[34mSELECT "ar_internal_metadata"."value" FROM "ar_internal_metadata" WHERE "ar_internal_metadata"."key" = ?[0m  [["key", "environment"]]
+  [1m[35m (0.1ms)[0m  [1m[35mDROP TABLE IF EXISTS "users"[0m
+  [1m[35m (0.1ms)[0m  [1m[34mSELECT sqlite_version(*)[0m
+  [1m[35m (1.0ms)[0m  [1m[35mCREATE TABLE "users" ("id" INTEGER PRIMARY KEY AUTOINCREMENT NOT NULL, "created_at" datetime NOT NULL, "updated_at" datetime NOT NULL, "email" varchar DEFAULT '' NOT NULL, "encrypted_password" varchar DEFAULT '' NOT NULL, "reset_password_token" varchar, "reset_password_sent_at" datetime, "remember_created_at" datetime, "sign_in_count" integer DEFAULT 0 NOT NULL, "current_sign_in_at" datetime, "last_sign_in_at" datetime, "current_sign_in_ip" varchar, "last_sign_in_ip" varchar, "confirmation_token" varchar, "confirmed_at" datetime, "confirmation_sent_at" datetime, "unconfirmed_email" varchar)[0m
+  [1m[35m (0.8ms)[0m  [1m[35mCREATE UNIQUE INDEX "index_users_on_confirmation_token" ON "users" ("confirmation_token")[0m
+  [1m[35m (0.1ms)[0m  [1m[34m            SELECT sql
+            FROM sqlite_master
+            WHERE name='index_users_on_confirmation_token' AND type='index'
+            UNION ALL
+            SELECT sql
+            FROM sqlite_temp_master
+            WHERE name='index_users_on_confirmation_token' AND type='index'
+[0m
+  [1m[35m (1.1ms)[0m  [1m[35mCREATE UNIQUE INDEX "index_users_on_email" ON "users" ("email")[0m
+  [1m[35m (0.1ms)[0m  [1m[34m            SELECT sql
+            FROM sqlite_master
+            WHERE name='index_users_on_email' AND type='index'
+            UNION ALL
+            SELECT sql
+            FROM sqlite_temp_master
+            WHERE name='index_users_on_email' AND type='index'
+[0m
+  [1m[35m (0.1ms)[0m  [1m[34m            SELECT sql
+            FROM sqlite_master
+            WHERE name='index_users_on_confirmation_token' AND type='index'
+            UNION ALL
+            SELECT sql
+            FROM sqlite_temp_master
+            WHERE name='index_users_on_confirmation_token' AND type='index'
+[0m
+  [1m[35m (1.4ms)[0m  [1m[35mCREATE UNIQUE INDEX "index_users_on_reset_password_token" ON "users" ("reset_password_token")[0m
+  [1m[35m (0.1ms)[0m  [1m[35mDROP TABLE IF EXISTS "wikis"[0m
+  [1m[35m (1.1ms)[0m  [1m[35mCREATE TABLE "wikis" ("id" INTEGER PRIMARY KEY AUTOINCREMENT NOT NULL, "title" varchar, "body" text, "private" boolean, "user_id" integer, "created_at" datetime NOT NULL, "updated_at" datetime NOT NULL)[0m
+  [1m[35m (1.8ms)[0m  [1m[35mCREATE  INDEX "index_wikis_on_user_id" ON "wikis" ("user_id")[0m
+  [1m[35m (1.2ms)[0m  [1m[35mCREATE TABLE "schema_migrations" ("version" varchar NOT NULL PRIMARY KEY)[0m
+  [1m[35m (0.4ms)[0m  [1m[34mSELECT "schema_migrations"."version" FROM "schema_migrations" ORDER BY "schema_migrations"."version" ASC[0m
+  [1m[35m (1.1ms)[0m  [1m[32mINSERT INTO "schema_migrations" (version) VALUES (20171023182826)[0m
+  [1m[35m (1.5ms)[0m  [1m[32mINSERT INTO "schema_migrations" (version) VALUES
+(20171023182604);
+
+[0m
+  [1m[35m (2.1ms)[0m  [1m[35mCREATE TABLE "ar_internal_metadata" ("key" varchar NOT NULL PRIMARY KEY, "value" varchar, "created_at" datetime NOT NULL, "updated_at" datetime NOT NULL)[0m
+  [1m[36mActiveRecord::InternalMetadata Load (0.2ms)[0m  [1m[34mSELECT  "ar_internal_metadata".* FROM "ar_internal_metadata" WHERE "ar_internal_metadata"."key" = ? LIMIT ?[0m  [["key", "environment"], ["LIMIT", 1]]
+  [1m[35m (0.1ms)[0m  [1m[36mbegin transaction[0m
+  [1m[35mSQL (0.5ms)[0m  [1m[32mINSERT INTO "ar_internal_metadata" ("key", "value", "created_at", "updated_at") VALUES (?, ?, ?, ?)[0m  [["key", "environment"], ["value", "development"], ["created_at", "2017-10-31 00:50:06.503724"], ["updated_at", "2017-10-31 00:50:06.503724"]]
+  [1m[35m (0.7ms)[0m  [1m[36mcommit transaction[0m
+  [1m[36mActiveRecord::InternalMetadata Load (0.5ms)[0m  [1m[34mSELECT  "ar_internal_metadata".* FROM "ar_internal_metadata" WHERE "ar_internal_metadata"."key" = ? LIMIT ?[0m  [["key", "environment"], ["LIMIT", 1]]
+  [1m[35m (0.1ms)[0m  [1m[36mbegin transaction[0m
+  [1m[35m (0.0ms)[0m  [1m[36mcommit transaction[0m
+  [1m[35m (1.6ms)[0m  [1m[34mSELECT "schema_migrations"."version" FROM "schema_migrations" ORDER BY "schema_migrations"."version" ASC[0m
+Migrating to AddNameToUser (20171031005106)
+  [1m[35m (0.1ms)[0m  [1m[36mbegin transaction[0m
+  [1m[35m (1.1ms)[0m  [1m[35mALTER TABLE "users" ADD "name" varchar[0m
+  [1m[35mSQL (0.4ms)[0m  [1m[32mINSERT INTO "schema_migrations" ("version") VALUES (?)[0m  [["version", "20171031005106"]]
+  [1m[35m (2.4ms)[0m  [1m[36mcommit transaction[0m
+  [1m[36mActiveRecord::InternalMetadata Load (0.5ms)[0m  [1m[34mSELECT  "ar_internal_metadata".* FROM "ar_internal_metadata" WHERE "ar_internal_metadata"."key" = ? LIMIT ?[0m  [["key", "environment"], ["LIMIT", 1]]
+  [1m[35m (0.1ms)[0m  [1m[36mbegin transaction[0m
+  [1m[35m (0.1ms)[0m  [1m[36mcommit transaction[0m
+  [1m[35m (0.2ms)[0m  [1m[34mSELECT "schema_migrations"."version" FROM "schema_migrations" ORDER BY "schema_migrations"."version" ASC[0m
+  [1m[35m (0.2ms)[0m  [1m[34m            SELECT sql
+            FROM sqlite_master
+            WHERE name='index_users_on_confirmation_token' AND type='index'
+            UNION ALL
+            SELECT sql
+            FROM sqlite_temp_master
+            WHERE name='index_users_on_confirmation_token' AND type='index'
+[0m
+  [1m[35m (0.1ms)[0m  [1m[34m            SELECT sql
+            FROM sqlite_master
+            WHERE name='index_users_on_reset_password_token' AND type='index'
+            UNION ALL
+            SELECT sql
+            FROM sqlite_temp_master
+            WHERE name='index_users_on_reset_password_token' AND type='index'
+[0m
+  [1m[35m (0.1ms)[0m  [1m[34m            SELECT sql
+            FROM sqlite_master
+            WHERE name='index_users_on_email' AND type='index'
+            UNION ALL
+            SELECT sql
+            FROM sqlite_temp_master
+            WHERE name='index_users_on_email' AND type='index'
+[0m
+  [1m[35m (0.1ms)[0m  [1m[34m            SELECT sql
+            FROM sqlite_master
+            WHERE name='index_wikis_on_user_id' AND type='index'
+            UNION ALL
+            SELECT sql
+            FROM sqlite_temp_master
+            WHERE name='index_wikis_on_user_id' AND type='index'
+[0m
+Started GET "/" for 127.0.0.1 at 2017-10-30 21:04:42 -0400
+  [1m[35m (0.2ms)[0m  [1m[34mSELECT "schema_migrations"."version" FROM "schema_migrations" ORDER BY "schema_migrations"."version" ASC[0m
+Processing by WelcomeController#index as HTML
+  Rendering welcome/index.html.erb within layouts/application
+  Rendered welcome/index.html.erb within layouts/application (1.6ms)
+Completed 500 Internal Server Error in 2267ms (ActiveRecord: 0.0ms)
+
+
+  
+ActionView::Template::Error (undefined local variable or method `about_path' for #<#<Class:0x007fdf30871f10>:0x007fdf2e0fd650>):
+    11:   <div class="container">
+    12:     <ul class="nav nav-tabs">
+    13:       <li><%= link_to "Blocipedia", root_path %></li>
+    14:       <li><%= link_to "About", about_path %></li>
+    15:       <li><%= link_to "Wikis", wikis_path %></li>
+    16:       <li><%= link_to "Users", users_path %></li>
+    17: 
+  
+app/views/layouts/application.html.erb:14:in `_app_views_layouts_application_html_erb__861937172672979459_70298288658920'
+Started GET "/" for 127.0.0.1 at 2017-10-30 21:05:43 -0400
+  [1m[35m (0.1ms)[0m  [1m[34mSELECT "schema_migrations"."version" FROM "schema_migrations" ORDER BY "schema_migrations"."version" ASC[0m
+Processing by WelcomeController#index as HTML
+  Rendering welcome/index.html.erb within layouts/application
+  Rendered welcome/index.html.erb within layouts/application (2.7ms)
+Completed 200 OK in 265ms (Views: 253.2ms | ActiveRecord: 0.0ms)
+
+
+Started GET "/welcome/about" for 127.0.0.1 at 2017-10-30 21:05:45 -0400
+Processing by WelcomeController#about as HTML
+  Rendering welcome/about.html.erb within layouts/application
+  Rendered welcome/about.html.erb within layouts/application (0.6ms)
+Completed 200 OK in 48ms (Views: 43.2ms | ActiveRecord: 0.0ms)
+
+
+Started GET "/" for 127.0.0.1 at 2017-10-30 21:05:53 -0400
+Processing by WelcomeController#index as HTML
+  Rendering welcome/index.html.erb within layouts/application
+  Rendered welcome/index.html.erb within layouts/application (0.3ms)
+Completed 200 OK in 59ms (Views: 57.5ms | ActiveRecord: 0.0ms)
+
+
+Started GET "/wikis" for 127.0.0.1 at 2017-10-30 21:05:54 -0400
+Processing by WikisController#index as HTML
+Completed 401 Unauthorized in 1ms (ActiveRecord: 0.0ms)
+
+
+Started GET "/users/sign_in" for 127.0.0.1 at 2017-10-30 21:05:54 -0400
+Processing by Devise::SessionsController#new as HTML
+  Rendering devise/sessions/new.html.erb within layouts/application
+  Rendered devise/shared/_links.html.erb (1.4ms)
+  Rendered devise/sessions/new.html.erb within layouts/application (15.7ms)
+Completed 200 OK in 78ms (Views: 61.2ms | ActiveRecord: 0.8ms)
+
+
+Started GET "/users/sign_up" for 127.0.0.1 at 2017-10-30 21:05:57 -0400
+Processing by Devise::RegistrationsController#new as HTML
+  Rendering devise/registrations/new.html.erb within layouts/application
+  Rendered devise/shared/_links.html.erb (1.1ms)
+  Rendered devise/registrations/new.html.erb within layouts/application (9.9ms)
+Completed 200 OK in 55ms (Views: 53.4ms | ActiveRecord: 0.0ms)
+
+
+Started POST "/users" for 127.0.0.1 at 2017-10-30 21:06:04 -0400
+Processing by Devise::RegistrationsController#create as HTML
+  Parameters: {"utf8"=>"✓", "authenticity_token"=>"HAIdKDkT6sIa57e/0LEHVS8DH5hqJxgM90LxtEgodwMUwMJUlwtg06joSiyz2//L85HhyHE/ciDUtSxi0+rk3Q==", "user"=>{"name"=>"test user", "email"=>"test@test.test", "password"=>"[FILTERED]", "password_confirmation"=>"[FILTERED]"}, "commit"=>"Sign up"}
+  [1m[35m (0.2ms)[0m  [1m[36mbegin transaction[0m
+  [1m[36mUser Exists (0.2ms)[0m  [1m[34mSELECT  1 AS one FROM "users" WHERE "users"."email" = ? LIMIT ?[0m  [["email", "test@test.test"], ["LIMIT", 1]]
+  [1m[36mCACHE User Exists (0.0ms)[0m  [1m[34mSELECT  1 AS one FROM "users" WHERE "users"."email" = ? LIMIT ?[0m  [["email", "test@test.test"], ["LIMIT", 1]]
+  [1m[36mUser Exists (0.1ms)[0m  [1m[34mSELECT  1 AS one FROM "users" WHERE LOWER("users"."email") = LOWER(?) LIMIT ?[0m  [["email", "test@test.test"], ["LIMIT", 1]]
+  [1m[35m (0.1ms)[0m  [1m[31mrollback transaction[0m
+  Rendering devise/registrations/new.html.erb within layouts/application
+  Rendered devise/shared/_links.html.erb (0.7ms)
+  Rendered devise/registrations/new.html.erb within layouts/application (3.9ms)
+Completed 200 OK in 172ms (Views: 36.6ms | ActiveRecord: 0.7ms)
+
+
+Started POST "/users" for 127.0.0.1 at 2017-10-30 21:06:14 -0400
+Processing by Devise::RegistrationsController#create as HTML
+  Parameters: {"utf8"=>"✓", "authenticity_token"=>"KhnOqNL1XP3P/H9FQCDa5fcNBDKkiN/rhwKakxHqUCDxjyzHZ+LipDTOOfaEMw6KfxU593h/NlFw+7JbAcriGQ==", "user"=>{"name"=>"test user", "email"=>"test@test.test1", "password"=>"[FILTERED]", "password_confirmation"=>"[FILTERED]"}, "commit"=>"Sign up"}
+  [1m[35m (0.1ms)[0m  [1m[36mbegin transaction[0m
+  [1m[36mUser Exists (0.1ms)[0m  [1m[34mSELECT  1 AS one FROM "users" WHERE "users"."email" = ? LIMIT ?[0m  [["email", "test@test.test1"], ["LIMIT", 1]]
+  [1m[36mCACHE User Exists (0.0ms)[0m  [1m[34mSELECT  1 AS one FROM "users" WHERE "users"."email" = ? LIMIT ?[0m  [["email", "test@test.test1"], ["LIMIT", 1]]
+  [1m[36mUser Exists (0.1ms)[0m  [1m[34mSELECT  1 AS one FROM "users" WHERE LOWER("users"."email") = LOWER(?) LIMIT ?[0m  [["email", "test@test.test1"], ["LIMIT", 1]]
+  [1m[35m (0.2ms)[0m  [1m[31mrollback transaction[0m
+  Rendering devise/registrations/new.html.erb within layouts/application
+  Rendered devise/shared/_links.html.erb (1.4ms)
+  Rendered devise/registrations/new.html.erb within layouts/application (6.0ms)
+Completed 200 OK in 181ms (Views: 45.1ms | ActiveRecord: 0.5ms)
+
+
+Started POST "/users" for 127.0.0.1 at 2017-10-30 21:06:25 -0400
+Processing by Devise::RegistrationsController#create as HTML
+  Parameters: {"utf8"=>"✓", "authenticity_token"=>"3lNbdfSwXAhW/NwCHgzQQ6GUfs664lHvo7s4Yuq9BFQFxbkaQafiUa3OmrHaHwQsKYxDC2YVuFVUQhCq+p22bQ==", "user"=>{"name"=>"test ", "email"=>"test@test1.test", "password"=>"[FILTERED]", "password_confirmation"=>"[FILTERED]"}, "commit"=>"Sign up"}
+  [1m[35m (0.1ms)[0m  [1m[36mbegin transaction[0m
+  [1m[36mUser Exists (0.1ms)[0m  [1m[34mSELECT  1 AS one FROM "users" WHERE "users"."email" = ? LIMIT ?[0m  [["email", "test@test1.test"], ["LIMIT", 1]]
+  [1m[36mCACHE User Exists (0.0ms)[0m  [1m[34mSELECT  1 AS one FROM "users" WHERE "users"."email" = ? LIMIT ?[0m  [["email", "test@test1.test"], ["LIMIT", 1]]
+  [1m[36mUser Exists (0.1ms)[0m  [1m[34mSELECT  1 AS one FROM "users" WHERE LOWER("users"."email") = LOWER(?) LIMIT ?[0m  [["email", "test@test1.test"], ["LIMIT", 1]]
+  [1m[35mSQL (0.6ms)[0m  [1m[32mINSERT INTO "users" ("created_at", "updated_at", "email", "encrypted_password", "confirmation_token", "confirmation_sent_at", "name") VALUES (?, ?, ?, ?, ?, ?, ?)[0m  [["created_at", "2017-10-31 01:06:25.803816"], ["updated_at", "2017-10-31 01:06:25.803816"], ["email", "test@test1.test"], ["encrypted_password", "$2a$11$qK45f8odd5dtPZgTsw.jqOeDI6.c1S3qKfwZQYqyWV8E8oOQDBO7C"], ["confirmation_token", "1s3XMkiNNFdmfxEs-xFe"], ["confirmation_sent_at", "2017-10-31 01:06:25.803975"], ["name", "test "]]
+  [1m[35m (3.2ms)[0m  [1m[36mcommit transaction[0m
+  Rendering devise/mailer/confirmation_instructions.html.erb
+  Rendered devise/mailer/confirmation_instructions.html.erb (1.1ms)
+Devise::Mailer#confirmation_instructions: processed outbound mail in 167.1ms
+Sent mail to test@test1.test (9.2ms)
+Date: Mon, 30 Oct 2017 21:06:26 -0400
+From: please-change-me-at-config-initializers-devise@example.com
+Reply-To: please-change-me-at-config-initializers-devise@example.com
+To: test@test1.test
+Message-ID: <59f7cc923fb4a_59a93fd289f89274515d8@Danielas-MacBook-Pro.local.mail>
+Subject: Confirmation instructions
+Mime-Version: 1.0
+Content-Type: text/html;
+ charset=UTF-8
+Content-Transfer-Encoding: 7bit
+
+<p>Welcome !</p>
+
+<p>You can confirm your account email through the link below:</p>
+
+<p><a href="http://localhost:3000/users/confirmation?confirmation_token=1s3XMkiNNFdmfxEs-xFe">Confirm my account</a></p>
+
+Redirected to http://localhost:3000/
+Completed 302 Found in 601ms (ActiveRecord: 4.1ms)
+
+
+Started GET "/" for 127.0.0.1 at 2017-10-30 21:06:26 -0400
+Processing by WelcomeController#index as HTML
+  Rendering welcome/index.html.erb within layouts/application
+  Rendered welcome/index.html.erb within layouts/application (0.7ms)
+Completed 200 OK in 53ms (Views: 50.6ms | ActiveRecord: 0.0ms)
+
+
+Started GET "/users/confirmation?confirmation_token=1s3XMkiNNFdmfxEs-xFe" for 127.0.0.1 at 2017-10-30 21:06:28 -0400
+Processing by Devise::ConfirmationsController#show as HTML
+  Parameters: {"confirmation_token"=>"1s3XMkiNNFdmfxEs-xFe"}
+  [1m[36mUser Load (0.6ms)[0m  [1m[34mSELECT  "users".* FROM "users" WHERE "users"."confirmation_token" = ? ORDER BY "users"."id" ASC LIMIT ?[0m  [["confirmation_token", "1s3XMkiNNFdmfxEs-xFe"], ["LIMIT", 1]]
+  [1m[35m (0.1ms)[0m  [1m[36mbegin transaction[0m
+  [1m[35mSQL (1.2ms)[0m  [1m[33mUPDATE "users" SET "confirmed_at" = ?, "updated_at" = ? WHERE "users"."id" = ?[0m  [["confirmed_at", "2017-10-31 01:06:28.160292"], ["updated_at", "2017-10-31 01:06:28.161231"], ["id", 2]]
+  [1m[35m (1.4ms)[0m  [1m[36mcommit transaction[0m
+Redirected to http://localhost:3000/users/sign_in
+Completed 302 Found in 17ms (ActiveRecord: 3.3ms)
+
+
+Started GET "/users/sign_in" for 127.0.0.1 at 2017-10-30 21:06:28 -0400
+Processing by Devise::SessionsController#new as HTML
+  Rendering devise/sessions/new.html.erb within layouts/application
+  Rendered devise/shared/_links.html.erb (1.3ms)
+  Rendered devise/sessions/new.html.erb within layouts/application (5.4ms)
+Completed 200 OK in 62ms (Views: 59.4ms | ActiveRecord: 0.0ms)
+
+
+Started POST "/users/sign_in" for 127.0.0.1 at 2017-10-30 21:06:33 -0400
+Processing by Devise::SessionsController#create as HTML
+  Parameters: {"utf8"=>"✓", "authenticity_token"=>"6ycAY95cDevoFZRNvtMRcOAuxNTPRk8NPYh/hoooy8cwseIMa0uzshMn0v56wMUfaDb5EROxprfKcVdOmgh5/g==", "user"=>{"email"=>"test@test1.test", "password"=>"[FILTERED]", "remember_me"=>"0"}, "commit"=>"Log in"}
+  [1m[36mUser Load (0.3ms)[0m  [1m[34mSELECT  "users".* FROM "users" WHERE "users"."email" = ? ORDER BY "users"."id" ASC LIMIT ?[0m  [["email", "test@test1.test"], ["LIMIT", 1]]
+  [1m[35m (0.1ms)[0m  [1m[36mbegin transaction[0m
+  [1m[35mSQL (0.3ms)[0m  [1m[33mUPDATE "users" SET "current_sign_in_at" = ?, "last_sign_in_at" = ?, "current_sign_in_ip" = ?, "last_sign_in_ip" = ?, "sign_in_count" = ?, "updated_at" = ? WHERE "users"."id" = ?[0m  [["current_sign_in_at", "2017-10-31 01:06:33.612298"], ["last_sign_in_at", "2017-10-31 01:06:33.612298"], ["current_sign_in_ip", "127.0.0.1"], ["last_sign_in_ip", "127.0.0.1"], ["sign_in_count", 1], ["updated_at", "2017-10-31 01:06:33.613117"], ["id", 2]]
+  [1m[35m (1.9ms)[0m  [1m[36mcommit transaction[0m
+Redirected to http://localhost:3000/wikis
+Completed 302 Found in 137ms (ActiveRecord: 2.5ms)
+
+
+Started GET "/wikis" for 127.0.0.1 at 2017-10-30 21:06:33 -0400
+Processing by WikisController#index as HTML
+  [1m[36mUser Load (0.3ms)[0m  [1m[34mSELECT  "users".* FROM "users" WHERE "users"."id" = ? ORDER BY "users"."id" ASC LIMIT ?[0m  [["id", 2], ["LIMIT", 1]]
+Completed 500 Internal Server Error in 22ms (ActiveRecord: 0.6ms)
+
+
+  
+Pundit::NotDefinedError (unable to find scope `WikiPolicy::Scope` for `Wiki(id: integer, title: string, body: text, private: boolean, user_id: integer, created_at: datetime, updated_at: datetime)`):
+  
+app/controllers/wikis_controller.rb:7:in `index'
+Started GET "/wikis" for 127.0.0.1 at 2017-10-30 21:08:46 -0400
+Processing by WikisController#index as HTML
+  [1m[36mUser Load (0.2ms)[0m  [1m[34mSELECT  "users".* FROM "users" WHERE "users"."id" = ? ORDER BY "users"."id" ASC LIMIT ?[0m  [["id", 2], ["LIMIT", 1]]
+  Rendering wikis/index.html.erb within layouts/application
+  [1m[36mWiki Load (0.2ms)[0m  [1m[34mSELECT "wikis".* FROM "wikis" WHERE "wikis"."private" = ? ORDER BY created_at DESC[0m  [["private", "f"]]
+  Rendered wikis/index.html.erb within layouts/application (2.3ms)
+  [1m[36mUser Load (0.2ms)[0m  [1m[34mSELECT  "users".* FROM "users" WHERE "users"."id" IS NULL LIMIT ?[0m  [["LIMIT", 1]]
+Completed 500 Internal Server Error in 77ms (ActiveRecord: 1.7ms)
+
+
+  
+ActionView::Template::Error (undefined method `avatar_url' for nil:NilClass):
+    17: 
+    18:       <div class="user-info pull-right">
+    19:       <% if current_user.present? %>
+    20:           <%= image_tag current_user.avatar_url(48), class: "gravatar" %>
+    21:           <div class="pull-right">
+    22:           Hello, <strong><%= link_to current_user.name, user_path(current_user), :class => "navbar-link" %></strong> |
+    23:           <%= link_to "Edit profile", edit_user_registration_path, :class => "navbar-link" %> -
+  
+app/views/layouts/application.html.erb:20:in `_app_views_layouts_application_html_erb__568195798963784138_70173494128660'
+Started GET "/wikis" for 127.0.0.1 at 2017-10-30 21:10:36 -0400
+Processing by WikisController#index as HTML
+  [1m[36mUser Load (0.1ms)[0m  [1m[34mSELECT  "users".* FROM "users" WHERE "users"."id" = ? ORDER BY "users"."id" ASC LIMIT ?[0m  [["id", 2], ["LIMIT", 1]]
+  Rendering wikis/index.html.erb within layouts/application
+  [1m[36mWiki Load (0.2ms)[0m  [1m[34mSELECT "wikis".* FROM "wikis" WHERE "wikis"."private" = ? ORDER BY created_at DESC[0m  [["private", "f"]]
+  Rendered wikis/index.html.erb within layouts/application (1.4ms)
+  [1m[36mUser Load (0.2ms)[0m  [1m[34mSELECT  "users".* FROM "users" WHERE "users"."id" IS NULL LIMIT ?[0m  [["LIMIT", 1]]
+Completed 200 OK in 53ms (Views: 27.0ms | ActiveRecord: 1.4ms)
+
+
+Started GET "/wikis" for 127.0.0.1 at 2017-10-30 21:11:22 -0400
+Processing by WikisController#index as HTML
+  [1m[36mUser Load (0.5ms)[0m  [1m[34mSELECT  "users".* FROM "users" WHERE "users"."id" = ? ORDER BY "users"."id" ASC LIMIT ?[0m  [["id", 2], ["LIMIT", 1]]
+  Rendering wikis/index.html.erb within layouts/application
+  [1m[36mWiki Load (0.3ms)[0m  [1m[34mSELECT "wikis".* FROM "wikis" WHERE "wikis"."private" = ? ORDER BY created_at DESC[0m  [["private", "f"]]
+  Rendered wikis/index.html.erb within layouts/application (3.7ms)
+  [1m[36mUser Load (0.2ms)[0m  [1m[34mSELECT  "users".* FROM "users" WHERE "users"."id" IS NULL LIMIT ?[0m  [["LIMIT", 1]]
+Completed 200 OK in 48ms (Views: 39.9ms | ActiveRecord: 1.0ms)
+
+
+Started GET "/users" for 127.0.0.1 at 2017-10-30 21:11:22 -0400
+Processing by UsersController#index as HTML
+  Rendering users/index.html.erb within layouts/application
+  Rendered users/index.html.erb within layouts/application (1.6ms)
+Completed 500 Internal Server Error in 16ms (ActiveRecord: 0.0ms)
+
+
+  
+SyntaxError (/Users/danielasannino/bloc/blocipedia/app/views/users/index.html.erb:23: syntax error, unexpected keyword_ensure, expecting keyword_end
+          ensure
+                ^):
+  
+app/views/users/index.html.erb:23: syntax error, unexpected keyword_ensure, expecting keyword_end
+Started GET "/users" for 127.0.0.1 at 2017-10-30 21:12:07 -0400
+Processing by UsersController#index as HTML
+  Rendering users/index.html.erb within layouts/application
+  [1m[36mUser Load (0.2ms)[0m  [1m[34mSELECT "users".* FROM "users"[0m
+  Rendered users/index.html.erb within layouts/application (14.6ms)
+Completed 500 Internal Server Error in 20ms (ActiveRecord: 0.2ms)
+
+
+  
+ActionView::Template::Error (undefined method `role' for #<User:0x007fa517c52dd0>):
+     6:       <div class="media">
+     7:         <div class="media-body">
+     8:           <p class="media-heading">
+     9:             <strong><%= user.name %></strong> (<%= user.role.capitalize %>) <br>
+    10:             <a href="mailto:<%= user.email %>"><%= user.email %></a>
+    11:           </p>
+    12:         </div>
+  
+app/views/users/index.html.erb:9:in `block in _app_views_users_index_html_erb__938998115275300447_70173522759420'
+app/views/users/index.html.erb:5:in `_app_views_users_index_html_erb__938998115275300447_70173522759420'
+  [1m[35m (0.7ms)[0m  [1m[34mSELECT "schema_migrations"."version" FROM "schema_migrations" ORDER BY "schema_migrations"."version" ASC[0m
+Migrating to AddRoleToUsers (20171106182409)
+  [1m[35m (0.1ms)[0m  [1m[36mbegin transaction[0m
+  [1m[35m (1.6ms)[0m  [1m[35mALTER TABLE "users" ADD "role" integer[0m
+  [1m[35mSQL (0.5ms)[0m  [1m[32mINSERT INTO "schema_migrations" ("version") VALUES (?)[0m  [["version", "20171106182409"]]
+  [1m[35m (2.7ms)[0m  [1m[36mcommit transaction[0m
+  [1m[36mActiveRecord::InternalMetadata Load (0.6ms)[0m  [1m[34mSELECT  "ar_internal_metadata".* FROM "ar_internal_metadata" WHERE "ar_internal_metadata"."key" = ? LIMIT ?[0m  [["key", "environment"], ["LIMIT", 1]]
+  [1m[35m (0.0ms)[0m  [1m[36mbegin transaction[0m
+  [1m[35m (0.0ms)[0m  [1m[36mcommit transaction[0m
+  [1m[35m (0.1ms)[0m  [1m[34mSELECT "schema_migrations"."version" FROM "schema_migrations" ORDER BY "schema_migrations"."version" ASC[0m
+  [1m[35m (0.2ms)[0m  [1m[34m            SELECT sql
+            FROM sqlite_master
+            WHERE name='index_users_on_confirmation_token' AND type='index'
+            UNION ALL
+            SELECT sql
+            FROM sqlite_temp_master
+            WHERE name='index_users_on_confirmation_token' AND type='index'
+[0m
+  [1m[35m (0.1ms)[0m  [1m[34m            SELECT sql
+            FROM sqlite_master
+            WHERE name='index_users_on_reset_password_token' AND type='index'
+            UNION ALL
+            SELECT sql
+            FROM sqlite_temp_master
+            WHERE name='index_users_on_reset_password_token' AND type='index'
+[0m
+  [1m[35m (0.1ms)[0m  [1m[34m            SELECT sql
+            FROM sqlite_master
+            WHERE name='index_users_on_email' AND type='index'
+            UNION ALL
+            SELECT sql
+            FROM sqlite_temp_master
+            WHERE name='index_users_on_email' AND type='index'
+[0m
+  [1m[35m (0.1ms)[0m  [1m[34m            SELECT sql
+            FROM sqlite_master
+            WHERE name='index_wikis_on_user_id' AND type='index'
+            UNION ALL
+            SELECT sql
+            FROM sqlite_temp_master
+            WHERE name='index_wikis_on_user_id' AND type='index'
+[0m
+Started GET "/" for 127.0.0.1 at 2017-11-06 15:12:04 -0500
+  [1m[35m (0.2ms)[0m  [1m[34mSELECT "schema_migrations"."version" FROM "schema_migrations" ORDER BY "schema_migrations"."version" ASC[0m
+Processing by WelcomeController#index as HTML
+Completed 401 Unauthorized in 16ms (ActiveRecord: 0.0ms)
+
+
+Started GET "/users/sign_in" for 127.0.0.1 at 2017-11-06 15:12:05 -0500
+Processing by Devise::SessionsController#new as HTML
+  Rendering devise/sessions/new.html.erb within layouts/application
+  Rendered devise/shared/_links.html.erb (1.4ms)
+  Rendered devise/sessions/new.html.erb within layouts/application (20.0ms)
+  [1m[36mUser Load (0.3ms)[0m  [1m[34mSELECT  "users".* FROM "users" WHERE "users"."id" IS NULL LIMIT ?[0m  [["LIMIT", 1]]
+Completed 200 OK in 302ms (Views: 284.6ms | ActiveRecord: 1.0ms)
+
+
+Started GET "/" for 127.0.0.1 at 2017-11-06 15:12:08 -0500
+Processing by WelcomeController#index as HTML
+Completed 401 Unauthorized in 1ms (ActiveRecord: 0.0ms)
+
+
+Started GET "/users/sign_in" for 127.0.0.1 at 2017-11-06 15:12:08 -0500
+Processing by Devise::SessionsController#new as HTML
+  Rendering devise/sessions/new.html.erb within layouts/application
+  Rendered devise/shared/_links.html.erb (0.8ms)
+  Rendered devise/sessions/new.html.erb within layouts/application (4.7ms)
+  [1m[36mUser Load (0.2ms)[0m  [1m[34mSELECT  "users".* FROM "users" WHERE "users"."id" IS NULL LIMIT ?[0m  [["LIMIT", 1]]
+Completed 200 OK in 49ms (Views: 47.2ms | ActiveRecord: 0.2ms)
+
+
+Started GET "/welcome/about" for 127.0.0.1 at 2017-11-06 15:12:10 -0500
+Processing by WelcomeController#about as HTML
+Completed 401 Unauthorized in 1ms (ActiveRecord: 0.0ms)
+
+
+Started GET "/users/sign_in" for 127.0.0.1 at 2017-11-06 15:12:10 -0500
+Processing by Devise::SessionsController#new as HTML
+  Rendering devise/sessions/new.html.erb within layouts/application
+  Rendered devise/shared/_links.html.erb (1.4ms)
+  Rendered devise/sessions/new.html.erb within layouts/application (4.7ms)
+  [1m[36mUser Load (0.3ms)[0m  [1m[34mSELECT  "users".* FROM "users" WHERE "users"."id" IS NULL LIMIT ?[0m  [["LIMIT", 1]]
+Completed 200 OK in 33ms (Views: 31.5ms | ActiveRecord: 0.3ms)
+
+
+Started GET "/wikis" for 127.0.0.1 at 2017-11-06 15:12:11 -0500
+Processing by WikisController#index as HTML
+Completed 401 Unauthorized in 1ms (ActiveRecord: 0.0ms)
+
+
+Started GET "/users/sign_in" for 127.0.0.1 at 2017-11-06 15:12:11 -0500
+Processing by Devise::SessionsController#new as HTML
+  Rendering devise/sessions/new.html.erb within layouts/application
+  Rendered devise/shared/_links.html.erb (0.8ms)
+  Rendered devise/sessions/new.html.erb within layouts/application (3.5ms)
+  [1m[36mUser Load (0.3ms)[0m  [1m[34mSELECT  "users".* FROM "users" WHERE "users"."id" IS NULL LIMIT ?[0m  [["LIMIT", 1]]
+Completed 200 OK in 44ms (Views: 42.4ms | ActiveRecord: 0.3ms)
+
+
+Started POST "/users/sign_in" for 127.0.0.1 at 2017-11-06 15:12:20 -0500
+Processing by Devise::SessionsController#create as HTML
+  Parameters: {"utf8"=>"✓", "authenticity_token"=>"Xov5Dk2E8z5mUOio4NN84v44Ylst6gGJiIq68ODif1vrq+7xQ1qeC3kiVQGAanUZCAKxonRCy1FTmf+Cgx8JvQ==", "user"=>{"email"=>"test@test.test", "password"=>"[FILTERED]", "remember_me"=>"0"}, "commit"=>"Log in"}
+  [1m[36mUser Load (0.4ms)[0m  [1m[34mSELECT  "users".* FROM "users" WHERE "users"."email" = ? ORDER BY "users"."id" ASC LIMIT ?[0m  [["email", "test@test.test"], ["LIMIT", 1]]
+  [1m[35m (0.1ms)[0m  [1m[36mbegin transaction[0m
+  [1m[35mSQL (0.4ms)[0m  [1m[33mUPDATE "users" SET "current_sign_in_at" = ?, "sign_in_count" = ?, "role" = ?, "updated_at" = ? WHERE "users"."id" = ?[0m  [["current_sign_in_at", "2017-11-06 20:12:21.057871"], ["sign_in_count", 2], ["role", 0], ["updated_at", "2017-11-06 20:12:21.058868"], ["id", 1]]
+  [1m[35m (3.9ms)[0m  [1m[36mcommit transaction[0m
+Redirected to http://localhost:3000/wikis
+Completed 302 Found in 160ms (ActiveRecord: 4.7ms)
+
+
+Started GET "/wikis" for 127.0.0.1 at 2017-11-06 15:12:21 -0500
+Processing by WikisController#index as HTML
+  [1m[36mUser Load (0.4ms)[0m  [1m[34mSELECT  "users".* FROM "users" WHERE "users"."id" = ? ORDER BY "users"."id" ASC LIMIT ?[0m  [["id", 1], ["LIMIT", 1]]
+  Rendering wikis/index.html.erb within layouts/application
+  [1m[36mWiki Load (0.2ms)[0m  [1m[34mSELECT "wikis".* FROM "wikis" WHERE "wikis"."private" = ? ORDER BY created_at DESC[0m  [["private", "f"]]
+  Rendered wikis/index.html.erb within layouts/application (1.5ms)
+  [1m[36mUser Load (0.2ms)[0m  [1m[34mSELECT  "users".* FROM "users" WHERE "users"."id" IS NULL LIMIT ?[0m  [["LIMIT", 1]]
+Completed 200 OK in 68ms (Views: 32.2ms | ActiveRecord: 1.0ms)
+
+
+Started GET "/" for 127.0.0.1 at 2017-11-06 15:12:23 -0500
+Processing by WelcomeController#index as HTML
+  [1m[36mUser Load (0.3ms)[0m  [1m[34mSELECT  "users".* FROM "users" WHERE "users"."id" = ? ORDER BY "users"."id" ASC LIMIT ?[0m  [["id", 1], ["LIMIT", 1]]
+  Rendering welcome/index.html.erb within layouts/application
+  Rendered welcome/index.html.erb within layouts/application (0.9ms)
+  [1m[36mUser Load (0.2ms)[0m  [1m[34mSELECT  "users".* FROM "users" WHERE "users"."id" IS NULL LIMIT ?[0m  [["LIMIT", 1]]
+Completed 200 OK in 49ms (Views: 45.8ms | ActiveRecord: 0.4ms)
+
+
+Started GET "/welcome/about" for 127.0.0.1 at 2017-11-06 15:12:25 -0500
+Processing by WelcomeController#about as HTML
+  [1m[36mUser Load (0.4ms)[0m  [1m[34mSELECT  "users".* FROM "users" WHERE "users"."id" = ? ORDER BY "users"."id" ASC LIMIT ?[0m  [["id", 1], ["LIMIT", 1]]
+  Rendering welcome/about.html.erb within layouts/application
+  Rendered welcome/about.html.erb within layouts/application (0.8ms)
+  [1m[36mUser Load (0.2ms)[0m  [1m[34mSELECT  "users".* FROM "users" WHERE "users"."id" IS NULL LIMIT ?[0m  [["LIMIT", 1]]
+Completed 200 OK in 51ms (Views: 46.0ms | ActiveRecord: 0.6ms)
+
+
+Started GET "/wikis" for 127.0.0.1 at 2017-11-06 15:12:26 -0500
+Processing by WikisController#index as HTML
+  [1m[36mUser Load (0.3ms)[0m  [1m[34mSELECT  "users".* FROM "users" WHERE "users"."id" = ? ORDER BY "users"."id" ASC LIMIT ?[0m  [["id", 1], ["LIMIT", 1]]
+  Rendering wikis/index.html.erb within layouts/application
+  [1m[36mWiki Load (0.3ms)[0m  [1m[34mSELECT "wikis".* FROM "wikis" WHERE "wikis"."private" = ? ORDER BY created_at DESC[0m  [["private", "f"]]
+  Rendered wikis/index.html.erb within layouts/application (1.7ms)
+  [1m[36mUser Load (0.2ms)[0m  [1m[34mSELECT  "users".* FROM "users" WHERE "users"."id" IS NULL LIMIT ?[0m  [["LIMIT", 1]]
+Completed 200 OK in 54ms (Views: 49.1ms | ActiveRecord: 0.8ms)
+
+
+Started GET "/users" for 127.0.0.1 at 2017-11-06 15:12:27 -0500
+Processing by UsersController#index as HTML
+  [1m[36mUser Load (1.3ms)[0m  [1m[34mSELECT  "users".* FROM "users" WHERE "users"."id" = ? ORDER BY "users"."id" ASC LIMIT ?[0m  [["id", 1], ["LIMIT", 1]]
+  Rendering users/index.html.erb within layouts/application
+  [1m[36mUser Load (0.2ms)[0m  [1m[34mSELECT "users".* FROM "users"[0m
+  Rendered users/index.html.erb within layouts/application (4.6ms)
+Completed 500 Internal Server Error in 15ms (ActiveRecord: 1.5ms)
+
+
+  
+ActionView::Template::Error (undefined method `capitalize' for nil:NilClass):
+     6:       <div class="media">
+     7:         <div class="media-body">
+     8:           <p class="media-heading">
+     9:             <strong><%= user.name %></strong> (<%= user.role.capitalize %>) <br>
+    10:             <a href="mailto:<%= user.email %>"><%= user.email %></a>
+    11:           </p>
+    12:         </div>
+  
+app/views/users/index.html.erb:9:in `block in _app_views_users_index_html_erb__2162360386339219733_70103165466600'
+app/views/users/index.html.erb:5:in `_app_views_users_index_html_erb__2162360386339219733_70103165466600'
+Started GET "/users" for 127.0.0.1 at 2017-11-06 15:14:45 -0500
+Processing by UsersController#index as HTML
+  [1m[36mUser Load (0.3ms)[0m  [1m[34mSELECT  "users".* FROM "users" WHERE "users"."id" = ? ORDER BY "users"."id" ASC LIMIT ?[0m  [["id", 1], ["LIMIT", 1]]
+  Rendering users/index.html.erb within layouts/application
+  [1m[36mUser Load (0.2ms)[0m  [1m[34mSELECT "users".* FROM "users"[0m
+  Rendered users/index.html.erb within layouts/application (111.8ms)
+Completed 500 Internal Server Error in 119ms (ActiveRecord: 0.5ms)
+
+
+  
+ActionView::Template::Error (undefined method `edit_user_path' for #<#<Class:0x007f84548ce738>:0x007f845550a8d0>
+Did you mean?  edit_wiki_path):
+    13:     <% @users.each do |user| %>
+    14:       <tr>
+    15:         <td><%= link_to 'Show', user %></td>
+    16:         <td><%= link_to 'Edit', edit_user_path(user) %></td>
+    17:         <td><%= link_to 'Destroy', user, method: :delete, data: { confirm: 'Are you sure?' } %></td>
+    18:       </tr>
+    19:     <% end %>
+  
+app/views/users/index.html.erb:16:in `block in _app_views_users_index_html_erb__2162360386339219733_70103171891400'
+app/views/users/index.html.erb:13:in `_app_views_users_index_html_erb__2162360386339219733_70103171891400'
+Started GET "/users" for 127.0.0.1 at 2017-11-06 15:15:18 -0500
+Processing by UsersController#index as HTML
+  [1m[36mUser Load (0.2ms)[0m  [1m[34mSELECT  "users".* FROM "users" WHERE "users"."id" = ? ORDER BY "users"."id" ASC LIMIT ?[0m  [["id", 1], ["LIMIT", 1]]
+  Rendering users/index.html.erb within layouts/application
+  [1m[36mUser Load (0.2ms)[0m  [1m[34mSELECT "users".* FROM "users"[0m
+  Rendered users/index.html.erb within layouts/application (227.4ms)
+Completed 500 Internal Server Error in 235ms (ActiveRecord: 0.3ms)
+
+
+  
+ActionView::Template::Error (undefined local variable or method `new_user_path' for #<#<Class:0x007f84548ce738>:0x007f8450d4e320>
+Did you mean?  new_wiki_path):
+    22: 
+    23: <br>
+    24: 
+    25: <%= link_to 'New User', new_user_path %>
+  
+app/views/users/index.html.erb:25:in `_app_views_users_index_html_erb__2162360386339219733_70103134271200'
+Started GET "/users" for 127.0.0.1 at 2017-11-06 15:15:41 -0500
+Processing by UsersController#index as HTML
+  [1m[36mUser Load (0.3ms)[0m  [1m[34mSELECT  "users".* FROM "users" WHERE "users"."id" = ? ORDER BY "users"."id" ASC LIMIT ?[0m  [["id", 1], ["LIMIT", 1]]
+  Rendering users/index.html.erb within layouts/application
+  [1m[36mUser Load (0.2ms)[0m  [1m[34mSELECT "users".* FROM "users"[0m
+  Rendered users/index.html.erb within layouts/application (2.0ms)
+  [1m[36mUser Load (0.2ms)[0m  [1m[34mSELECT  "users".* FROM "users" WHERE "users"."id" IS NULL LIMIT ?[0m  [["LIMIT", 1]]
+Completed 200 OK in 57ms (Views: 52.0ms | ActiveRecord: 0.6ms)
+
+
+Started GET "/" for 127.0.0.1 at 2017-11-06 15:15:46 -0500
+Processing by WelcomeController#index as HTML
+  [1m[36mUser Load (0.3ms)[0m  [1m[34mSELECT  "users".* FROM "users" WHERE "users"."id" = ? ORDER BY "users"."id" ASC LIMIT ?[0m  [["id", 1], ["LIMIT", 1]]
+  Rendering welcome/index.html.erb within layouts/application
+  Rendered welcome/index.html.erb within layouts/application (0.7ms)
+  [1m[36mUser Load (0.2ms)[0m  [1m[34mSELECT  "users".* FROM "users" WHERE "users"."id" IS NULL LIMIT ?[0m  [["LIMIT", 1]]
+Completed 200 OK in 55ms (Views: 50.6ms | ActiveRecord: 0.5ms)
+
+
+Started GET "/welcome/about" for 127.0.0.1 at 2017-11-06 15:15:47 -0500
+Processing by WelcomeController#about as HTML
+  [1m[36mUser Load (0.3ms)[0m  [1m[34mSELECT  "users".* FROM "users" WHERE "users"."id" = ? ORDER BY "users"."id" ASC LIMIT ?[0m  [["id", 1], ["LIMIT", 1]]
+  Rendering welcome/about.html.erb within layouts/application
+  Rendered welcome/about.html.erb within layouts/application (0.4ms)
+  [1m[36mUser Load (0.3ms)[0m  [1m[34mSELECT  "users".* FROM "users" WHERE "users"."id" IS NULL LIMIT ?[0m  [["LIMIT", 1]]
+Completed 200 OK in 41ms (Views: 37.4ms | ActiveRecord: 0.6ms)
+
+
+Started GET "/wikis" for 127.0.0.1 at 2017-11-06 15:15:48 -0500
+Processing by WikisController#index as HTML
+  [1m[36mUser Load (0.2ms)[0m  [1m[34mSELECT  "users".* FROM "users" WHERE "users"."id" = ? ORDER BY "users"."id" ASC LIMIT ?[0m  [["id", 1], ["LIMIT", 1]]
+  Rendering wikis/index.html.erb within layouts/application
+  [1m[36mWiki Load (0.3ms)[0m  [1m[34mSELECT "wikis".* FROM "wikis" WHERE "wikis"."private" = ? ORDER BY created_at DESC[0m  [["private", "f"]]
+  Rendered wikis/index.html.erb within layouts/application (1.4ms)
+  [1m[36mUser Load (0.2ms)[0m  [1m[34mSELECT  "users".* FROM "users" WHERE "users"."id" IS NULL LIMIT ?[0m  [["LIMIT", 1]]
+Completed 200 OK in 39ms (Views: 34.5ms | ActiveRecord: 0.7ms)
+
+
+Started GET "/users" for 127.0.0.1 at 2017-11-06 15:15:48 -0500
+Processing by UsersController#index as HTML
+  [1m[36mUser Load (0.3ms)[0m  [1m[34mSELECT  "users".* FROM "users" WHERE "users"."id" = ? ORDER BY "users"."id" ASC LIMIT ?[0m  [["id", 1], ["LIMIT", 1]]
+  Rendering users/index.html.erb within layouts/application
+  [1m[36mUser Load (0.4ms)[0m  [1m[34mSELECT "users".* FROM "users"[0m
+  Rendered users/index.html.erb within layouts/application (2.3ms)
+  [1m[36mUser Load (0.2ms)[0m  [1m[34mSELECT  "users".* FROM "users" WHERE "users"."id" IS NULL LIMIT ?[0m  [["LIMIT", 1]]
+Completed 200 OK in 46ms (Views: 40.6ms | ActiveRecord: 0.8ms)
+
+
+Started GET "/" for 127.0.0.1 at 2017-11-06 19:24:04 -0500
+  [1m[35m (0.1ms)[0m  [1m[34mSELECT "schema_migrations"."version" FROM "schema_migrations" ORDER BY "schema_migrations"."version" ASC[0m
+  
+ActiveRecord::PendingMigrationError (
+
+Migrations are pending. To resolve this issue, run:
+
+        bin/rails db:migrate RAILS_ENV=development
+
+):
+  
+activerecord (5.1.3) lib/active_record/migration.rb:576:in `check_pending!'
+activerecord (5.1.3) lib/active_record/migration.rb:553:in `call'
+actionpack (5.1.3) lib/action_dispatch/middleware/callbacks.rb:26:in `block in call'
+activesupport (5.1.3) lib/active_support/callbacks.rb:97:in `run_callbacks'
+actionpack (5.1.3) lib/action_dispatch/middleware/callbacks.rb:24:in `call'
+actionpack (5.1.3) lib/action_dispatch/middleware/executor.rb:12:in `call'
+actionpack (5.1.3) lib/action_dispatch/middleware/debug_exceptions.rb:59:in `call'
+actionpack (5.1.3) lib/action_dispatch/middleware/show_exceptions.rb:31:in `call'
+railties (5.1.3) lib/rails/rack/logger.rb:36:in `call_app'
+railties (5.1.3) lib/rails/rack/logger.rb:24:in `block in call'
+activesupport (5.1.3) lib/active_support/tagged_logging.rb:69:in `block in tagged'
+activesupport (5.1.3) lib/active_support/tagged_logging.rb:26:in `tagged'
+activesupport (5.1.3) lib/active_support/tagged_logging.rb:69:in `tagged'
+railties (5.1.3) lib/rails/rack/logger.rb:24:in `call'
+sprockets-rails (3.2.0) lib/sprockets/rails/quiet_assets.rb:13:in `call'
+actionpack (5.1.3) lib/action_dispatch/middleware/remote_ip.rb:79:in `call'
+actionpack (5.1.3) lib/action_dispatch/middleware/request_id.rb:25:in `call'
+rack (2.0.3) lib/rack/method_override.rb:22:in `call'
+rack (2.0.3) lib/rack/runtime.rb:22:in `call'
+activesupport (5.1.3) lib/active_support/cache/strategy/local_cache_middleware.rb:27:in `call'
+actionpack (5.1.3) lib/action_dispatch/middleware/executor.rb:12:in `call'
+actionpack (5.1.3) lib/action_dispatch/middleware/static.rb:125:in `call'
+rack (2.0.3) lib/rack/sendfile.rb:111:in `call'
+railties (5.1.3) lib/rails/engine.rb:522:in `call'
+puma (3.9.1) lib/puma/configuration.rb:224:in `call'
+puma (3.9.1) lib/puma/server.rb:602:in `handle_request'
+puma (3.9.1) lib/puma/server.rb:435:in `process_client'
+puma (3.9.1) lib/puma/server.rb:299:in `block in run'
+puma (3.9.1) lib/puma/thread_pool.rb:120:in `block in spawn_thread'
+  [1m[35m (0.1ms)[0m  [1m[34mSELECT "schema_migrations"."version" FROM "schema_migrations" ORDER BY "schema_migrations"."version" ASC[0m
+Migrating to CreateCollaborators (20171106234617)
+  [1m[35m (0.1ms)[0m  [1m[36mbegin transaction[0m
+  [1m[35m (0.1ms)[0m  [1m[34mSELECT sqlite_version(*)[0m
+  [1m[35m (0.4ms)[0m  [1m[35mCREATE TABLE "collaborators" ("id" INTEGER PRIMARY KEY AUTOINCREMENT NOT NULL, "created_at" datetime NOT NULL, "updated_at" datetime NOT NULL)[0m
+  [1m[35mSQL (0.3ms)[0m  [1m[32mINSERT INTO "schema_migrations" ("version") VALUES (?)[0m  [["version", "20171106234617"]]
+  [1m[35m (2.5ms)[0m  [1m[36mcommit transaction[0m
+  [1m[36mActiveRecord::InternalMetadata Load (0.2ms)[0m  [1m[34mSELECT  "ar_internal_metadata".* FROM "ar_internal_metadata" WHERE "ar_internal_metadata"."key" = ? LIMIT ?[0m  [["key", "environment"], ["LIMIT", 1]]
+  [1m[35m (0.1ms)[0m  [1m[36mbegin transaction[0m
+  [1m[35m (0.1ms)[0m  [1m[36mcommit transaction[0m
+  [1m[35m (0.1ms)[0m  [1m[34mSELECT "schema_migrations"."version" FROM "schema_migrations" ORDER BY "schema_migrations"."version" ASC[0m
+  [1m[35m (0.1ms)[0m  [1m[34m            SELECT sql
+            FROM sqlite_master
+            WHERE name='index_users_on_confirmation_token' AND type='index'
+            UNION ALL
+            SELECT sql
+            FROM sqlite_temp_master
+            WHERE name='index_users_on_confirmation_token' AND type='index'
+[0m
+  [1m[35m (0.1ms)[0m  [1m[34m            SELECT sql
+            FROM sqlite_master
+            WHERE name='index_users_on_reset_password_token' AND type='index'
+            UNION ALL
+            SELECT sql
+            FROM sqlite_temp_master
+            WHERE name='index_users_on_reset_password_token' AND type='index'
+[0m
+  [1m[35m (0.1ms)[0m  [1m[34m            SELECT sql
+            FROM sqlite_master
+            WHERE name='index_users_on_email' AND type='index'
+            UNION ALL
+            SELECT sql
+            FROM sqlite_temp_master
+            WHERE name='index_users_on_email' AND type='index'
+[0m
+  [1m[35m (0.1ms)[0m  [1m[34m            SELECT sql
+            FROM sqlite_master
+            WHERE name='index_wikis_on_user_id' AND type='index'
+            UNION ALL
+            SELECT sql
+            FROM sqlite_temp_master
+            WHERE name='index_wikis_on_user_id' AND type='index'
+[0m
+Started GET "/" for 127.0.0.1 at 2017-11-06 19:24:47 -0500
+  [1m[35m (0.1ms)[0m  [1m[34mSELECT "schema_migrations"."version" FROM "schema_migrations" ORDER BY "schema_migrations"."version" ASC[0m
+Processing by WelcomeController#index as HTML
+  [1m[36mUser Load (0.2ms)[0m  [1m[34mSELECT  "users".* FROM "users" WHERE "users"."id" = ? ORDER BY "users"."id" ASC LIMIT ?[0m  [["id", 1], ["LIMIT", 1]]
+  Rendering welcome/index.html.erb within layouts/application
+  Rendered welcome/index.html.erb within layouts/application (0.7ms)
+  [1m[36mUser Load (0.2ms)[0m  [1m[34mSELECT  "users".* FROM "users" WHERE "users"."id" IS NULL LIMIT ?[0m  [["LIMIT", 1]]
+Completed 200 OK in 1489ms (Views: 1459.4ms | ActiveRecord: 0.9ms)
+
+
+Started GET "/users/sign_in" for 127.0.0.1 at 2017-11-06 19:24:54 -0500
+Processing by Devise::SessionsController#new as HTML
+  [1m[36mUser Load (0.2ms)[0m  [1m[34mSELECT  "users".* FROM "users" WHERE "users"."id" = ? ORDER BY "users"."id" ASC LIMIT ?[0m  [["id", 1], ["LIMIT", 1]]
+Redirected to http://localhost:3000/
+Filter chain halted as :require_no_authentication rendered or redirected
+Completed 302 Found in 4ms (ActiveRecord: 0.2ms)
+
+
+Started GET "/" for 127.0.0.1 at 2017-11-06 19:24:54 -0500
+Processing by WelcomeController#index as HTML
+  [1m[36mUser Load (0.2ms)[0m  [1m[34mSELECT  "users".* FROM "users" WHERE "users"."id" = ? ORDER BY "users"."id" ASC LIMIT ?[0m  [["id", 1], ["LIMIT", 1]]
+  Rendering welcome/index.html.erb within layouts/application
+  Rendered welcome/index.html.erb within layouts/application (0.6ms)
+  [1m[36mUser Load (0.2ms)[0m  [1m[34mSELECT  "users".* FROM "users" WHERE "users"."id" IS NULL LIMIT ?[0m  [["LIMIT", 1]]
+Completed 200 OK in 37ms (Views: 34.4ms | ActiveRecord: 0.3ms)
+
+
+Started GET "/welcome/about" for 127.0.0.1 at 2017-11-06 19:24:56 -0500
+Processing by WelcomeController#about as HTML
+  [1m[36mUser Load (0.6ms)[0m  [1m[34mSELECT  "users".* FROM "users" WHERE "users"."id" = ? ORDER BY "users"."id" ASC LIMIT ?[0m  [["id", 1], ["LIMIT", 1]]
+  Rendering welcome/about.html.erb within layouts/application
+  Rendered welcome/about.html.erb within layouts/application (0.4ms)
+  [1m[36mUser Load (0.3ms)[0m  [1m[34mSELECT  "users".* FROM "users" WHERE "users"."id" IS NULL LIMIT ?[0m  [["LIMIT", 1]]
+Completed 200 OK in 60ms (Views: 55.1ms | ActiveRecord: 0.9ms)
+
+
+Started GET "/" for 127.0.0.1 at 2017-11-06 19:24:58 -0500
+Processing by WelcomeController#index as HTML
+  [1m[36mUser Load (0.4ms)[0m  [1m[34mSELECT  "users".* FROM "users" WHERE "users"."id" = ? ORDER BY "users"."id" ASC LIMIT ?[0m  [["id", 1], ["LIMIT", 1]]
+  Rendering welcome/index.html.erb within layouts/application
+  Rendered welcome/index.html.erb within layouts/application (0.8ms)
+  [1m[36mUser Load (0.2ms)[0m  [1m[34mSELECT  "users".* FROM "users" WHERE "users"."id" IS NULL LIMIT ?[0m  [["LIMIT", 1]]
+Completed 200 OK in 51ms (Views: 45.6ms | ActiveRecord: 0.5ms)
+
+
+Started GET "/welcome/about" for 127.0.0.1 at 2017-11-06 19:25:00 -0500
+Processing by WelcomeController#about as HTML
+  [1m[36mUser Load (0.6ms)[0m  [1m[34mSELECT  "users".* FROM "users" WHERE "users"."id" = ? ORDER BY "users"."id" ASC LIMIT ?[0m  [["id", 1], ["LIMIT", 1]]
+  Rendering welcome/about.html.erb within layouts/application
+  Rendered welcome/about.html.erb within layouts/application (0.6ms)
+  [1m[36mUser Load (0.2ms)[0m  [1m[34mSELECT  "users".* FROM "users" WHERE "users"."id" IS NULL LIMIT ?[0m  [["LIMIT", 1]]
+Completed 200 OK in 44ms (Views: 39.3ms | ActiveRecord: 0.7ms)
+
+
+Started GET "/wikis" for 127.0.0.1 at 2017-11-06 19:25:01 -0500
+Processing by WikisController#index as HTML
+  [1m[36mUser Load (0.3ms)[0m  [1m[34mSELECT  "users".* FROM "users" WHERE "users"."id" = ? ORDER BY "users"."id" ASC LIMIT ?[0m  [["id", 1], ["LIMIT", 1]]
+  Rendering wikis/index.html.erb within layouts/application
+  [1m[36mWiki Load (0.2ms)[0m  [1m[34mSELECT "wikis".* FROM "wikis" WHERE "wikis"."private" = ? ORDER BY created_at DESC[0m  [["private", "f"]]
+  Rendered wikis/index.html.erb within layouts/application (1.3ms)
+  [1m[36mUser Load (0.2ms)[0m  [1m[34mSELECT  "users".* FROM "users" WHERE "users"."id" IS NULL LIMIT ?[0m  [["LIMIT", 1]]
+Completed 200 OK in 49ms (Views: 28.5ms | ActiveRecord: 0.9ms)
+
+
+Started GET "/users" for 127.0.0.1 at 2017-11-06 19:25:02 -0500
+Processing by UsersController#index as HTML
+  [1m[36mUser Load (0.2ms)[0m  [1m[34mSELECT  "users".* FROM "users" WHERE "users"."id" = ? ORDER BY "users"."id" ASC LIMIT ?[0m  [["id", 1], ["LIMIT", 1]]
+  Rendering users/index.html.erb within layouts/application
+  [1m[36mUser Load (0.2ms)[0m  [1m[34mSELECT "users".* FROM "users"[0m
+  Rendered users/index.html.erb within layouts/application (2.5ms)
+  [1m[36mUser Load (0.2ms)[0m  [1m[34mSELECT  "users".* FROM "users" WHERE "users"."id" IS NULL LIMIT ?[0m  [["LIMIT", 1]]
+Completed 200 OK in 38ms (Views: 32.8ms | ActiveRecord: 0.7ms)
+
+
+Started GET "/wikis" for 127.0.0.1 at 2017-11-06 19:25:02 -0500
+Processing by WikisController#index as HTML
+  [1m[36mUser Load (0.2ms)[0m  [1m[34mSELECT  "users".* FROM "users" WHERE "users"."id" = ? ORDER BY "users"."id" ASC LIMIT ?[0m  [["id", 1], ["LIMIT", 1]]
+  Rendering wikis/index.html.erb within layouts/application
+  [1m[36mWiki Load (0.2ms)[0m  [1m[34mSELECT "wikis".* FROM "wikis" WHERE "wikis"."private" = ? ORDER BY created_at DESC[0m  [["private", "f"]]
+  Rendered wikis/index.html.erb within layouts/application (1.4ms)
+  [1m[36mUser Load (0.2ms)[0m  [1m[34mSELECT  "users".* FROM "users" WHERE "users"."id" IS NULL LIMIT ?[0m  [["LIMIT", 1]]
+Completed 200 OK in 45ms (Views: 38.6ms | ActiveRecord: 0.6ms)
+
+
+Started GET "/users" for 127.0.0.1 at 2017-11-06 19:25:03 -0500
+Processing by UsersController#index as HTML
+  [1m[36mUser Load (0.3ms)[0m  [1m[34mSELECT  "users".* FROM "users" WHERE "users"."id" = ? ORDER BY "users"."id" ASC LIMIT ?[0m  [["id", 1], ["LIMIT", 1]]
+  Rendering users/index.html.erb within layouts/application
+  [1m[36mUser Load (0.3ms)[0m  [1m[34mSELECT "users".* FROM "users"[0m
+  Rendered users/index.html.erb within layouts/application (2.9ms)
+  [1m[36mUser Load (0.2ms)[0m  [1m[34mSELECT  "users".* FROM "users" WHERE "users"."id" IS NULL LIMIT ?[0m  [["LIMIT", 1]]
+Completed 200 OK in 44ms (Views: 39.2ms | ActiveRecord: 0.7ms)
+
+
+Started GET "/users/sign_in" for 127.0.0.1 at 2017-11-06 19:38:36 -0500
+Processing by Devise::SessionsController#new as HTML
+  [1m[36mUser Load (0.1ms)[0m  [1m[34mSELECT  "users".* FROM "users" WHERE "users"."id" = ? ORDER BY "users"."id" ASC LIMIT ?[0m  [["id", 1], ["LIMIT", 1]]
+Redirected to http://localhost:3000/
+Filter chain halted as :require_no_authentication rendered or redirected
+Completed 302 Found in 17ms (ActiveRecord: 0.8ms)
+
+
+Started GET "/" for 127.0.0.1 at 2017-11-06 19:38:36 -0500
+Processing by WelcomeController#index as HTML
+  [1m[36mUser Load (0.2ms)[0m  [1m[34mSELECT  "users".* FROM "users" WHERE "users"."id" = ? ORDER BY "users"."id" ASC LIMIT ?[0m  [["id", 1], ["LIMIT", 1]]
+  Rendering welcome/index.html.erb within layouts/application
+  Rendered welcome/index.html.erb within layouts/application (0.7ms)
+  [1m[36mUser Load (0.2ms)[0m  [1m[34mSELECT  "users".* FROM "users" WHERE "users"."id" IS NULL LIMIT ?[0m  [["LIMIT", 1]]
+Completed 200 OK in 33ms (Views: 29.8ms | ActiveRecord: 0.5ms)
+
+
+Started GET "/users" for 127.0.0.1 at 2017-11-06 19:38:42 -0500
+Processing by UsersController#index as HTML
+  [1m[36mUser Load (0.2ms)[0m  [1m[34mSELECT  "users".* FROM "users" WHERE "users"."id" = ? ORDER BY "users"."id" ASC LIMIT ?[0m  [["id", 1], ["LIMIT", 1]]
+  Rendering users/index.html.erb within layouts/application
+  [1m[36mUser Load (0.3ms)[0m  [1m[34mSELECT "users".* FROM "users"[0m
+  Rendered users/index.html.erb within layouts/application (3.9ms)
+  [1m[36mUser Load (0.2ms)[0m  [1m[34mSELECT  "users".* FROM "users" WHERE "users"."id" IS NULL LIMIT ?[0m  [["LIMIT", 1]]
+Completed 200 OK in 55ms (Views: 51.3ms | ActiveRecord: 0.7ms)
+
+
+Started GET "/users/1" for 127.0.0.1 at 2017-11-06 19:38:47 -0500
+Processing by UsersController#show as HTML
+  Parameters: {"id"=>"1"}
+  [1m[36mUser Load (0.5ms)[0m  [1m[34mSELECT  "users".* FROM "users" WHERE "users"."id" = ? ORDER BY "users"."id" ASC LIMIT ?[0m  [["id", 1], ["LIMIT", 1]]
+  [1m[36mUser Load (0.5ms)[0m  [1m[34mSELECT  "users".* FROM "users" WHERE "users"."id" = ? LIMIT ?[0m  [["id", 1], ["LIMIT", 1]]
+  Rendering users/show.html.erb within layouts/application
+  Rendered users/show.html.erb within layouts/application (12.7ms)
+Completed 500 Internal Server Error in 27ms (ActiveRecord: 1.0ms)
+
+
+  
+ActionView::Template::Error (undefined method `avatar_url' for #<User:0x007f84572a98f0>):
+    2:   <div class="col-md-8">
+    3:     <div class="media">
+    4:       <br />
+    5:       <% avatar_url = @user.avatar_url(128) %>
+    6:       <% if avatar_url %>
+    7:         <div class="media-left">
+    8:           <%= image_tag avatar_url, class: 'media-object' %>
+  
+app/views/users/show.html.erb:5:in `_app_views_users_show_html_erb__4557039858990242048_70103181434740'
+Started GET "/users/2" for 127.0.0.1 at 2017-11-06 19:38:51 -0500
+Processing by UsersController#show as HTML
+  Parameters: {"id"=>"2"}
+  [1m[36mUser Load (0.2ms)[0m  [1m[34mSELECT  "users".* FROM "users" WHERE "users"."id" = ? ORDER BY "users"."id" ASC LIMIT ?[0m  [["id", 1], ["LIMIT", 1]]
+  [1m[36mUser Load (0.1ms)[0m  [1m[34mSELECT  "users".* FROM "users" WHERE "users"."id" = ? LIMIT ?[0m  [["id", 2], ["LIMIT", 1]]
+  Rendering users/show.html.erb within layouts/application
+  Rendered users/show.html.erb within layouts/application (16.1ms)
+Completed 500 Internal Server Error in 24ms (ActiveRecord: 0.3ms)
+
+
+  
+ActionView::Template::Error (undefined method `avatar_url' for #<User:0x007f8454df1288>):
+    2:   <div class="col-md-8">
+    3:     <div class="media">
+    4:       <br />
+    5:       <% avatar_url = @user.avatar_url(128) %>
+    6:       <% if avatar_url %>
+    7:         <div class="media-left">
+    8:           <%= image_tag avatar_url, class: 'media-object' %>
+  
+app/views/users/show.html.erb:5:in `_app_views_users_show_html_erb__4557039858990242048_70103168155080'
+Started GET "/users" for 127.0.0.1 at 2017-11-06 19:39:38 -0500
+Processing by UsersController#index as HTML
+  [1m[36mUser Load (0.2ms)[0m  [1m[34mSELECT  "users".* FROM "users" WHERE "users"."id" = ? ORDER BY "users"."id" ASC LIMIT ?[0m  [["id", 1], ["LIMIT", 1]]
+  Rendering users/index.html.erb within layouts/application
+  [1m[36mUser Load (0.2ms)[0m  [1m[34mSELECT "users".* FROM "users"[0m
+  Rendered users/index.html.erb within layouts/application (1.8ms)
+  [1m[36mUser Load (0.2ms)[0m  [1m[34mSELECT  "users".* FROM "users" WHERE "users"."id" IS NULL LIMIT ?[0m  [["LIMIT", 1]]
+Completed 200 OK in 46ms (Views: 43.3ms | ActiveRecord: 0.6ms)
+
+
+Started GET "/" for 127.0.0.1 at 2017-11-06 19:39:41 -0500
+Processing by WelcomeController#index as HTML
+  [1m[36mUser Load (0.2ms)[0m  [1m[34mSELECT  "users".* FROM "users" WHERE "users"."id" = ? ORDER BY "users"."id" ASC LIMIT ?[0m  [["id", 1], ["LIMIT", 1]]
+  Rendering welcome/index.html.erb within layouts/application
+  Rendered welcome/index.html.erb within layouts/application (1.2ms)
+  [1m[36mUser Load (0.3ms)[0m  [1m[34mSELECT  "users".* FROM "users" WHERE "users"."id" IS NULL LIMIT ?[0m  [["LIMIT", 1]]
+Completed 200 OK in 53ms (Views: 49.6ms | ActiveRecord: 0.5ms)
+
+
+Started GET "/welcome/about" for 127.0.0.1 at 2017-11-06 19:39:42 -0500
+Processing by WelcomeController#about as HTML
+  [1m[36mUser Load (0.3ms)[0m  [1m[34mSELECT  "users".* FROM "users" WHERE "users"."id" = ? ORDER BY "users"."id" ASC LIMIT ?[0m  [["id", 1], ["LIMIT", 1]]
+  Rendering welcome/about.html.erb within layouts/application
+  Rendered welcome/about.html.erb within layouts/application (0.4ms)
+  [1m[36mUser Load (0.4ms)[0m  [1m[34mSELECT  "users".* FROM "users" WHERE "users"."id" IS NULL LIMIT ?[0m  [["LIMIT", 1]]
+Completed 200 OK in 54ms (Views: 48.9ms | ActiveRecord: 0.7ms)
+
+
+Started GET "/wikis" for 127.0.0.1 at 2017-11-06 19:39:43 -0500
+Processing by WikisController#index as HTML
+  [1m[36mUser Load (2.2ms)[0m  [1m[34mSELECT  "users".* FROM "users" WHERE "users"."id" = ? ORDER BY "users"."id" ASC LIMIT ?[0m  [["id", 1], ["LIMIT", 1]]
+  Rendering wikis/index.html.erb within layouts/application
+  [1m[36mWiki Load (0.2ms)[0m  [1m[34mSELECT "wikis".* FROM "wikis" WHERE "wikis"."private" = ? ORDER BY created_at DESC[0m  [["private", "f"]]
+  Rendered wikis/index.html.erb within layouts/application (1.3ms)
+  [1m[36mUser Load (0.3ms)[0m  [1m[34mSELECT  "users".* FROM "users" WHERE "users"."id" IS NULL LIMIT ?[0m  [["LIMIT", 1]]
+Completed 200 OK in 72ms (Views: 39.1ms | ActiveRecord: 2.8ms)
+
+
+Started GET "/" for 127.0.0.1 at 2017-11-06 19:39:47 -0500
+Processing by WelcomeController#index as HTML
+  [1m[36mUser Load (0.2ms)[0m  [1m[34mSELECT  "users".* FROM "users" WHERE "users"."id" = ? ORDER BY "users"."id" ASC LIMIT ?[0m  [["id", 1], ["LIMIT", 1]]
+  Rendering welcome/index.html.erb within layouts/application
+  Rendered welcome/index.html.erb within layouts/application (0.7ms)
+  [1m[36mUser Load (0.7ms)[0m  [1m[34mSELECT  "users".* FROM "users" WHERE "users"."id" IS NULL LIMIT ?[0m  [["LIMIT", 1]]
+Completed 200 OK in 72ms (Views: 68.7ms | ActiveRecord: 1.0ms)
+
+
+Started GET "/" for 127.0.0.1 at 2017-11-06 19:40:13 -0500
+Processing by WelcomeController#index as HTML
+  [1m[36mUser Load (0.2ms)[0m  [1m[34mSELECT  "users".* FROM "users" WHERE "users"."id" = ? ORDER BY "users"."id" ASC LIMIT ?[0m  [["id", 1], ["LIMIT", 1]]
+  Rendering welcome/index.html.erb within layouts/application
+  Rendered welcome/index.html.erb within layouts/application (0.7ms)
+  [1m[36mUser Load (0.4ms)[0m  [1m[34mSELECT  "users".* FROM "users" WHERE "users"."id" IS NULL LIMIT ?[0m  [["LIMIT", 1]]
+Started GET "/" for 127.0.0.1 at 2017-11-06 19:40:39 -0500
+  [1m[35m (0.1ms)[0m  [1m[34mSELECT "schema_migrations"."version" FROM "schema_migrations" ORDER BY "schema_migrations"."version" ASC[0m
+Processing by WelcomeController#index as HTML
+  [1m[36mUser Load (0.1ms)[0m  [1m[34mSELECT  "users".* FROM "users" WHERE "users"."id" = ? ORDER BY "users"."id" ASC LIMIT ?[0m  [["id", 1], ["LIMIT", 1]]
+  Rendering welcome/index.html.erb within layouts/application
+  Rendered welcome/index.html.erb within layouts/application (1.1ms)
+  [1m[36mUser Load (0.2ms)[0m  [1m[34mSELECT  "users".* FROM "users" WHERE "users"."id" IS NULL LIMIT ?[0m  [["LIMIT", 1]]
+Completed 200 OK in 391ms (Views: 352.8ms | ActiveRecord: 0.8ms)
+
+
+Started GET "/sign_out" for 127.0.0.1 at 2017-11-06 19:40:45 -0500
+  
+ActionController::RoutingError (No route matches [GET] "/sign_out"):
+  
+actionpack (5.1.3) lib/action_dispatch/middleware/debug_exceptions.rb:63:in `call'
+actionpack (5.1.3) lib/action_dispatch/middleware/show_exceptions.rb:31:in `call'
+railties (5.1.3) lib/rails/rack/logger.rb:36:in `call_app'
+railties (5.1.3) lib/rails/rack/logger.rb:24:in `block in call'
+activesupport (5.1.3) lib/active_support/tagged_logging.rb:69:in `block in tagged'
+activesupport (5.1.3) lib/active_support/tagged_logging.rb:26:in `tagged'
+activesupport (5.1.3) lib/active_support/tagged_logging.rb:69:in `tagged'
+railties (5.1.3) lib/rails/rack/logger.rb:24:in `call'
+sprockets-rails (3.2.0) lib/sprockets/rails/quiet_assets.rb:13:in `call'
+actionpack (5.1.3) lib/action_dispatch/middleware/remote_ip.rb:79:in `call'
+actionpack (5.1.3) lib/action_dispatch/middleware/request_id.rb:25:in `call'
+rack (2.0.3) lib/rack/method_override.rb:22:in `call'
+rack (2.0.3) lib/rack/runtime.rb:22:in `call'
+activesupport (5.1.3) lib/active_support/cache/strategy/local_cache_middleware.rb:27:in `call'
+actionpack (5.1.3) lib/action_dispatch/middleware/executor.rb:12:in `call'
+actionpack (5.1.3) lib/action_dispatch/middleware/static.rb:125:in `call'
+rack (2.0.3) lib/rack/sendfile.rb:111:in `call'
+railties (5.1.3) lib/rails/engine.rb:522:in `call'
+puma (3.9.1) lib/puma/configuration.rb:224:in `call'
+puma (3.9.1) lib/puma/server.rb:602:in `handle_request'
+puma (3.9.1) lib/puma/server.rb:435:in `process_client'
+puma (3.9.1) lib/puma/server.rb:299:in `block in run'
+puma (3.9.1) lib/puma/thread_pool.rb:120:in `block in spawn_thread'
+Started GET "/users/sign_out" for 127.0.0.1 at 2017-11-06 19:40:49 -0500
+Processing by UsersController#show as HTML
+  Parameters: {"id"=>"sign_out"}
+  [1m[36mUser Load (0.2ms)[0m  [1m[34mSELECT  "users".* FROM "users" WHERE "users"."id" = ? ORDER BY "users"."id" ASC LIMIT ?[0m  [["id", 1], ["LIMIT", 1]]
+  [1m[36mUser Load (0.3ms)[0m  [1m[34mSELECT  "users".* FROM "users" WHERE "users"."id" = ? LIMIT ?[0m  [["id", 0], ["LIMIT", 1]]
+Completed 404 Not Found in 5ms (ActiveRecord: 0.5ms)
+
+
+  
+ActiveRecord::RecordNotFound (Couldn't find User with 'id'=sign_out):
+  
+app/controllers/users_controller.rb:44:in `set_user'
+Started GET "/" for 127.0.0.1 at 2017-11-06 19:41:00 -0500
+Processing by WelcomeController#index as HTML
+  [1m[36mUser Load (0.3ms)[0m  [1m[34mSELECT  "users".* FROM "users" WHERE "users"."id" = ? ORDER BY "users"."id" ASC LIMIT ?[0m  [["id", 1], ["LIMIT", 1]]
+  Rendering welcome/index.html.erb within layouts/application
+  Rendered welcome/index.html.erb within layouts/application (0.5ms)
+  [1m[36mUser Load (0.2ms)[0m  [1m[34mSELECT  "users".* FROM "users" WHERE "users"."id" IS NULL LIMIT ?[0m  [["LIMIT", 1]]
+Completed 200 OK in 49ms (Views: 45.4ms | ActiveRecord: 0.5ms)
+
+
+  [1m[35m (0.1ms)[0m  [1m[34mSELECT "schema_migrations"."version" FROM "schema_migrations" ORDER BY "schema_migrations"."version" ASC[0m
+  [1m[35m (0.2ms)[0m  [1m[34mSELECT "ar_internal_metadata"."value" FROM "ar_internal_metadata" WHERE "ar_internal_metadata"."key" = ?[0m  [["key", "environment"]]
+  [1m[35m (0.1ms)[0m  [1m[34mSELECT "schema_migrations"."version" FROM "schema_migrations" ORDER BY "schema_migrations"."version" ASC[0m
+  [1m[35m (0.1ms)[0m  [1m[34mSELECT "ar_internal_metadata"."value" FROM "ar_internal_metadata" WHERE "ar_internal_metadata"."key" = ?[0m  [["key", "environment"]]
+  [1m[35m (0.1ms)[0m  [1m[34mSELECT "schema_migrations"."version" FROM "schema_migrations" ORDER BY "schema_migrations"."version" ASC[0m
+  [1m[35m (0.1ms)[0m  [1m[34mSELECT "ar_internal_metadata"."value" FROM "ar_internal_metadata" WHERE "ar_internal_metadata"."key" = ?[0m  [["key", "environment"]]
+  [1m[35m (0.1ms)[0m  [1m[34mSELECT sqlite_version(*)[0m
+  [1m[35m (2.1ms)[0m  [1m[35mCREATE TABLE "schema_migrations" ("version" varchar NOT NULL PRIMARY KEY)[0m
+  [1m[35m (0.9ms)[0m  [1m[35mCREATE TABLE "ar_internal_metadata" ("key" varchar NOT NULL PRIMARY KEY, "value" varchar, "created_at" datetime NOT NULL, "updated_at" datetime NOT NULL)[0m
+  [1m[35m (0.2ms)[0m  [1m[34mSELECT "schema_migrations"."version" FROM "schema_migrations" ORDER BY "schema_migrations"."version" ASC[0m
+Migrating to AddDeviseToUsers (20171023182604)
+  [1m[35m (0.1ms)[0m  [1m[36mbegin transaction[0m
+  [1m[35m (0.4ms)[0m  [1m[35mCREATE TABLE "users" ("id" INTEGER PRIMARY KEY AUTOINCREMENT NOT NULL, "created_at" datetime NOT NULL, "updated_at" datetime NOT NULL)[0m
+  [1m[35m (0.2ms)[0m  [1m[35mALTER TABLE "users" ADD "email" varchar DEFAULT '' NOT NULL[0m
+  [1m[35m (0.1ms)[0m  [1m[35mALTER TABLE "users" ADD "encrypted_password" varchar DEFAULT '' NOT NULL[0m
+  [1m[35m (0.2ms)[0m  [1m[35mALTER TABLE "users" ADD "reset_password_token" varchar[0m
+  [1m[35m (0.2ms)[0m  [1m[35mALTER TABLE "users" ADD "reset_password_sent_at" datetime[0m
+  [1m[35m (0.2ms)[0m  [1m[35mALTER TABLE "users" ADD "remember_created_at" datetime[0m
+  [1m[35m (0.1ms)[0m  [1m[35mALTER TABLE "users" ADD "sign_in_count" integer DEFAULT 0 NOT NULL[0m
+  [1m[35m (0.3ms)[0m  [1m[35mALTER TABLE "users" ADD "current_sign_in_at" datetime[0m
+  [1m[35m (0.2ms)[0m  [1m[35mALTER TABLE "users" ADD "last_sign_in_at" datetime[0m
+  [1m[35m (0.1ms)[0m  [1m[35mALTER TABLE "users" ADD "current_sign_in_ip" varchar[0m
+  [1m[35m (0.1ms)[0m  [1m[35mALTER TABLE "users" ADD "last_sign_in_ip" varchar[0m
+  [1m[35m (0.1ms)[0m  [1m[35mALTER TABLE "users" ADD "confirmation_token" varchar[0m
+  [1m[35m (0.1ms)[0m  [1m[35mALTER TABLE "users" ADD "confirmed_at" datetime[0m
+  [1m[35m (0.1ms)[0m  [1m[35mALTER TABLE "users" ADD "confirmation_sent_at" datetime[0m
+  [1m[35m (0.1ms)[0m  [1m[35mALTER TABLE "users" ADD "unconfirmed_email" varchar[0m
+  [1m[35m (0.2ms)[0m  [1m[35mCREATE UNIQUE INDEX "index_users_on_email" ON "users" ("email")[0m
+  [1m[35m (0.2ms)[0m  [1m[34m            SELECT sql
+            FROM sqlite_master
+            WHERE name='index_users_on_email' AND type='index'
+            UNION ALL
+            SELECT sql
+            FROM sqlite_temp_master
+            WHERE name='index_users_on_email' AND type='index'
+[0m
+  [1m[35m (0.1ms)[0m  [1m[35mCREATE UNIQUE INDEX "index_users_on_reset_password_token" ON "users" ("reset_password_token")[0m
+  [1m[35m (0.1ms)[0m  [1m[34m            SELECT sql
+            FROM sqlite_master
+            WHERE name='index_users_on_reset_password_token' AND type='index'
+            UNION ALL
+            SELECT sql
+            FROM sqlite_temp_master
+            WHERE name='index_users_on_reset_password_token' AND type='index'
+[0m
+  [1m[35m (0.0ms)[0m  [1m[34m            SELECT sql
+            FROM sqlite_master
+            WHERE name='index_users_on_email' AND type='index'
+            UNION ALL
+            SELECT sql
+            FROM sqlite_temp_master
+            WHERE name='index_users_on_email' AND type='index'
+[0m
+  [1m[35m (0.1ms)[0m  [1m[35mCREATE UNIQUE INDEX "index_users_on_confirmation_token" ON "users" ("confirmation_token")[0m
+  [1m[35mSQL (0.2ms)[0m  [1m[32mINSERT INTO "schema_migrations" ("version") VALUES (?)[0m  [["version", "20171023182604"]]
+  [1m[35m (1.0ms)[0m  [1m[36mcommit transaction[0m
+Migrating to CreateWikis (20171023182826)
+  [1m[35m (0.0ms)[0m  [1m[36mbegin transaction[0m
+  [1m[35m (0.3ms)[0m  [1m[35mCREATE TABLE "wikis" ("id" INTEGER PRIMARY KEY AUTOINCREMENT NOT NULL, "title" varchar, "body" text, "private" boolean, "user_id" integer, "created_at" datetime NOT NULL, "updated_at" datetime NOT NULL, CONSTRAINT "fk_rails_9cc9521fd9"
+FOREIGN KEY ("user_id")
+  REFERENCES "users" ("id")
+)[0m
+  [1m[35m (0.1ms)[0m  [1m[35mCREATE  INDEX "index_wikis_on_user_id" ON "wikis" ("user_id")[0m
+  [1m[35mSQL (0.2ms)[0m  [1m[32mINSERT INTO "schema_migrations" ("version") VALUES (?)[0m  [["version", "20171023182826"]]
+  [1m[35m (0.5ms)[0m  [1m[36mcommit transaction[0m
+Migrating to AddNameToUser (20171031005106)
+  [1m[35m (0.1ms)[0m  [1m[36mbegin transaction[0m
+  [1m[35m (0.4ms)[0m  [1m[35mALTER TABLE "users" ADD "name" varchar[0m
+  [1m[35mSQL (0.1ms)[0m  [1m[32mINSERT INTO "schema_migrations" ("version") VALUES (?)[0m  [["version", "20171031005106"]]
+  [1m[35m (0.5ms)[0m  [1m[36mcommit transaction[0m
+Migrating to AddRoleToUsers (20171106182409)
+  [1m[35m (0.1ms)[0m  [1m[36mbegin transaction[0m
+  [1m[35m (0.6ms)[0m  [1m[35mALTER TABLE "users" ADD "role" integer[0m
+  [1m[35mSQL (0.2ms)[0m  [1m[32mINSERT INTO "schema_migrations" ("version") VALUES (?)[0m  [["version", "20171106182409"]]
+  [1m[35m (0.6ms)[0m  [1m[36mcommit transaction[0m
+Migrating to CreateCollaborators (20171106234617)
+  [1m[35m (0.1ms)[0m  [1m[36mbegin transaction[0m
+  [1m[35m (0.3ms)[0m  [1m[35mCREATE TABLE "collaborators" ("id" INTEGER PRIMARY KEY AUTOINCREMENT NOT NULL, "created_at" datetime NOT NULL, "updated_at" datetime NOT NULL)[0m
+  [1m[35mSQL (0.1ms)[0m  [1m[32mINSERT INTO "schema_migrations" ("version") VALUES (?)[0m  [["version", "20171106234617"]]
+  [1m[35m (9.0ms)[0m  [1m[36mcommit transaction[0m
+  [1m[36mActiveRecord::InternalMetadata Load (0.2ms)[0m  [1m[34mSELECT  "ar_internal_metadata".* FROM "ar_internal_metadata" WHERE "ar_internal_metadata"."key" = ? LIMIT ?[0m  [["key", "environment"], ["LIMIT", 1]]
+  [1m[35m (0.1ms)[0m  [1m[36mbegin transaction[0m
+  [1m[35mSQL (0.4ms)[0m  [1m[32mINSERT INTO "ar_internal_metadata" ("key", "value", "created_at", "updated_at") VALUES (?, ?, ?, ?)[0m  [["key", "environment"], ["value", "development"], ["created_at", "2017-11-07 00:41:20.654660"], ["updated_at", "2017-11-07 00:41:20.654660"]]
+  [1m[35m (1.8ms)[0m  [1m[36mcommit transaction[0m
+  [1m[35m (0.2ms)[0m  [1m[34mSELECT "schema_migrations"."version" FROM "schema_migrations" ORDER BY "schema_migrations"."version" ASC[0m
+  [1m[35m (0.1ms)[0m  [1m[34m            SELECT sql
+            FROM sqlite_master
+            WHERE name='index_users_on_confirmation_token' AND type='index'
+            UNION ALL
+            SELECT sql
+            FROM sqlite_temp_master
+            WHERE name='index_users_on_confirmation_token' AND type='index'
+[0m
+  [1m[35m (0.1ms)[0m  [1m[34m            SELECT sql
+            FROM sqlite_master
+            WHERE name='index_users_on_reset_password_token' AND type='index'
+            UNION ALL
+            SELECT sql
+            FROM sqlite_temp_master
+            WHERE name='index_users_on_reset_password_token' AND type='index'
+[0m
+  [1m[35m (0.1ms)[0m  [1m[34m            SELECT sql
+            FROM sqlite_master
+            WHERE name='index_users_on_email' AND type='index'
+            UNION ALL
+            SELECT sql
+            FROM sqlite_temp_master
+            WHERE name='index_users_on_email' AND type='index'
+[0m
+  [1m[35m (0.3ms)[0m  [1m[34m            SELECT sql
+            FROM sqlite_master
+            WHERE name='index_wikis_on_user_id' AND type='index'
+            UNION ALL
+            SELECT sql
+            FROM sqlite_temp_master
+            WHERE name='index_wikis_on_user_id' AND type='index'
+[0m
+  [1m[35m (0.1ms)[0m  [1m[34mSELECT "schema_migrations"."version" FROM "schema_migrations" ORDER BY "schema_migrations"."version" ASC[0m
+  [1m[35m (0.1ms)[0m  [1m[36mbegin transaction[0m
+  [1m[36mUser Exists (0.1ms)[0m  [1m[34mSELECT  1 AS one FROM "users" WHERE "users"."email" = ? LIMIT ?[0m  [["email", "elwyn.farrell@konopelski.info"], ["LIMIT", 1]]
+  [1m[35mSQL (0.4ms)[0m  [1m[32mINSERT INTO "users" ("created_at", "updated_at", "email", "encrypted_password", "confirmed_at", "name", "role") VALUES (?, ?, ?, ?, ?, ?, ?)[0m  [["created_at", "2017-11-07 00:41:27.004990"], ["updated_at", "2017-11-07 00:41:27.004990"], ["email", "elwyn.farrell@konopelski.info"], ["encrypted_password", "$2a$11$VrJSZiOPVd3pC8drnnz3zuEzN3Hm8CzOXGyxELi9HBK0XDnulbhLq"], ["confirmed_at", "2017-11-07 00:41:26.875196"], ["name", "Jeramie Christiansen"], ["role", 0]]
+  [1m[35m (1.9ms)[0m  [1m[36mcommit transaction[0m
+  [1m[35m (0.1ms)[0m  [1m[36mbegin transaction[0m
+  [1m[36mUser Exists (0.1ms)[0m  [1m[34mSELECT  1 AS one FROM "users" WHERE "users"."email" = ? LIMIT ?[0m  [["email", "charlotte_schuppe@turcotte.name"], ["LIMIT", 1]]
+  [1m[35mSQL (0.3ms)[0m  [1m[32mINSERT INTO "users" ("created_at", "updated_at", "email", "encrypted_password", "confirmed_at", "name", "role") VALUES (?, ?, ?, ?, ?, ?, ?)[0m  [["created_at", "2017-11-07 00:41:27.142993"], ["updated_at", "2017-11-07 00:41:27.142993"], ["email", "charlotte_schuppe@turcotte.name"], ["encrypted_password", "$2a$11$5SbNSlOYS4joEwR6M75.hOWcIN9AUkrIpCtRSfkHBRn5dYIjGis6K"], ["confirmed_at", "2017-11-07 00:41:27.009094"], ["name", "Hipolito Veum"], ["role", 0]]
+  [1m[35m (0.8ms)[0m  [1m[36mcommit transaction[0m
+  [1m[35m (0.1ms)[0m  [1m[36mbegin transaction[0m
+  [1m[36mUser Exists (0.1ms)[0m  [1m[34mSELECT  1 AS one FROM "users" WHERE "users"."email" = ? LIMIT ?[0m  [["email", "giuseppe_yost@bartolettisipes.com"], ["LIMIT", 1]]
+  [1m[35mSQL (0.3ms)[0m  [1m[32mINSERT INTO "users" ("created_at", "updated_at", "email", "encrypted_password", "confirmed_at", "name", "role") VALUES (?, ?, ?, ?, ?, ?, ?)[0m  [["created_at", "2017-11-07 00:41:27.273523"], ["updated_at", "2017-11-07 00:41:27.273523"], ["email", "giuseppe_yost@bartolettisipes.com"], ["encrypted_password", "$2a$11$AclQl7.Hmk6dx0REjKqaIe6CiE0.k3K5HSlcRdTwNLSq9EBJ7CcBC"], ["confirmed_at", "2017-11-07 00:41:27.145282"], ["name", "Eino Schaden"], ["role", 0]]
+  [1m[35m (1.9ms)[0m  [1m[36mcommit transaction[0m
+  [1m[35m (0.1ms)[0m  [1m[36mbegin transaction[0m
+  [1m[36mUser Exists (0.1ms)[0m  [1m[34mSELECT  1 AS one FROM "users" WHERE "users"."email" = ? LIMIT ?[0m  [["email", "zachery@windler.net"], ["LIMIT", 1]]
+  [1m[35mSQL (0.3ms)[0m  [1m[32mINSERT INTO "users" ("created_at", "updated_at", "email", "encrypted_password", "confirmed_at", "name", "role") VALUES (?, ?, ?, ?, ?, ?, ?)[0m  [["created_at", "2017-11-07 00:41:27.421877"], ["updated_at", "2017-11-07 00:41:27.421877"], ["email", "zachery@windler.net"], ["encrypted_password", "$2a$11$Q5AGPt8sTa2rBRgUOJr0IOyznTnEjDaA8bdKmKW57x8Ng8d6ztMnS"], ["confirmed_at", "2017-11-07 00:41:27.278142"], ["name", "Kailee Fay"], ["role", 0]]
+  [1m[35m (6.8ms)[0m  [1m[36mcommit transaction[0m
+  [1m[35m (0.1ms)[0m  [1m[36mbegin transaction[0m
+  [1m[36mUser Exists (0.1ms)[0m  [1m[34mSELECT  1 AS one FROM "users" WHERE "users"."email" = ? LIMIT ?[0m  [["email", "jevon@ruecker.info"], ["LIMIT", 1]]
+  [1m[35mSQL (0.3ms)[0m  [1m[32mINSERT INTO "users" ("created_at", "updated_at", "email", "encrypted_password", "confirmed_at", "name", "role") VALUES (?, ?, ?, ?, ?, ?, ?)[0m  [["created_at", "2017-11-07 00:41:27.570330"], ["updated_at", "2017-11-07 00:41:27.570330"], ["email", "jevon@ruecker.info"], ["encrypted_password", "$2a$11$cwMrWvP6nUqFXU3WW9kgeO7G1G2SU/lKwGM0rZR5KeIc1jtmwoQp6"], ["confirmed_at", "2017-11-07 00:41:27.437133"], ["name", "Zane Lang"], ["role", 0]]
+  [1m[35m (2.2ms)[0m  [1m[36mcommit transaction[0m
+  [1m[35m (0.1ms)[0m  [1m[36mbegin transaction[0m
+  [1m[36mUser Exists (0.1ms)[0m  [1m[34mSELECT  1 AS one FROM "users" WHERE "users"."email" = ? LIMIT ?[0m  [["email", "domenick@pricerobel.name"], ["LIMIT", 1]]
+  [1m[35mSQL (0.3ms)[0m  [1m[32mINSERT INTO "users" ("created_at", "updated_at", "email", "encrypted_password", "confirmed_at", "name", "role") VALUES (?, ?, ?, ?, ?, ?, ?)[0m  [["created_at", "2017-11-07 00:41:27.703553"], ["updated_at", "2017-11-07 00:41:27.703553"], ["email", "domenick@pricerobel.name"], ["encrypted_password", "$2a$11$Ye1JVbd10DVuHReSnSZkse1pnFj8ga.otpSeQVmOdlGhXo4G/YZPO"], ["confirmed_at", "2017-11-07 00:41:27.575987"], ["name", "Abagail Hayes"], ["role", 0]]
+  [1m[35m (1.9ms)[0m  [1m[36mcommit transaction[0m
+  [1m[35m (0.1ms)[0m  [1m[36mbegin transaction[0m
+  [1m[36mUser Exists (0.1ms)[0m  [1m[34mSELECT  1 AS one FROM "users" WHERE "users"."email" = ? LIMIT ?[0m  [["email", "devyn.cartwright@haag.io"], ["LIMIT", 1]]
+  [1m[35mSQL (0.3ms)[0m  [1m[32mINSERT INTO "users" ("created_at", "updated_at", "email", "encrypted_password", "confirmed_at", "name", "role") VALUES (?, ?, ?, ?, ?, ?, ?)[0m  [["created_at", "2017-11-07 00:41:27.834750"], ["updated_at", "2017-11-07 00:41:27.834750"], ["email", "devyn.cartwright@haag.io"], ["encrypted_password", "$2a$11$TbsgD9ZwXaLxATqpXN/S3OXJ402AkyZfxFjCNsrzCtAjqhh4AdBKe"], ["confirmed_at", "2017-11-07 00:41:27.706946"], ["name", "Enrique Mohr"], ["role", 0]]
+  [1m[35m (1.9ms)[0m  [1m[36mcommit transaction[0m
+  [1m[35m (0.1ms)[0m  [1m[36mbegin transaction[0m
+  [1m[36mUser Exists (0.1ms)[0m  [1m[34mSELECT  1 AS one FROM "users" WHERE "users"."email" = ? LIMIT ?[0m  [["email", "macie.hagenes@wittingnikolaus.co"], ["LIMIT", 1]]
+  [1m[35mSQL (0.3ms)[0m  [1m[32mINSERT INTO "users" ("created_at", "updated_at", "email", "encrypted_password", "confirmed_at", "name", "role") VALUES (?, ?, ?, ?, ?, ?, ?)[0m  [["created_at", "2017-11-07 00:41:27.967123"], ["updated_at", "2017-11-07 00:41:27.967123"], ["email", "macie.hagenes@wittingnikolaus.co"], ["encrypted_password", "$2a$11$TkylGmTQc./nordjc5wzO.eYMV/SOYtyG/pMMGV7LgXOLIQbhNNdC"], ["confirmed_at", "2017-11-07 00:41:27.838277"], ["name", "Trever Lebsack"], ["role", 0]]
+  [1m[35m (1.9ms)[0m  [1m[36mcommit transaction[0m
+  [1m[35m (0.1ms)[0m  [1m[36mbegin transaction[0m
+  [1m[36mUser Exists (0.1ms)[0m  [1m[34mSELECT  1 AS one FROM "users" WHERE "users"."email" = ? LIMIT ?[0m  [["email", "anthony@gloverhammes.org"], ["LIMIT", 1]]
+  [1m[35mSQL (0.3ms)[0m  [1m[32mINSERT INTO "users" ("created_at", "updated_at", "email", "encrypted_password", "confirmed_at", "name", "role") VALUES (?, ?, ?, ?, ?, ?, ?)[0m  [["created_at", "2017-11-07 00:41:28.105473"], ["updated_at", "2017-11-07 00:41:28.105473"], ["email", "anthony@gloverhammes.org"], ["encrypted_password", "$2a$11$Q99TCI3P8Gg0BVQANaGDY.mbBis62mF8sHOejRqt8qbzWxB4LZbDW"], ["confirmed_at", "2017-11-07 00:41:27.970766"], ["name", "Stefan Heaney II"], ["role", 0]]
+  [1m[35m (1.9ms)[0m  [1m[36mcommit transaction[0m
+  [1m[35m (0.1ms)[0m  [1m[36mbegin transaction[0m
+  [1m[36mUser Exists (0.1ms)[0m  [1m[34mSELECT  1 AS one FROM "users" WHERE "users"."email" = ? LIMIT ?[0m  [["email", "lois_torp@wuckertswaniawski.info"], ["LIMIT", 1]]
+  [1m[35mSQL (0.3ms)[0m  [1m[32mINSERT INTO "users" ("created_at", "updated_at", "email", "encrypted_password", "confirmed_at", "name", "role") VALUES (?, ?, ?, ?, ?, ?, ?)[0m  [["created_at", "2017-11-07 00:41:28.237833"], ["updated_at", "2017-11-07 00:41:28.237833"], ["email", "lois_torp@wuckertswaniawski.info"], ["encrypted_password", "$2a$11$ZiKYQMYRB845Bjkrgfdte.wbWi5oaMqW7L696jidewFfzWEccc542"], ["confirmed_at", "2017-11-07 00:41:28.109157"], ["name", "Sheldon Crist"], ["role", 0]]
+  [1m[35m (2.0ms)[0m  [1m[36mcommit transaction[0m
+  [1m[36mUser Load (0.2ms)[0m  [1m[34mSELECT "users".* FROM "users"[0m
+  [1m[35m (0.1ms)[0m  [1m[36mbegin transaction[0m
+  [1m[35mSQL (0.4ms)[0m  [1m[32mINSERT INTO "wikis" ("title", "body", "private", "user_id", "created_at", "updated_at") VALUES (?, ?, ?, ?, ?, ?)[0m  [["title", "Captain Hercules"], ["body", "Durability"], ["private", "f"], ["user_id", 1], ["created_at", "2017-11-07 00:41:28.271101"], ["updated_at", "2017-11-07 00:41:28.271101"]]
+  [1m[35m (2.3ms)[0m  [1m[36mcommit transaction[0m
+  [1m[35m (0.1ms)[0m  [1m[36mbegin transaction[0m
+  [1m[35mSQL (0.3ms)[0m  [1m[32mINSERT INTO "wikis" ("title", "body", "private", "user_id", "created_at", "updated_at") VALUES (?, ?, ?, ?, ?, ?)[0m  [["title", "Dagger"], ["body", "Darkforce Manipulation"], ["private", "f"], ["user_id", 5], ["created_at", "2017-11-07 00:41:28.275818"], ["updated_at", "2017-11-07 00:41:28.275818"]]
+  [1m[35m (2.0ms)[0m  [1m[36mcommit transaction[0m
+  [1m[35m (0.0ms)[0m  [1m[36mbegin transaction[0m
+  [1m[35mSQL (0.5ms)[0m  [1m[32mINSERT INTO "wikis" ("title", "body", "private", "user_id", "created_at", "updated_at") VALUES (?, ?, ?, ?, ?, ?)[0m  [["title", "Agent Ultron Brain"], ["body", "Wallcrawling"], ["private", "f"], ["user_id", 8], ["created_at", "2017-11-07 00:41:28.279870"], ["updated_at", "2017-11-07 00:41:28.279870"]]
+  [1m[35m (0.7ms)[0m  [1m[36mcommit transaction[0m
+  [1m[35m (0.1ms)[0m  [1m[36mbegin transaction[0m
+  [1m[35mSQL (0.3ms)[0m  [1m[32mINSERT INTO "wikis" ("title", "body", "private", "user_id", "created_at", "updated_at") VALUES (?, ?, ?, ?, ?, ?)[0m  [["title", "Starfire"], ["body", "Bullet Time"], ["private", "f"], ["user_id", 3], ["created_at", "2017-11-07 00:41:28.283909"], ["updated_at", "2017-11-07 00:41:28.283909"]]
+  [1m[35m (0.7ms)[0m  [1m[36mcommit transaction[0m
+  [1m[35m (0.1ms)[0m  [1m[36mbegin transaction[0m
+  [1m[35mSQL (0.3ms)[0m  [1m[32mINSERT INTO "wikis" ("title", "body", "private", "user_id", "created_at", "updated_at") VALUES (?, ?, ?, ?, ?, ?)[0m  [["title", "Ink"], ["body", "Natural Armor"], ["private", "f"], ["user_id", 6], ["created_at", "2017-11-07 00:41:28.287280"], ["updated_at", "2017-11-07 00:41:28.287280"]]
+  [1m[35m (0.5ms)[0m  [1m[36mcommit transaction[0m
+  [1m[35m (0.0ms)[0m  [1m[36mbegin transaction[0m
+  [1m[35mSQL (0.3ms)[0m  [1m[32mINSERT INTO "wikis" ("title", "body", "private", "user_id", "created_at", "updated_at") VALUES (?, ?, ?, ?, ?, ?)[0m  [["title", "The Cogliostro"], ["body", "Super Speed"], ["private", "f"], ["user_id", 9], ["created_at", "2017-11-07 00:41:28.289860"], ["updated_at", "2017-11-07 00:41:28.289860"]]
+  [1m[35m (1.0ms)[0m  [1m[36mcommit transaction[0m
+  [1m[35m (0.1ms)[0m  [1m[36mbegin transaction[0m
+  [1m[35mSQL (0.3ms)[0m  [1m[32mINSERT INTO "wikis" ("title", "body", "private", "user_id", "created_at", "updated_at") VALUES (?, ?, ?, ?, ?, ?)[0m  [["title", "General Ink Spirit"], ["body", "Magic"], ["private", "f"], ["user_id", 7], ["created_at", "2017-11-07 00:41:28.294583"], ["updated_at", "2017-11-07 00:41:28.294583"]]
+  [1m[35m (1.9ms)[0m  [1m[36mcommit transaction[0m
+  [1m[35m (0.2ms)[0m  [1m[36mbegin transaction[0m
+  [1m[35mSQL (0.3ms)[0m  [1m[32mINSERT INTO "wikis" ("title", "body", "private", "user_id", "created_at", "updated_at") VALUES (?, ?, ?, ?, ?, ?)[0m  [["title", "Wasp"], ["body", "Reflexes"], ["private", "f"], ["user_id", 7], ["created_at", "2017-11-07 00:41:28.300279"], ["updated_at", "2017-11-07 00:41:28.300279"]]
+  [1m[35m (0.6ms)[0m  [1m[36mcommit transaction[0m
+  [1m[35m (0.1ms)[0m  [1m[36mbegin transaction[0m
+  [1m[35mSQL (0.4ms)[0m  [1m[32mINSERT INTO "wikis" ("title", "body", "private", "user_id", "created_at", "updated_at") VALUES (?, ?, ?, ?, ?, ?)[0m  [["title", "Supah Beak"], ["body", "Energy Resistance"], ["private", "f"], ["user_id", 10], ["created_at", "2017-11-07 00:41:28.304731"], ["updated_at", "2017-11-07 00:41:28.304731"]]
+  [1m[35m (0.8ms)[0m  [1m[36mcommit transaction[0m
+  [1m[35m (0.0ms)[0m  [1m[36mbegin transaction[0m
+  [1m[35mSQL (0.3ms)[0m  [1m[32mINSERT INTO "wikis" ("title", "body", "private", "user_id", "created_at", "updated_at") VALUES (?, ?, ?, ?, ?, ?)[0m  [["title", "The Moloch X"], ["body", "Radiation Immunity"], ["private", "f"], ["user_id", 10], ["created_at", "2017-11-07 00:41:28.307854"], ["updated_at", "2017-11-07 00:41:28.307854"]]
+  [1m[35m (1.2ms)[0m  [1m[36mcommit transaction[0m
+  [1m[35m (0.0ms)[0m  [1m[36mbegin transaction[0m
+  [1m[35mSQL (0.9ms)[0m  [1m[32mINSERT INTO "wikis" ("title", "body", "private", "user_id", "created_at", "updated_at") VALUES (?, ?, ?, ?, ?, ?)[0m  [["title", "Medusa Wolf"], ["body", "Super Strength"], ["private", "f"], ["user_id", 5], ["created_at", "2017-11-07 00:41:28.311044"], ["updated_at", "2017-11-07 00:41:28.311044"]]
+  [1m[35m (1.9ms)[0m  [1m[36mcommit transaction[0m
+  [1m[35m (0.2ms)[0m  [1m[36mbegin transaction[0m
+  [1m[35mSQL (0.4ms)[0m  [1m[32mINSERT INTO "wikis" ("title", "body", "private", "user_id", "created_at", "updated_at") VALUES (?, ?, ?, ?, ?, ?)[0m  [["title", "Frenzy Thirteen"], ["body", "Apotheosis"], ["private", "f"], ["user_id", 5], ["created_at", "2017-11-07 00:41:28.357944"], ["updated_at", "2017-11-07 00:41:28.357944"]]
+  [1m[35m (2.0ms)[0m  [1m[36mcommit transaction[0m
+  [1m[35m (0.1ms)[0m  [1m[36mbegin transaction[0m
+  [1m[35mSQL (0.3ms)[0m  [1m[32mINSERT INTO "wikis" ("title", "body", "private", "user_id", "created_at", "updated_at") VALUES (?, ?, ?, ?, ?, ?)[0m  [["title", "Klaw"], ["body", "Resurrection"], ["private", "f"], ["user_id", 3], ["created_at", "2017-11-07 00:41:28.375139"], ["updated_at", "2017-11-07 00:41:28.375139"]]
+  [1m[35m (0.7ms)[0m  [1m[36mcommit transaction[0m
+  [1m[35m (0.1ms)[0m  [1m[36mbegin transaction[0m
+  [1m[35mSQL (0.4ms)[0m  [1m[32mINSERT INTO "wikis" ("title", "body", "private", "user_id", "created_at", "updated_at") VALUES (?, ?, ?, ?, ?, ?)[0m  [["title", "Shang-Chi"], ["body", "Power Cosmic"], ["private", "f"], ["user_id", 5], ["created_at", "2017-11-07 00:41:28.378488"], ["updated_at", "2017-11-07 00:41:28.378488"]]
+  [1m[35m (1.3ms)[0m  [1m[36mcommit transaction[0m
+  [1m[35m (0.0ms)[0m  [1m[36mbegin transaction[0m
+  [1m[35mSQL (0.4ms)[0m  [1m[32mINSERT INTO "wikis" ("title", "body", "private", "user_id", "created_at", "updated_at") VALUES (?, ?, ?, ?, ?, ?)[0m  [["title", "Moon Knight"], ["body", "Power Cosmic"], ["private", "f"], ["user_id", 1], ["created_at", "2017-11-07 00:41:28.382573"], ["updated_at", "2017-11-07 00:41:28.382573"]]
+  [1m[35m (11.3ms)[0m  [1m[36mcommit transaction[0m
+  [1m[35m (0.1ms)[0m  [1m[36mbegin transaction[0m
+  [1m[35mSQL (0.4ms)[0m  [1m[32mINSERT INTO "wikis" ("title", "body", "private", "user_id", "created_at", "updated_at") VALUES (?, ?, ?, ?, ?, ?)[0m  [["title", "Supah Swarm"], ["body", "Intangibility"], ["private", "f"], ["user_id", 7], ["created_at", "2017-11-07 00:41:28.397303"], ["updated_at", "2017-11-07 00:41:28.397303"]]
+  [1m[35m (0.5ms)[0m  [1m[36mcommit transaction[0m
+  [1m[35m (0.1ms)[0m  [1m[36mbegin transaction[0m
+  [1m[35mSQL (0.3ms)[0m  [1m[32mINSERT INTO "wikis" ("title", "body", "private", "user_id", "created_at", "updated_at") VALUES (?, ?, ?, ?, ?, ?)[0m  [["title", "Bat"], ["body", "Hyperkinesis"], ["private", "f"], ["user_id", 5], ["created_at", "2017-11-07 00:41:28.400457"], ["updated_at", "2017-11-07 00:41:28.400457"]]
+  [1m[35m (0.6ms)[0m  [1m[36mcommit transaction[0m
+  [1m[35m (0.1ms)[0m  [1m[36mbegin transaction[0m
+  [1m[35mSQL (0.3ms)[0m  [1m[32mINSERT INTO "wikis" ("title", "body", "private", "user_id", "created_at", "updated_at") VALUES (?, ?, ?, ?, ?, ?)[0m  [["title", "War Machine the Hunter"], ["body", "Shapeshifting"], ["private", "f"], ["user_id", 10], ["created_at", "2017-11-07 00:41:28.403693"], ["updated_at", "2017-11-07 00:41:28.403693"]]
+  [1m[35m (0.9ms)[0m  [1m[36mcommit transaction[0m
+  [1m[35m (0.1ms)[0m  [1m[36mbegin transaction[0m
+  [1m[35mSQL (0.3ms)[0m  [1m[32mINSERT INTO "wikis" ("title", "body", "private", "user_id", "created_at", "updated_at") VALUES (?, ?, ?, ?, ?, ?)[0m  [["title", "Red Moloch"], ["body", "Cold Resistance"], ["private", "f"], ["user_id", 7], ["created_at", "2017-11-07 00:41:28.407035"], ["updated_at", "2017-11-07 00:41:28.407035"]]
+  [1m[35m (3.1ms)[0m  [1m[36mcommit transaction[0m
+  [1m[35m (0.1ms)[0m  [1m[36mbegin transaction[0m
+  [1m[35mSQL (0.9ms)[0m  [1m[32mINSERT INTO "wikis" ("title", "body", "private", "user_id", "created_at", "updated_at") VALUES (?, ?, ?, ?, ?, ?)[0m  [["title", "Spectre"], ["body", "Camouflage"], ["private", "f"], ["user_id", 1], ["created_at", "2017-11-07 00:41:28.414569"], ["updated_at", "2017-11-07 00:41:28.414569"]]
+  [1m[35m (2.7ms)[0m  [1m[36mcommit transaction[0m
+  [1m[35m (0.1ms)[0m  [1m[36mbegin transaction[0m
+  [1m[35mSQL (0.6ms)[0m  [1m[32mINSERT INTO "wikis" ("title", "body", "private", "user_id", "created_at", "updated_at") VALUES (?, ?, ?, ?, ?, ?)[0m  [["title", "Mr Granny Goodness Wolf"], ["body", "Grim Reaping"], ["private", "f"], ["user_id", 1], ["created_at", "2017-11-07 00:41:28.423233"], ["updated_at", "2017-11-07 00:41:28.423233"]]
+  [1m[35m (1.0ms)[0m  [1m[36mcommit transaction[0m
+  [1m[35m (0.1ms)[0m  [1m[36mbegin transaction[0m
+  [1m[35mSQL (0.4ms)[0m  [1m[32mINSERT INTO "wikis" ("title", "body", "private", "user_id", "created_at", "updated_at") VALUES (?, ?, ?, ?, ?, ?)[0m  [["title", "Captain Rocket Raccoon"], ["body", "Melting"], ["private", "f"], ["user_id", 10], ["created_at", "2017-11-07 00:41:28.426770"], ["updated_at", "2017-11-07 00:41:28.426770"]]
+  [1m[35m (1.5ms)[0m  [1m[36mcommit transaction[0m
+  [1m[35m (0.1ms)[0m  [1m[36mbegin transaction[0m
+  [1m[35mSQL (1.0ms)[0m  [1m[32mINSERT INTO "wikis" ("title", "body", "private", "user_id", "created_at", "updated_at") VALUES (?, ?, ?, ?, ?, ?)[0m  [["title", "Darkside"], ["body", "Magnetokinesis"], ["private", "f"], ["user_id", 3], ["created_at", "2017-11-07 00:41:28.431391"], ["updated_at", "2017-11-07 00:41:28.431391"]]
+  [1m[35m (2.3ms)[0m  [1m[36mcommit transaction[0m
+  [1m[35m (0.2ms)[0m  [1m[36mbegin transaction[0m
+  [1m[35mSQL (7.2ms)[0m  [1m[32mINSERT INTO "wikis" ("title", "body", "private", "user_id", "created_at", "updated_at") VALUES (?, ?, ?, ?, ?, ?)[0m  [["title", "Rorschach Skull"], ["body", "Projection"], ["private", "f"], ["user_id", 2], ["created_at", "2017-11-07 00:41:28.446385"], ["updated_at", "2017-11-07 00:41:28.446385"]]
+  [1m[35m (3.1ms)[0m  [1m[36mcommit transaction[0m
+  [1m[35m (0.1ms)[0m  [1m[36mbegin transaction[0m
+  [1m[35mSQL (1.0ms)[0m  [1m[32mINSERT INTO "wikis" ("title", "body", "private", "user_id", "created_at", "updated_at") VALUES (?, ?, ?, ?, ?, ?)[0m  [["title", "Giant Metamorpho Thirteen"], ["body", "Sonar"], ["private", "f"], ["user_id", 4], ["created_at", "2017-11-07 00:41:28.464437"], ["updated_at", "2017-11-07 00:41:28.464437"]]
+  [1m[35m (4.2ms)[0m  [1m[36mcommit transaction[0m
+  [1m[35m (0.1ms)[0m  [1m[36mbegin transaction[0m
+  [1m[35mSQL (3.5ms)[0m  [1m[32mINSERT INTO "wikis" ("title", "body", "private", "user_id", "created_at", "updated_at") VALUES (?, ?, ?, ?, ?, ?)[0m  [["title", "Changeling Boy"], ["body", "Anti-Gravity"], ["private", "f"], ["user_id", 9], ["created_at", "2017-11-07 00:41:28.473423"], ["updated_at", "2017-11-07 00:41:28.473423"]]
+  [1m[35m (1.6ms)[0m  [1m[36mcommit transaction[0m
+  [1m[35m (0.1ms)[0m  [1m[36mbegin transaction[0m
+  [1m[35mSQL (0.3ms)[0m  [1m[32mINSERT INTO "wikis" ("title", "body", "private", "user_id", "created_at", "updated_at") VALUES (?, ?, ?, ?, ?, ?)[0m  [["title", "Captain Fixer"], ["body", "Vision - Cryo"], ["private", "f"], ["user_id", 4], ["created_at", "2017-11-07 00:41:28.482903"], ["updated_at", "2017-11-07 00:41:28.482903"]]
+  [1m[35m (1.8ms)[0m  [1m[36mcommit transaction[0m
+  [1m[35m (0.1ms)[0m  [1m[36mbegin transaction[0m
+  [1m[35mSQL (0.3ms)[0m  [1m[32mINSERT INTO "wikis" ("title", "body", "private", "user_id", "created_at", "updated_at") VALUES (?, ?, ?, ?, ?, ?)[0m  [["title", "Magnificent Hollow"], ["body", "Energy Manipulation"], ["private", "f"], ["user_id", 6], ["created_at", "2017-11-07 00:41:28.486991"], ["updated_at", "2017-11-07 00:41:28.486991"]]
+  [1m[35m (2.1ms)[0m  [1m[36mcommit transaction[0m
+  [1m[35m (0.1ms)[0m  [1m[36mbegin transaction[0m
+  [1m[35mSQL (0.3ms)[0m  [1m[32mINSERT INTO "wikis" ("title", "body", "private", "user_id", "created_at", "updated_at") VALUES (?, ?, ?, ?, ?, ?)[0m  [["title", "Penguin IX"], ["body", "Human physical perfection"], ["private", "f"], ["user_id", 5], ["created_at", "2017-11-07 00:41:28.491358"], ["updated_at", "2017-11-07 00:41:28.491358"]]
+  [1m[35m (2.2ms)[0m  [1m[36mcommit transaction[0m
+  [1m[35m (0.0ms)[0m  [1m[36mbegin transaction[0m
+  [1m[35mSQL (0.9ms)[0m  [1m[32mINSERT INTO "wikis" ("title", "body", "private", "user_id", "created_at", "updated_at") VALUES (?, ?, ?, ?, ?, ?)[0m  [["title", "Mr Rachel Pirzad"], ["body", "Audiokinesis"], ["private", "f"], ["user_id", 9], ["created_at", "2017-11-07 00:41:28.495663"], ["updated_at", "2017-11-07 00:41:28.495663"]]
+  [1m[35m (1.0ms)[0m  [1m[36mcommit transaction[0m
+  [1m[35m (0.1ms)[0m  [1m[36mbegin transaction[0m
+  [1m[35mSQL (0.8ms)[0m  [1m[32mINSERT INTO "wikis" ("title", "body", "private", "user_id", "created_at", "updated_at") VALUES (?, ?, ?, ?, ?, ?)[0m  [["title", "Moon Knight Brain"], ["body", "Magic"], ["private", "f"], ["user_id", 10], ["created_at", "2017-11-07 00:41:28.501753"], ["updated_at", "2017-11-07 00:41:28.501753"]]
+  [1m[35m (1.1ms)[0m  [1m[36mcommit transaction[0m
+  [1m[35m (0.1ms)[0m  [1m[36mbegin transaction[0m
+  [1m[35mSQL (0.4ms)[0m  [1m[32mINSERT INTO "wikis" ("title", "body", "private", "user_id", "created_at", "updated_at") VALUES (?, ?, ?, ?, ?, ?)[0m  [["title", "Tempest IX"], ["body", "Molecular Manipulation"], ["private", "f"], ["user_id", 5], ["created_at", "2017-11-07 00:41:28.507647"], ["updated_at", "2017-11-07 00:41:28.507647"]]
+  [1m[35m (0.7ms)[0m  [1m[36mcommit transaction[0m
+  [1m[35m (0.1ms)[0m  [1m[36mbegin transaction[0m
+  [1m[35mSQL (0.7ms)[0m  [1m[32mINSERT INTO "wikis" ("title", "body", "private", "user_id", "created_at", "updated_at") VALUES (?, ?, ?, ?, ?, ?)[0m  [["title", "Chamber"], ["body", "Cloaking"], ["private", "f"], ["user_id", 6], ["created_at", "2017-11-07 00:41:28.522123"], ["updated_at", "2017-11-07 00:41:28.522123"]]
+  [1m[35m (3.6ms)[0m  [1m[36mcommit transaction[0m
+  [1m[35m (0.1ms)[0m  [1m[36mbegin transaction[0m
+  [1m[35mSQL (0.5ms)[0m  [1m[32mINSERT INTO "wikis" ("title", "body", "private", "user_id", "created_at", "updated_at") VALUES (?, ?, ?, ?, ?, ?)[0m  [["title", "Siryn"], ["body", "Regeneration"], ["private", "f"], ["user_id", 10], ["created_at", "2017-11-07 00:41:28.532033"], ["updated_at", "2017-11-07 00:41:28.532033"]]
+  [1m[35m (0.8ms)[0m  [1m[36mcommit transaction[0m
+  [1m[35m (0.1ms)[0m  [1m[36mbegin transaction[0m
+  [1m[35mSQL (0.5ms)[0m  [1m[32mINSERT INTO "wikis" ("title", "body", "private", "user_id", "created_at", "updated_at") VALUES (?, ?, ?, ?, ?, ?)[0m  [["title", "The Hawk"], ["body", "Cryokinesis"], ["private", "f"], ["user_id", 8], ["created_at", "2017-11-07 00:41:28.538289"], ["updated_at", "2017-11-07 00:41:28.538289"]]
+  [1m[35m (1.1ms)[0m  [1m[36mcommit transaction[0m
+  [1m[35m (0.1ms)[0m  [1m[36mbegin transaction[0m
+  [1m[35mSQL (0.8ms)[0m  [1m[32mINSERT INTO "wikis" ("title", "body", "private", "user_id", "created_at", "updated_at") VALUES (?, ?, ?, ?, ?, ?)[0m  [["title", "Songbird"], ["body", "Banish"], ["private", "f"], ["user_id", 1], ["created_at", "2017-11-07 00:41:28.543011"], ["updated_at", "2017-11-07 00:41:28.543011"]]
+  [1m[35m (2.5ms)[0m  [1m[36mcommit transaction[0m
+  [1m[35m (0.1ms)[0m  [1m[36mbegin transaction[0m
+  [1m[35mSQL (0.3ms)[0m  [1m[32mINSERT INTO "wikis" ("title", "body", "private", "user_id", "created_at", "updated_at") VALUES (?, ?, ?, ?, ?, ?)[0m  [["title", "Illustrious Colin Wagner"], ["body", "Camouflage"], ["private", "f"], ["user_id", 8], ["created_at", "2017-11-07 00:41:28.550881"], ["updated_at", "2017-11-07 00:41:28.550881"]]
+  [1m[35m (2.4ms)[0m  [1m[36mcommit transaction[0m
+  [1m[35m (0.1ms)[0m  [1m[36mbegin transaction[0m
+  [1m[35mSQL (0.8ms)[0m  [1m[32mINSERT INTO "wikis" ("title", "body", "private", "user_id", "created_at", "updated_at") VALUES (?, ?, ?, ?, ?, ?)[0m  [["title", "General Beak Fist"], ["body", "Pyrokinesis"], ["private", "f"], ["user_id", 6], ["created_at", "2017-11-07 00:41:28.556447"], ["updated_at", "2017-11-07 00:41:28.556447"]]
+  [1m[35m (2.8ms)[0m  [1m[36mcommit transaction[0m
+  [1m[35m (0.1ms)[0m  [1m[36mbegin transaction[0m
+  [1m[35mSQL (0.4ms)[0m  [1m[32mINSERT INTO "wikis" ("title", "body", "private", "user_id", "created_at", "updated_at") VALUES (?, ?, ?, ?, ?, ?)[0m  [["title", "Metamorpho"], ["body", "Vision - Cryo"], ["private", "f"], ["user_id", 3], ["created_at", "2017-11-07 00:41:28.565622"], ["updated_at", "2017-11-07 00:41:28.565622"]]
+  [1m[35m (1.0ms)[0m  [1m[36mcommit transaction[0m
+  [1m[35m (0.1ms)[0m  [1m[36mbegin transaction[0m
+  [1m[35mSQL (0.4ms)[0m  [1m[32mINSERT INTO "wikis" ("title", "body", "private", "user_id", "created_at", "updated_at") VALUES (?, ?, ?, ?, ?, ?)[0m  [["title", "She-Hulk of Hearts"], ["body", "Energy Beams"], ["private", "f"], ["user_id", 4], ["created_at", "2017-11-07 00:41:28.574714"], ["updated_at", "2017-11-07 00:41:28.574714"]]
+  [1m[35m (0.7ms)[0m  [1m[36mcommit transaction[0m
+  [1m[35m (0.1ms)[0m  [1m[36mbegin transaction[0m
+  [1m[35mSQL (0.5ms)[0m  [1m[32mINSERT INTO "wikis" ("title", "body", "private", "user_id", "created_at", "updated_at") VALUES (?, ?, ?, ?, ?, ?)[0m  [["title", "Morlun"], ["body", "Invulnerability"], ["private", "f"], ["user_id", 6], ["created_at", "2017-11-07 00:41:28.588099"], ["updated_at", "2017-11-07 00:41:28.588099"]]
+  [1m[35m (0.6ms)[0m  [1m[36mcommit transaction[0m
+  [1m[35m (0.1ms)[0m  [1m[36mbegin transaction[0m
+  [1m[35mSQL (0.5ms)[0m  [1m[32mINSERT INTO "wikis" ("title", "body", "private", "user_id", "created_at", "updated_at") VALUES (?, ?, ?, ?, ?, ?)[0m  [["title", "Dark Scorpion"], ["body", "Banish"], ["private", "f"], ["user_id", 6], ["created_at", "2017-11-07 00:41:28.594051"], ["updated_at", "2017-11-07 00:41:28.594051"]]
+  [1m[35m (0.8ms)[0m  [1m[36mcommit transaction[0m
+  [1m[35m (0.1ms)[0m  [1m[36mbegin transaction[0m
+  [1m[35mSQL (0.3ms)[0m  [1m[32mINSERT INTO "wikis" ("title", "body", "private", "user_id", "created_at", "updated_at") VALUES (?, ?, ?, ?, ?, ?)[0m  [["title", "Moloch the Fated"], ["body", "Hydrokinesis"], ["private", "f"], ["user_id", 2], ["created_at", "2017-11-07 00:41:28.599118"], ["updated_at", "2017-11-07 00:41:28.599118"]]
+  [1m[35m (2.1ms)[0m  [1m[36mcommit transaction[0m
+  [1m[35m (0.1ms)[0m  [1m[36mbegin transaction[0m
+  [1m[35mSQL (0.8ms)[0m  [1m[32mINSERT INTO "wikis" ("title", "body", "private", "user_id", "created_at", "updated_at") VALUES (?, ?, ?, ?, ?, ?)[0m  [["title", "Penguin of Hearts"], ["body", "Mind Blast"], ["private", "f"], ["user_id", 6], ["created_at", "2017-11-07 00:41:28.607586"], ["updated_at", "2017-11-07 00:41:28.607586"]]
+  [1m[35m (0.8ms)[0m  [1m[36mcommit transaction[0m
+  [1m[35m (0.0ms)[0m  [1m[36mbegin transaction[0m
+  [1m[35mSQL (4.2ms)[0m  [1m[32mINSERT INTO "wikis" ("title", "body", "private", "user_id", "created_at", "updated_at") VALUES (?, ?, ?, ?, ?, ?)[0m  [["title", "Daredevil"], ["body", "Radiation Control"], ["private", "f"], ["user_id", 5], ["created_at", "2017-11-07 00:41:28.615641"], ["updated_at", "2017-11-07 00:41:28.615641"]]
+  [1m[35m (2.3ms)[0m  [1m[36mcommit transaction[0m
+  [1m[35m (0.1ms)[0m  [1m[36mbegin transaction[0m
+  [1m[35mSQL (0.8ms)[0m  [1m[32mINSERT INTO "wikis" ("title", "body", "private", "user_id", "created_at", "updated_at") VALUES (?, ?, ?, ?, ?, ?)[0m  [["title", "Redeemer"], ["body", "Chlorokinesis"], ["private", "f"], ["user_id", 8], ["created_at", "2017-11-07 00:41:28.630917"], ["updated_at", "2017-11-07 00:41:28.630917"]]
+  [1m[35m (0.9ms)[0m  [1m[36mcommit transaction[0m
+  [1m[35m (0.1ms)[0m  [1m[36mbegin transaction[0m
+  [1m[35mSQL (0.4ms)[0m  [1m[32mINSERT INTO "wikis" ("title", "body", "private", "user_id", "created_at", "updated_at") VALUES (?, ?, ?, ?, ?, ?)[0m  [["title", "Doctor Bloodaxe"], ["body", "Terrakinesis"], ["private", "f"], ["user_id", 1], ["created_at", "2017-11-07 00:41:28.636156"], ["updated_at", "2017-11-07 00:41:28.636156"]]
+  [1m[35m (1.5ms)[0m  [1m[36mcommit transaction[0m
+  [1m[35m (0.1ms)[0m  [1m[36mbegin transaction[0m
+  [1m[35mSQL (0.5ms)[0m  [1m[32mINSERT INTO "wikis" ("title", "body", "private", "user_id", "created_at", "updated_at") VALUES (?, ?, ?, ?, ?, ?)[0m  [["title", "Green Walrus"], ["body", "Vision - X-Ray"], ["private", "f"], ["user_id", 5], ["created_at", "2017-11-07 00:41:28.642015"], ["updated_at", "2017-11-07 00:41:28.642015"]]
+  [1m[35m (0.9ms)[0m  [1m[36mcommit transaction[0m
+  [1m[35m (0.1ms)[0m  [1m[36mbegin transaction[0m
+  [1m[35mSQL (1.4ms)[0m  [1m[32mINSERT INTO "wikis" ("title", "body", "private", "user_id", "created_at", "updated_at") VALUES (?, ?, ?, ?, ?, ?)[0m  [["title", "The Bomb Queen"], ["body", "Energy Manipulation"], ["private", "f"], ["user_id", 10], ["created_at", "2017-11-07 00:41:28.665486"], ["updated_at", "2017-11-07 00:41:28.665486"]]
+  [1m[35m (2.1ms)[0m  [1m[36mcommit transaction[0m
+  [1m[35m (0.0ms)[0m  [1m[36mbegin transaction[0m
+  [1m[35mSQL (0.3ms)[0m  [1m[32mINSERT INTO "wikis" ("title", "body", "private", "user_id", "created_at", "updated_at") VALUES (?, ?, ?, ?, ?, ?)[0m  [["title", "Ra's Al Ghul Girl"], ["body", "Entropy Projection"], ["private", "f"], ["user_id", 6], ["created_at", "2017-11-07 00:41:28.675648"], ["updated_at", "2017-11-07 00:41:28.675648"]]
+  [1m[35m (1.8ms)[0m  [1m[36mcommit transaction[0m
+  [1m[35m (0.1ms)[0m  [1m[36mbegin transaction[0m
+  [1m[35mSQL (0.4ms)[0m  [1m[32mINSERT INTO "wikis" ("title", "body", "private", "user_id", "created_at", "updated_at") VALUES (?, ?, ?, ?, ?, ?)[0m  [["title", "The Titan the Hunter"], ["body", "Absorption"], ["private", "f"], ["user_id", 6], ["created_at", "2017-11-07 00:41:28.684413"], ["updated_at", "2017-11-07 00:41:28.684413"]]
+  [1m[35m (1.7ms)[0m  [1m[36mcommit transaction[0m
+  [1m[35m (0.1ms)[0m  [1m[36mbegin transaction[0m
+  [1m[35mSQL (0.8ms)[0m  [1m[32mINSERT INTO "wikis" ("title", "body", "private", "user_id", "created_at", "updated_at") VALUES (?, ?, ?, ?, ?, ?)[0m  [["title", "Loki"], ["body", "Resurrection"], ["private", "f"], ["user_id", 8], ["created_at", "2017-11-07 00:41:28.689787"], ["updated_at", "2017-11-07 00:41:28.689787"]]
+  [1m[35m (0.6ms)[0m  [1m[36mcommit transaction[0m
+  [1m[35m (0.1ms)[0m  [1m[36mbegin transaction[0m
+  [1m[35mSQL (0.4ms)[0m  [1m[32mINSERT INTO "wikis" ("title", "body", "private", "user_id", "created_at", "updated_at") VALUES (?, ?, ?, ?, ?, ?)[0m  [["title", "Hope Summers III"], ["body", "Bullet Time"], ["private", "f"], ["user_id", 1], ["created_at", "2017-11-07 00:41:28.699071"], ["updated_at", "2017-11-07 00:41:28.699071"]]
+  [1m[35m (1.4ms)[0m  [1m[36mcommit transaction[0m
+  [1m[35m (0.1ms)[0m  [1m[36mbegin transaction[0m
+  [1m[35mSQL (0.4ms)[0m  [1m[32mINSERT INTO "wikis" ("title", "body", "private", "user_id", "created_at", "updated_at") VALUES (?, ?, ?, ?, ?, ?)[0m  [["title", "Bolt Girl"], ["body", "Agility"], ["private", "f"], ["user_id", 4], ["created_at", "2017-11-07 00:41:28.703284"], ["updated_at", "2017-11-07 00:41:28.703284"]]
+  [1m[35m (6.2ms)[0m  [1m[36mcommit transaction[0m
+  [1m[35m (0.1ms)[0m  [1m[36mbegin transaction[0m
+  [1m[35mSQL (0.4ms)[0m  [1m[32mINSERT INTO "wikis" ("title", "body", "private", "user_id", "created_at", "updated_at") VALUES (?, ?, ?, ?, ?, ?)[0m  [["title", "Ultra Century I"], ["body", "Omnitrix"], ["private", "f"], ["user_id", 1], ["created_at", "2017-11-07 00:41:28.726577"], ["updated_at", "2017-11-07 00:41:28.726577"]]
+  [1m[35m (1.4ms)[0m  [1m[36mcommit transaction[0m
+  [1m[35m (0.1ms)[0m  [1m[36mbegin transaction[0m
+  [1m[35mSQL (0.4ms)[0m  [1m[32mINSERT INTO "wikis" ("title", "body", "private", "user_id", "created_at", "updated_at") VALUES (?, ?, ?, ?, ?, ?)[0m  [["title", "The Deadpool XI"], ["body", "Cloaking"], ["private", "f"], ["user_id", 7], ["created_at", "2017-11-07 00:41:28.732146"], ["updated_at", "2017-11-07 00:41:28.732146"]]
+  [1m[35m (0.7ms)[0m  [1m[36mcommit transaction[0m
+  [1m[35m (0.1ms)[0m  [1m[36mbegin transaction[0m
+  [1m[35mSQL (0.3ms)[0m  [1m[32mINSERT INTO "wikis" ("title", "body", "private", "user_id", "created_at", "updated_at") VALUES (?, ?, ?, ?, ?, ?)[0m  [["title", "Tiger Shark Fist"], ["body", "Ability Shift"], ["private", "f"], ["user_id", 2], ["created_at", "2017-11-07 00:41:28.736195"], ["updated_at", "2017-11-07 00:41:28.736195"]]
+  [1m[35m (0.6ms)[0m  [1m[36mcommit transaction[0m
+  [1m[35m (0.0ms)[0m  [1m[36mbegin transaction[0m
+  [1m[35mSQL (0.3ms)[0m  [1m[32mINSERT INTO "wikis" ("title", "body", "private", "user_id", "created_at", "updated_at") VALUES (?, ?, ?, ?, ?, ?)[0m  [["title", "Moloch"], ["body", "Astral Travel"], ["private", "f"], ["user_id", 1], ["created_at", "2017-11-07 00:41:28.738835"], ["updated_at", "2017-11-07 00:41:28.738835"]]
+  [1m[35m (1.3ms)[0m  [1m[36mcommit transaction[0m
+  [1m[35m (0.0ms)[0m  [1m[36mbegin transaction[0m
+  [1m[35mSQL (0.3ms)[0m  [1m[32mINSERT INTO "wikis" ("title", "body", "private", "user_id", "created_at", "updated_at") VALUES (?, ?, ?, ?, ?, ?)[0m  [["title", "Bullseye Dragon"], ["body", "Teleportation"], ["private", "f"], ["user_id", 6], ["created_at", "2017-11-07 00:41:28.742231"], ["updated_at", "2017-11-07 00:41:28.742231"]]
+  [1m[35m (5.2ms)[0m  [1m[36mcommit transaction[0m
+  [1m[35m (0.1ms)[0m  [1m[36mbegin transaction[0m
+  [1m[35mSQL (7.3ms)[0m  [1m[32mINSERT INTO "wikis" ("title", "body", "private", "user_id", "created_at", "updated_at") VALUES (?, ?, ?, ?, ?, ?)[0m  [["title", "Cyborg Doomsday Strike"], ["body", "Portal Creation"], ["private", "f"], ["user_id", 8], ["created_at", "2017-11-07 00:41:28.750989"], ["updated_at", "2017-11-07 00:41:28.750989"]]
+  [1m[35m (0.9ms)[0m  [1m[36mcommit transaction[0m
+  [1m[35m (0.5ms)[0m  [1m[36mbegin transaction[0m
+  [1m[35mSQL (0.5ms)[0m  [1m[32mINSERT INTO "wikis" ("title", "body", "private", "user_id", "created_at", "updated_at") VALUES (?, ?, ?, ?, ?, ?)[0m  [["title", "Dark Havok Lord"], ["body", "Enhanced Senses"], ["private", "f"], ["user_id", 5], ["created_at", "2017-11-07 00:41:28.771240"], ["updated_at", "2017-11-07 00:41:28.771240"]]
+  [1m[35m (18.4ms)[0m  [1m[36mcommit transaction[0m
+  [1m[35m (0.1ms)[0m  [1m[36mbegin transaction[0m
+  [1m[35mSQL (0.5ms)[0m  [1m[32mINSERT INTO "wikis" ("title", "body", "private", "user_id", "created_at", "updated_at") VALUES (?, ?, ?, ?, ?, ?)[0m  [["title", "Namorita"], ["body", "Molecular Immobilization"], ["private", "f"], ["user_id", 1], ["created_at", "2017-11-07 00:41:28.792349"], ["updated_at", "2017-11-07 00:41:28.792349"]]
+  [1m[35m (2.3ms)[0m  [1m[36mcommit transaction[0m
+  [1m[35m (0.1ms)[0m  [1m[36mbegin transaction[0m
+  [1m[35mSQL (0.4ms)[0m  [1m[32mINSERT INTO "wikis" ("title", "body", "private", "user_id", "created_at", "updated_at") VALUES (?, ?, ?, ?, ?, ?)[0m  [["title", "Illustrious Elektra Wolf"], ["body", "Photokinesis"], ["private", "f"], ["user_id", 7], ["created_at", "2017-11-07 00:41:28.801888"], ["updated_at", "2017-11-07 00:41:28.801888"]]
+  [1m[35m (1.2ms)[0m  [1m[36mcommit transaction[0m
+  [1m[35m (0.1ms)[0m  [1m[36mbegin transaction[0m
+  [1m[35mSQL (1.0ms)[0m  [1m[32mINSERT INTO "wikis" ("title", "body", "private", "user_id", "created_at", "updated_at") VALUES (?, ?, ?, ?, ?, ?)[0m  [["title", "Copycat"], ["body", "Omnilingualism"], ["private", "f"], ["user_id", 1], ["created_at", "2017-11-07 00:41:28.805788"], ["updated_at", "2017-11-07 00:41:28.805788"]]
+  [1m[35m (0.7ms)[0m  [1m[36mcommit transaction[0m
+  [1m[35m (0.1ms)[0m  [1m[36mbegin transaction[0m
+  [1m[35mSQL (2.1ms)[0m  [1m[32mINSERT INTO "wikis" ("title", "body", "private", "user_id", "created_at", "updated_at") VALUES (?, ?, ?, ?, ?, ?)[0m  [["title", "Wondra I"], ["body", "Flight"], ["private", "f"], ["user_id", 2], ["created_at", "2017-11-07 00:41:28.816153"], ["updated_at", "2017-11-07 00:41:28.816153"]]
+  [1m[35m (1.6ms)[0m  [1m[36mcommit transaction[0m
+  [1m[35m (0.1ms)[0m  [1m[36mbegin transaction[0m
+  [1m[35mSQL (0.3ms)[0m  [1m[32mINSERT INTO "wikis" ("title", "body", "private", "user_id", "created_at", "updated_at") VALUES (?, ?, ?, ?, ?, ?)[0m  [["title", "Elongated Man"], ["body", "Stealth"], ["private", "f"], ["user_id", 6], ["created_at", "2017-11-07 00:41:28.822949"], ["updated_at", "2017-11-07 00:41:28.822949"]]
+  [1m[35m (0.9ms)[0m  [1m[36mcommit transaction[0m
+  [1m[35m (0.1ms)[0m  [1m[36mbegin transaction[0m
+  [1m[35mSQL (1.4ms)[0m  [1m[32mINSERT INTO "wikis" ("title", "body", "private", "user_id", "created_at", "updated_at") VALUES (?, ?, ?, ?, ?, ?)[0m  [["title", "Red Callisto"], ["body", "Vision - Telescopic"], ["private", "f"], ["user_id", 5], ["created_at", "2017-11-07 00:41:28.828696"], ["updated_at", "2017-11-07 00:41:28.828696"]]
+  [1m[35m (14.5ms)[0m  [1m[36mcommit transaction[0m
+  [1m[35m (0.1ms)[0m  [1m[36mbegin transaction[0m
+  [1m[35mSQL (0.4ms)[0m  [1m[32mINSERT INTO "wikis" ("title", "body", "private", "user_id", "created_at", "updated_at") VALUES (?, ?, ?, ?, ?, ?)[0m  [["title", "She-Thing Girl"], ["body", "Entropy Projection"], ["private", "f"], ["user_id", 2], ["created_at", "2017-11-07 00:41:28.856144"], ["updated_at", "2017-11-07 00:41:28.856144"]]
+  [1m[35m (1.8ms)[0m  [1m[36mcommit transaction[0m
+  [1m[35m (0.1ms)[0m  [1m[36mbegin transaction[0m
+  [1m[35mSQL (0.4ms)[0m  [1m[32mINSERT INTO "wikis" ("title", "body", "private", "user_id", "created_at", "updated_at") VALUES (?, ?, ?, ?, ?, ?)[0m  [["title", "The Siryn"], ["body", "Weapons Master"], ["private", "f"], ["user_id", 6], ["created_at", "2017-11-07 00:41:28.864891"], ["updated_at", "2017-11-07 00:41:28.864891"]]
+  [1m[35m (0.6ms)[0m  [1m[36mcommit transaction[0m
+  [1m[35m (0.1ms)[0m  [1m[36mbegin transaction[0m
+  [1m[35mSQL (0.3ms)[0m  [1m[32mINSERT INTO "wikis" ("title", "body", "private", "user_id", "created_at", "updated_at") VALUES (?, ?, ?, ?, ?, ?)[0m  [["title", "Mr Gravity"], ["body", "Terrakinesis"], ["private", "f"], ["user_id", 9], ["created_at", "2017-11-07 00:41:28.868578"], ["updated_at", "2017-11-07 00:41:28.868578"]]
+  [1m[35m (1.3ms)[0m  [1m[36mcommit transaction[0m
+  [1m[35m (0.1ms)[0m  [1m[36mbegin transaction[0m
+  [1m[35mSQL (0.4ms)[0m  [1m[32mINSERT INTO "wikis" ("title", "body", "private", "user_id", "created_at", "updated_at") VALUES (?, ?, ?, ?, ?, ?)[0m  [["title", "Boom Boom"], ["body", "Sonar"], ["private", "f"], ["user_id", 3], ["created_at", "2017-11-07 00:41:28.872296"], ["updated_at", "2017-11-07 00:41:28.872296"]]
+  [1m[35m (0.8ms)[0m  [1m[36mcommit transaction[0m
+  [1m[35m (0.1ms)[0m  [1m[36mbegin transaction[0m
+  [1m[35mSQL (0.5ms)[0m  [1m[32mINSERT INTO "wikis" ("title", "body", "private", "user_id", "created_at", "updated_at") VALUES (?, ?, ?, ?, ?, ?)[0m  [["title", "Vulcan Fist"], ["body", "Pyrokinesis"], ["private", "f"], ["user_id", 4], ["created_at", "2017-11-07 00:41:28.877823"], ["updated_at", "2017-11-07 00:41:28.877823"]]
+  [1m[35m (2.3ms)[0m  [1m[36mcommit transaction[0m
+  [1m[35m (0.7ms)[0m  [1m[36mbegin transaction[0m
+  [1m[35mSQL (0.5ms)[0m  [1m[32mINSERT INTO "wikis" ("title", "body", "private", "user_id", "created_at", "updated_at") VALUES (?, ?, ?, ?, ?, ?)[0m  [["title", "Cyborg Mystique Eyes"], ["body", "Animal Control"], ["private", "f"], ["user_id", 10], ["created_at", "2017-11-07 00:41:28.884373"], ["updated_at", "2017-11-07 00:41:28.884373"]]
+  [1m[35m (0.6ms)[0m  [1m[36mcommit transaction[0m
+  [1m[35m (0.1ms)[0m  [1m[36mbegin transaction[0m
+  [1m[35mSQL (0.3ms)[0m  [1m[32mINSERT INTO "wikis" ("title", "body", "private", "user_id", "created_at", "updated_at") VALUES (?, ?, ?, ?, ?, ?)[0m  [["title", "Jolt"], ["body", "Pyrokinesis"], ["private", "f"], ["user_id", 1], ["created_at", "2017-11-07 00:41:28.888654"], ["updated_at", "2017-11-07 00:41:28.888654"]]
+  [1m[35m (0.6ms)[0m  [1m[36mcommit transaction[0m
+  [1m[35m (0.1ms)[0m  [1m[36mbegin transaction[0m
+  [1m[35mSQL (0.4ms)[0m  [1m[32mINSERT INTO "wikis" ("title", "body", "private", "user_id", "created_at", "updated_at") VALUES (?, ?, ?, ?, ?, ?)[0m  [["title", "Rambo Wolf"], ["body", "Umbrakinesis"], ["private", "f"], ["user_id", 10], ["created_at", "2017-11-07 00:41:28.895309"], ["updated_at", "2017-11-07 00:41:28.895309"]]
+  [1m[35m (1.1ms)[0m  [1m[36mcommit transaction[0m
+  [1m[35m (0.1ms)[0m  [1m[36mbegin transaction[0m
+  [1m[35mSQL (1.1ms)[0m  [1m[32mINSERT INTO "wikis" ("title", "body", "private", "user_id", "created_at", "updated_at") VALUES (?, ?, ?, ?, ?, ?)[0m  [["title", "Magnificent Warbird"], ["body", "Omnilingualism"], ["private", "f"], ["user_id", 8], ["created_at", "2017-11-07 00:41:28.900700"], ["updated_at", "2017-11-07 00:41:28.900700"]]
+  [1m[35m (2.9ms)[0m  [1m[36mcommit transaction[0m
+  [1m[35m (0.1ms)[0m  [1m[36mbegin transaction[0m
+  [1m[35mSQL (2.6ms)[0m  [1m[32mINSERT INTO "wikis" ("title", "body", "private", "user_id", "created_at", "updated_at") VALUES (?, ?, ?, ?, ?, ?)[0m  [["title", "Doctor Toad"], ["body", "Chronokinesis"], ["private", "f"], ["user_id", 7], ["created_at", "2017-11-07 00:41:28.916889"], ["updated_at", "2017-11-07 00:41:28.916889"]]
+  [1m[35m (0.9ms)[0m  [1m[36mcommit transaction[0m
+  [1m[35m (0.1ms)[0m  [1m[36mbegin transaction[0m
+  [1m[35mSQL (1.1ms)[0m  [1m[32mINSERT INTO "wikis" ("title", "body", "private", "user_id", "created_at", "updated_at") VALUES (?, ?, ?, ?, ?, ?)[0m  [["title", "Mephisto"], ["body", "Enhanced Senses"], ["private", "f"], ["user_id", 9], ["created_at", "2017-11-07 00:41:28.927942"], ["updated_at", "2017-11-07 00:41:28.927942"]]
+  [1m[35m (0.7ms)[0m  [1m[36mcommit transaction[0m
+  [1m[35m (0.1ms)[0m  [1m[36mbegin transaction[0m
+  [1m[35mSQL (0.4ms)[0m  [1m[32mINSERT INTO "wikis" ("title", "body", "private", "user_id", "created_at", "updated_at") VALUES (?, ?, ?, ?, ?, ?)[0m  [["title", "Etrigan"], ["body", "Vaporising Beams"], ["private", "f"], ["user_id", 10], ["created_at", "2017-11-07 00:41:28.939092"], ["updated_at", "2017-11-07 00:41:28.939092"]]
+  [1m[35m (0.7ms)[0m  [1m[36mcommit transaction[0m
+  [1m[35m (0.1ms)[0m  [1m[36mbegin transaction[0m
+  [1m[35mSQL (0.3ms)[0m  [1m[32mINSERT INTO "wikis" ("title", "body", "private", "user_id", "created_at", "updated_at") VALUES (?, ?, ?, ?, ?, ?)[0m  [["title", "Dark Blink"], ["body", "Elemental Transmogrification"], ["private", "f"], ["user_id", 9], ["created_at", "2017-11-07 00:41:28.942409"], ["updated_at", "2017-11-07 00:41:28.942409"]]
+  [1m[35m (1.5ms)[0m  [1m[36mcommit transaction[0m
+  [1m[35m (0.1ms)[0m  [1m[36mbegin transaction[0m
+  [1m[35mSQL (0.4ms)[0m  [1m[32mINSERT INTO "wikis" ("title", "body", "private", "user_id", "created_at", "updated_at") VALUES (?, ?, ?, ?, ?, ?)[0m  [["title", "Atlas the Hunter"], ["body", "Power Augmentation"], ["private", "f"], ["user_id", 2], ["created_at", "2017-11-07 00:41:28.946534"], ["updated_at", "2017-11-07 00:41:28.946534"]]
+  [1m[35m (0.9ms)[0m  [1m[36mcommit transaction[0m
+  [1m[35m (0.1ms)[0m  [1m[36mbegin transaction[0m
+  [1m[35mSQL (0.5ms)[0m  [1m[32mINSERT INTO "wikis" ("title", "body", "private", "user_id", "created_at", "updated_at") VALUES (?, ?, ?, ?, ?, ?)[0m  [["title", "Medusa"], ["body", "Enhanced Senses"], ["private", "f"], ["user_id", 5], ["created_at", "2017-11-07 00:41:28.951641"], ["updated_at", "2017-11-07 00:41:28.951641"]]
+  [1m[35m (17.8ms)[0m  [1m[36mcommit transaction[0m
+  [1m[35m (0.1ms)[0m  [1m[36mbegin transaction[0m
+  [1m[35mSQL (3.4ms)[0m  [1m[32mINSERT INTO "wikis" ("title", "body", "private", "user_id", "created_at", "updated_at") VALUES (?, ?, ?, ?, ?, ?)[0m  [["title", "Elongated Man"], ["body", "Mind Control Resistance"], ["private", "f"], ["user_id", 3], ["created_at", "2017-11-07 00:41:28.983636"], ["updated_at", "2017-11-07 00:41:28.983636"]]
+  [1m[35m (1.2ms)[0m  [1m[36mcommit transaction[0m
+  [1m[35m (0.1ms)[0m  [1m[36mbegin transaction[0m
+  [1m[35mSQL (0.3ms)[0m  [1m[32mINSERT INTO "wikis" ("title", "body", "private", "user_id", "created_at", "updated_at") VALUES (?, ?, ?, ?, ?, ?)[0m  [["title", "Supah Rachel Pirzad Thirteen"], ["body", "Telepathy Resistance"], ["private", "f"], ["user_id", 7], ["created_at", "2017-11-07 00:41:28.998618"], ["updated_at", "2017-11-07 00:41:28.998618"]]
+  [1m[35m (1.4ms)[0m  [1m[36mcommit transaction[0m
+  [1m[35m (0.1ms)[0m  [1m[36mbegin transaction[0m
+  [1m[35mSQL (0.4ms)[0m  [1m[32mINSERT INTO "wikis" ("title", "body", "private", "user_id", "created_at", "updated_at") VALUES (?, ?, ?, ?, ?, ?)[0m  [["title", "General Violet Skull"], ["body", "Power Absorption"], ["private", "f"], ["user_id", 4], ["created_at", "2017-11-07 00:41:29.003937"], ["updated_at", "2017-11-07 00:41:29.003937"]]
+  [1m[35m (0.6ms)[0m  [1m[36mcommit transaction[0m
+  [1m[35m (0.1ms)[0m  [1m[36mbegin transaction[0m
+  [1m[35mSQL (0.4ms)[0m  [1m[32mINSERT INTO "wikis" ("title", "body", "private", "user_id", "created_at", "updated_at") VALUES (?, ?, ?, ?, ?, ?)[0m  [["title", "Red Firebird II"], ["body", "Chronokinesis"], ["private", "f"], ["user_id", 3], ["created_at", "2017-11-07 00:41:29.006934"], ["updated_at", "2017-11-07 00:41:29.006934"]]
+  [1m[35m (0.6ms)[0m  [1m[36mcommit transaction[0m
+  [1m[35m (0.0ms)[0m  [1m[36mbegin transaction[0m
+  [1m[35mSQL (0.4ms)[0m  [1m[32mINSERT INTO "wikis" ("title", "body", "private", "user_id", "created_at", "updated_at") VALUES (?, ?, ?, ?, ?, ?)[0m  [["title", "Dark Mysterio"], ["body", "Biokinesis"], ["private", "f"], ["user_id", 10], ["created_at", "2017-11-07 00:41:29.009775"], ["updated_at", "2017-11-07 00:41:29.009775"]]
+  [1m[35m (0.6ms)[0m  [1m[36mcommit transaction[0m
+  [1m[35m (0.1ms)[0m  [1m[36mbegin transaction[0m
+  [1m[35mSQL (0.7ms)[0m  [1m[32mINSERT INTO "wikis" ("title", "body", "private", "user_id", "created_at", "updated_at") VALUES (?, ?, ?, ?, ?, ?)[0m  [["title", "Agent Firelord"], ["body", "Substance Secretion"], ["private", "f"], ["user_id", 7], ["created_at", "2017-11-07 00:41:29.012956"], ["updated_at", "2017-11-07 00:41:29.012956"]]
+  [1m[35m (1.3ms)[0m  [1m[36mcommit transaction[0m
+  [1m[35m (0.1ms)[0m  [1m[36mbegin transaction[0m
+  [1m[35mSQL (0.3ms)[0m  [1m[32mINSERT INTO "wikis" ("title", "body", "private", "user_id", "created_at", "updated_at") VALUES (?, ?, ?, ?, ?, ?)[0m  [["title", "Magnificent Sobek II"], ["body", "Geokinesis"], ["private", "f"], ["user_id", 8], ["created_at", "2017-11-07 00:41:29.019415"], ["updated_at", "2017-11-07 00:41:29.019415"]]
+  [1m[35m (0.9ms)[0m  [1m[36mcommit transaction[0m
+  [1m[35m (0.1ms)[0m  [1m[36mbegin transaction[0m
+  [1m[35mSQL (4.4ms)[0m  [1m[32mINSERT INTO "wikis" ("title", "body", "private", "user_id", "created_at", "updated_at") VALUES (?, ?, ?, ?, ?, ?)[0m  [["title", "Doctor Gardner I"], ["body", "Danger Sense"], ["private", "f"], ["user_id", 4], ["created_at", "2017-11-07 00:41:29.024627"], ["updated_at", "2017-11-07 00:41:29.024627"]]
+  [1m[35m (10.8ms)[0m  [1m[36mcommit transaction[0m
+  [1m[35m (0.1ms)[0m  [1m[36mbegin transaction[0m
+  [1m[35mSQL (0.5ms)[0m  [1m[32mINSERT INTO "wikis" ("title", "body", "private", "user_id", "created_at", "updated_at") VALUES (?, ?, ?, ?, ?, ?)[0m  [["title", "Nina Theroux XI"], ["body", "Durability"], ["private", "f"], ["user_id", 1], ["created_at", "2017-11-07 00:41:29.045663"], ["updated_at", "2017-11-07 00:41:29.045663"]]
+  [1m[35m (1.0ms)[0m  [1m[36mcommit transaction[0m
+  [1m[35m (0.1ms)[0m  [1m[36mbegin transaction[0m
+  [1m[35mSQL (3.2ms)[0m  [1m[32mINSERT INTO "wikis" ("title", "body", "private", "user_id", "created_at", "updated_at") VALUES (?, ?, ?, ?, ?, ?)[0m  [["title", "Supah Hell the Fated"], ["body", "Mind Blast"], ["private", "f"], ["user_id", 8], ["created_at", "2017-11-07 00:41:29.050163"], ["updated_at", "2017-11-07 00:41:29.050163"]]
+  [1m[35m (7.9ms)[0m  [1m[36mcommit transaction[0m
+  [1m[35m (0.1ms)[0m  [1m[36mbegin transaction[0m
+  [1m[35mSQL (0.4ms)[0m  [1m[32mINSERT INTO "wikis" ("title", "body", "private", "user_id", "created_at", "updated_at") VALUES (?, ?, ?, ?, ?, ?)[0m  [["title", "Vibe"], ["body", "Stamina"], ["private", "f"], ["user_id", 6], ["created_at", "2017-11-07 00:41:29.069415"], ["updated_at", "2017-11-07 00:41:29.069415"]]
+  [1m[35m (0.9ms)[0m  [1m[36mcommit transaction[0m
+  [1m[35m (0.1ms)[0m  [1m[36mbegin transaction[0m
+  [1m[35mSQL (0.4ms)[0m  [1m[32mINSERT INTO "wikis" ("title", "body", "private", "user_id", "created_at", "updated_at") VALUES (?, ?, ?, ?, ?, ?)[0m  [["title", "Apocalypse Knight"], ["body", "Spatial Awareness"], ["private", "f"], ["user_id", 6], ["created_at", "2017-11-07 00:41:29.072894"], ["updated_at", "2017-11-07 00:41:29.072894"]]
+  [1m[35m (0.8ms)[0m  [1m[36mcommit transaction[0m
+  [1m[35m (0.1ms)[0m  [1m[36mbegin transaction[0m
+  [1m[35mSQL (0.4ms)[0m  [1m[32mINSERT INTO "wikis" ("title", "body", "private", "user_id", "created_at", "updated_at") VALUES (?, ?, ?, ?, ?, ?)[0m  [["title", "Jigsaw Spirit"], ["body", "Sub-Mariner"], ["private", "f"], ["user_id", 1], ["created_at", "2017-11-07 00:41:29.076326"], ["updated_at", "2017-11-07 00:41:29.076326"]]
+  [1m[35m (0.8ms)[0m  [1m[36mcommit transaction[0m
+  [1m[35m (0.1ms)[0m  [1m[36mbegin transaction[0m
+  [1m[35mSQL (0.4ms)[0m  [1m[32mINSERT INTO "wikis" ("title", "body", "private", "user_id", "created_at", "updated_at") VALUES (?, ?, ?, ?, ?, ?)[0m  [["title", "Captain Venom Strange"], ["body", "Omnipotence"], ["private", "f"], ["user_id", 7], ["created_at", "2017-11-07 00:41:29.081110"], ["updated_at", "2017-11-07 00:41:29.081110"]]
+  [1m[35m (0.7ms)[0m  [1m[36mcommit transaction[0m
+  [1m[35m (0.1ms)[0m  [1m[36mbegin transaction[0m
+  [1m[35mSQL (0.3ms)[0m  [1m[32mINSERT INTO "wikis" ("title", "body", "private", "user_id", "created_at", "updated_at") VALUES (?, ?, ?, ?, ?, ?)[0m  [["title", "Red Ariel"], ["body", "Toxin and Disease Resistance"], ["private", "f"], ["user_id", 4], ["created_at", "2017-11-07 00:41:29.084987"], ["updated_at", "2017-11-07 00:41:29.084987"]]
+  [1m[35m (0.7ms)[0m  [1m[36mcommit transaction[0m
+  [1m[35m (0.1ms)[0m  [1m[36mbegin transaction[0m
+  [1m[35mSQL (0.4ms)[0m  [1m[32mINSERT INTO "wikis" ("title", "body", "private", "user_id", "created_at", "updated_at") VALUES (?, ?, ?, ?, ?, ?)[0m  [["title", "Abomination"], ["body", "Molecular Immobilization"], ["private", "f"], ["user_id", 8], ["created_at", "2017-11-07 00:41:29.088319"], ["updated_at", "2017-11-07 00:41:29.088319"]]
+  [1m[35m (2.6ms)[0m  [1m[36mcommit transaction[0m
+  [1m[35m (0.1ms)[0m  [1m[36mbegin transaction[0m
+  [1m[35mSQL (0.4ms)[0m  [1m[32mINSERT INTO "wikis" ("title", "body", "private", "user_id", "created_at", "updated_at") VALUES (?, ?, ?, ?, ?, ?)[0m  [["title", "Krypto XI"], ["body", "Magnetokinesis"], ["private", "f"], ["user_id", 9], ["created_at", "2017-11-07 00:41:29.095229"], ["updated_at", "2017-11-07 00:41:29.095229"]]
+  [1m[35m (0.8ms)[0m  [1m[36mcommit transaction[0m
+  [1m[35m (0.1ms)[0m  [1m[36mbegin transaction[0m
+  [1m[35mSQL (1.1ms)[0m  [1m[32mINSERT INTO "wikis" ("title", "body", "private", "user_id", "created_at", "updated_at") VALUES (?, ?, ?, ?, ?, ?)[0m  [["title", "Magnificent Century Strike"], ["body", "Telekinesis"], ["private", "f"], ["user_id", 8], ["created_at", "2017-11-07 00:41:29.099508"], ["updated_at", "2017-11-07 00:41:29.099508"]]
+  [1m[35m (1.1ms)[0m  [1m[36mcommit transaction[0m
+  [1m[35m (0.1ms)[0m  [1m[36mbegin transaction[0m
+  [1m[36mUser Exists (0.2ms)[0m  [1m[34mSELECT  1 AS one FROM "users" WHERE "users"."email" = ? LIMIT ?[0m  [["email", "admin@test.com"], ["LIMIT", 1]]
+  [1m[35mSQL (0.3ms)[0m  [1m[32mINSERT INTO "users" ("created_at", "updated_at", "email", "encrypted_password", "confirmed_at", "name", "role") VALUES (?, ?, ?, ?, ?, ?, ?)[0m  [["created_at", "2017-11-07 00:41:29.224392"], ["updated_at", "2017-11-07 00:41:29.224392"], ["email", "admin@test.com"], ["encrypted_password", "$2a$11$4kwhEE4ylYmy0YzZqR7YZuzjksmBypZsLVz7maEZuDDPOWNxKmaNq"], ["confirmed_at", "2017-11-07 00:41:29.103760"], ["name", "Admin User"], ["role", 2]]
+  [1m[35m (1.8ms)[0m  [1m[36mcommit transaction[0m
+  [1m[35m (0.1ms)[0m  [1m[36mbegin transaction[0m
+  [1m[36mUser Exists (0.1ms)[0m  [1m[34mSELECT  1 AS one FROM "users" WHERE "users"."email" = ? LIMIT ?[0m  [["email", "premium@test.com"], ["LIMIT", 1]]
+  [1m[35mSQL (0.3ms)[0m  [1m[32mINSERT INTO "users" ("created_at", "updated_at", "email", "encrypted_password", "confirmed_at", "name", "role") VALUES (?, ?, ?, ?, ?, ?, ?)[0m  [["created_at", "2017-11-07 00:41:29.351140"], ["updated_at", "2017-11-07 00:41:29.351140"], ["email", "premium@test.com"], ["encrypted_password", "$2a$11$EOUHOpFP4nWjpXDVUUxNAuXQ/M7G9BN2FJ6ZtkY5p5F3Mu7ZOD3Hq"], ["confirmed_at", "2017-11-07 00:41:29.229540"], ["name", "Premium User"], ["role", 1]]
+  [1m[35m (2.2ms)[0m  [1m[36mcommit transaction[0m
+  [1m[35m (0.1ms)[0m  [1m[36mbegin transaction[0m
+  [1m[36mUser Exists (0.2ms)[0m  [1m[34mSELECT  1 AS one FROM "users" WHERE "users"."email" = ? LIMIT ?[0m  [["email", "standard@test.com"], ["LIMIT", 1]]
+  [1m[35mSQL (0.3ms)[0m  [1m[32mINSERT INTO "users" ("created_at", "updated_at", "email", "encrypted_password", "confirmed_at", "name", "role") VALUES (?, ?, ?, ?, ?, ?, ?)[0m  [["created_at", "2017-11-07 00:41:29.478253"], ["updated_at", "2017-11-07 00:41:29.478253"], ["email", "standard@test.com"], ["encrypted_password", "$2a$11$t9VYErQZ3aaVXauEjFptJ.7gq41NE.46Vqm/m/A76VTG03s1.7wV."], ["confirmed_at", "2017-11-07 00:41:29.354737"], ["name", "Standard User"], ["role", 0]]
+  [1m[35m (1.9ms)[0m  [1m[36mcommit transaction[0m
+  [1m[35m (0.1ms)[0m  [1m[34mSELECT COUNT(*) FROM "users"[0m
+  [1m[35m (0.1ms)[0m  [1m[34mSELECT COUNT(*) FROM "wikis"[0m
+Started GET "/" for 127.0.0.1 at 2017-11-06 19:41:37 -0500
+  [1m[35m (0.2ms)[0m  [1m[34mSELECT "schema_migrations"."version" FROM "schema_migrations" ORDER BY "schema_migrations"."version" ASC[0m
+Processing by WelcomeController#index as HTML
+  [1m[36mUser Load (0.2ms)[0m  [1m[34mSELECT  "users".* FROM "users" WHERE "users"."id" = ? ORDER BY "users"."id" ASC LIMIT ?[0m  [["id", 1], ["LIMIT", 1]]
+Completed 401 Unauthorized in 51ms (ActiveRecord: 1.1ms)
+
+
+Started GET "/users/sign_in" for 127.0.0.1 at 2017-11-06 19:41:37 -0500
+Processing by Devise::SessionsController#new as HTML
+  Rendering devise/sessions/new.html.erb within layouts/application
+  Rendered devise/shared/_links.html.erb (1.1ms)
+  Rendered devise/sessions/new.html.erb within layouts/application (14.5ms)
+  [1m[36mUser Load (0.2ms)[0m  [1m[34mSELECT  "users".* FROM "users" WHERE "users"."id" IS NULL LIMIT ?[0m  [["LIMIT", 1]]
+Completed 200 OK in 296ms (Views: 291.7ms | ActiveRecord: 0.2ms)
+
+
+Started GET "/users/sign_up" for 127.0.0.1 at 2017-11-06 19:41:58 -0500
+Processing by Devise::RegistrationsController#new as HTML
+  Rendering devise/registrations/new.html.erb within layouts/application
+  Rendered devise/shared/_links.html.erb (2.3ms)
+  Rendered devise/registrations/new.html.erb within layouts/application (7.2ms)
+  [1m[36mUser Load (0.2ms)[0m  [1m[34mSELECT  "users".* FROM "users" WHERE "users"."id" IS NULL LIMIT ?[0m  [["LIMIT", 1]]
+Completed 200 OK in 68ms (Views: 66.6ms | ActiveRecord: 0.2ms)
+
+
+Started POST "/users" for 127.0.0.1 at 2017-11-06 19:42:04 -0500
+Processing by Devise::RegistrationsController#create as HTML
+  Parameters: {"utf8"=>"✓", "authenticity_token"=>"fcPbhh9ZopDL6wjoCI3Z1tnEBGGNoLDL5fn6o/b1Wpih8bQ3dvtjePCZiVOfYbwj75zDIELRjP7n3wkESTlHxA==", "user"=>{"name"=>"test", "email"=>"test@test.test", "password"=>"[FILTERED]", "password_confirmation"=>"[FILTERED]"}, "commit"=>"Sign up"}
+  [1m[35m (0.1ms)[0m  [1m[36mbegin transaction[0m
+  [1m[36mUser Exists (0.2ms)[0m  [1m[34mSELECT  1 AS one FROM "users" WHERE "users"."email" = ? LIMIT ?[0m  [["email", "test@test.test"], ["LIMIT", 1]]
+  [1m[35mSQL (0.4ms)[0m  [1m[32mINSERT INTO "users" ("created_at", "updated_at", "email", "encrypted_password", "confirmation_token", "confirmation_sent_at", "name", "role") VALUES (?, ?, ?, ?, ?, ?, ?, ?)[0m  [["created_at", "2017-11-07 00:42:04.336099"], ["updated_at", "2017-11-07 00:42:04.336099"], ["email", "test@test.test"], ["encrypted_password", "$2a$11$mNx42EhPfjY4HTCLtZE/Au3J9X94ILSNc6OBaglOdahiJcCoALniG"], ["confirmation_token", "xbKLV-pYU8Gx-4B5oM4A"], ["confirmation_sent_at", "2017-11-07 00:42:04.336261"], ["name", "test"], ["role", 0]]
+  [1m[35m (3.3ms)[0m  [1m[36mcommit transaction[0m
+  Rendering devise/mailer/confirmation_instructions.html.erb
+  Rendered devise/mailer/confirmation_instructions.html.erb (0.9ms)
+Devise::Mailer#confirmation_instructions: processed outbound mail in 146.5ms
+Sent mail to test@test.test (10.3ms)
+Date: Mon, 06 Nov 2017 19:42:04 -0500
+From: please-change-me-at-config-initializers-devise@example.com
+Reply-To: please-change-me-at-config-initializers-devise@example.com
+To: test@test.test
+Message-ID: <5a01015cc3e64_53cb3fdfb4391aec48e2@Danielas-MacBook-Pro.local.mail>
+Subject: Confirmation instructions
+Mime-Version: 1.0
+Content-Type: text/html;
+ charset=UTF-8
+Content-Transfer-Encoding: 7bit
+
+<p>Welcome !</p>
+
+<p>You can confirm your account email through the link below:</p>
+
+<p><a href="http://localhost:3000/users/confirmation?confirmation_token=xbKLV-pYU8Gx-4B5oM4A">Confirm my account</a></p>
+
+Redirected to http://localhost:3000/
+Completed 302 Found in 617ms (ActiveRecord: 3.9ms)
+
+
+Started GET "/" for 127.0.0.1 at 2017-11-06 19:42:04 -0500
+Processing by WelcomeController#index as HTML
+Completed 401 Unauthorized in 1ms (ActiveRecord: 0.0ms)
+
+
+Started GET "/users/sign_in" for 127.0.0.1 at 2017-11-06 19:42:04 -0500
+Processing by Devise::SessionsController#new as HTML
+  Rendering devise/sessions/new.html.erb within layouts/application
+  Rendered devise/shared/_links.html.erb (1.0ms)
+  Rendered devise/sessions/new.html.erb within layouts/application (4.8ms)
+  [1m[36mUser Load (0.3ms)[0m  [1m[34mSELECT  "users".* FROM "users" WHERE "users"."id" IS NULL LIMIT ?[0m  [["LIMIT", 1]]
+Completed 200 OK in 117ms (Views: 115.0ms | ActiveRecord: 0.3ms)
+
+
+Started GET "/users/confirmation?confirmation_token=xbKLV-pYU8Gx-4B5oM4A" for 127.0.0.1 at 2017-11-06 19:42:07 -0500
+Processing by Devise::ConfirmationsController#show as HTML
+  Parameters: {"confirmation_token"=>"xbKLV-pYU8Gx-4B5oM4A"}
+  [1m[36mUser Load (0.3ms)[0m  [1m[34mSELECT  "users".* FROM "users" WHERE "users"."confirmation_token" = ? ORDER BY "users"."id" ASC LIMIT ?[0m  [["confirmation_token", "xbKLV-pYU8Gx-4B5oM4A"], ["LIMIT", 1]]
+  [1m[35m (0.1ms)[0m  [1m[36mbegin transaction[0m
+  [1m[35mSQL (0.7ms)[0m  [1m[33mUPDATE "users" SET "confirmed_at" = ?, "updated_at" = ? WHERE "users"."id" = ?[0m  [["confirmed_at", "2017-11-07 00:42:07.239064"], ["updated_at", "2017-11-07 00:42:07.240211"], ["id", 14]]
+  [1m[35m (1.4ms)[0m  [1m[36mcommit transaction[0m
+Redirected to http://localhost:3000/users/sign_in
+Completed 302 Found in 14ms (ActiveRecord: 2.5ms)
+
+
+Started GET "/users/sign_in" for 127.0.0.1 at 2017-11-06 19:42:07 -0500
+Processing by Devise::SessionsController#new as HTML
+  Rendering devise/sessions/new.html.erb within layouts/application
+  Rendered devise/shared/_links.html.erb (2.1ms)
+  Rendered devise/sessions/new.html.erb within layouts/application (10.5ms)
+  [1m[36mUser Load (0.2ms)[0m  [1m[34mSELECT  "users".* FROM "users" WHERE "users"."id" IS NULL LIMIT ?[0m  [["LIMIT", 1]]
+Completed 200 OK in 104ms (Views: 102.5ms | ActiveRecord: 0.2ms)
+
+
+Started POST "/users/sign_in" for 127.0.0.1 at 2017-11-06 19:42:13 -0500
+Processing by Devise::SessionsController#create as HTML
+  Parameters: {"utf8"=>"✓", "authenticity_token"=>"sdo4YsUeFEiePY3Vhz7HpbkGZzKH++vYLSrR2GnFAJENgkB62paz2cd/JyY/y9o+QrbJ4NB0DN3qh2vaYIyzvg==", "user"=>{"email"=>"test@test.test", "password"=>"[FILTERED]", "remember_me"=>"0"}, "commit"=>"Log in"}
+  [1m[36mUser Load (0.3ms)[0m  [1m[34mSELECT  "users".* FROM "users" WHERE "users"."email" = ? ORDER BY "users"."id" ASC LIMIT ?[0m  [["email", "test@test.test"], ["LIMIT", 1]]
+  [1m[35m (0.1ms)[0m  [1m[36mbegin transaction[0m
+  [1m[35mSQL (0.3ms)[0m  [1m[33mUPDATE "users" SET "current_sign_in_at" = ?, "last_sign_in_at" = ?, "current_sign_in_ip" = ?, "last_sign_in_ip" = ?, "sign_in_count" = ?, "updated_at" = ? WHERE "users"."id" = ?[0m  [["current_sign_in_at", "2017-11-07 00:42:13.220397"], ["last_sign_in_at", "2017-11-07 00:42:13.220397"], ["current_sign_in_ip", "127.0.0.1"], ["last_sign_in_ip", "127.0.0.1"], ["sign_in_count", 1], ["updated_at", "2017-11-07 00:42:13.220978"], ["id", 14]]
+  [1m[35m (2.1ms)[0m  [1m[36mcommit transaction[0m
+Redirected to http://localhost:3000/
+Completed 302 Found in 133ms (ActiveRecord: 2.8ms)
+
+
+Started GET "/" for 127.0.0.1 at 2017-11-06 19:42:13 -0500
+Processing by WelcomeController#index as HTML
+  [1m[36mUser Load (0.2ms)[0m  [1m[34mSELECT  "users".* FROM "users" WHERE "users"."id" = ? ORDER BY "users"."id" ASC LIMIT ?[0m  [["id", 14], ["LIMIT", 1]]
+  Rendering welcome/index.html.erb within layouts/application
+  Rendered welcome/index.html.erb within layouts/application (0.7ms)
+  [1m[36mUser Load (0.2ms)[0m  [1m[34mSELECT  "users".* FROM "users" WHERE "users"."id" IS NULL LIMIT ?[0m  [["LIMIT", 1]]
+Completed 200 OK in 60ms (Views: 55.7ms | ActiveRecord: 0.5ms)
+
+
+Started GET "/" for 127.0.0.1 at 2017-11-06 19:43:18 -0500
+Processing by WelcomeController#index as HTML
+  Rendering welcome/index.html.erb within layouts/application
+  Rendered welcome/index.html.erb within layouts/application (0.5ms)
+  [1m[36mUser Load (0.1ms)[0m  [1m[34mSELECT  "users".* FROM "users" WHERE "users"."id" IS NULL LIMIT ?[0m  [["LIMIT", 1]]
+Completed 200 OK in 40ms (Views: 36.9ms | ActiveRecord: 0.6ms)
+
+
+Started GET "/" for 127.0.0.1 at 2017-11-06 19:43:19 -0500
+Processing by WelcomeController#index as HTML
+  Rendering welcome/index.html.erb within layouts/application
+  Rendered welcome/index.html.erb within layouts/application (0.4ms)
+  [1m[36mUser Load (0.2ms)[0m  [1m[34mSELECT  "users".* FROM "users" WHERE "users"."id" IS NULL LIMIT ?[0m  [["LIMIT", 1]]
+Completed 200 OK in 36ms (Views: 34.6ms | ActiveRecord: 0.2ms)
+
+
+Started GET "/" for 127.0.0.1 at 2017-11-06 19:43:50 -0500
+Processing by WelcomeController#index as HTML
+  [1m[36mUser Load (0.1ms)[0m  [1m[34mSELECT  "users".* FROM "users" WHERE "users"."id" = ? ORDER BY "users"."id" ASC LIMIT ?[0m  [["id", 14], ["LIMIT", 1]]
+  Rendering welcome/index.html.erb within layouts/application
+  Rendered welcome/index.html.erb within layouts/application (0.8ms)
+  [1m[36mUser Load (0.3ms)[0m  [1m[34mSELECT  "users".* FROM "users" WHERE "users"."id" IS NULL LIMIT ?[0m  [["LIMIT", 1]]
+Completed 200 OK in 11740ms (Views: 48.6ms | ActiveRecord: 1.1ms)
+
+
+Started GET "/" for 127.0.0.1 at 2017-11-06 19:45:31 -0500
+Processing by WelcomeController#index as HTML
+  [1m[36mUser Load (0.3ms)[0m  [1m[34mSELECT  "users".* FROM "users" WHERE "users"."id" = ? ORDER BY "users"."id" ASC LIMIT ?[0m  [["id", 14], ["LIMIT", 1]]
+  Rendering welcome/index.html.erb within layouts/application
+  Rendered welcome/index.html.erb within layouts/application (0.5ms)
+  [1m[36mUser Load (0.2ms)[0m  [1m[34mSELECT  "users".* FROM "users" WHERE "users"."id" IS NULL LIMIT ?[0m  [["LIMIT", 1]]
+  [1m[36mCACHE User Load (0.0ms)[0m  [1m[34mSELECT  "users".* FROM "users" WHERE "users"."id" IS NULL LIMIT ?[0m  [["LIMIT", 1]]
+Completed 200 OK in 8696ms (Views: 8673.9ms | ActiveRecord: 1.5ms)
+
+
+Started GET "/" for 127.0.0.1 at 2017-11-06 19:45:51 -0500
+Processing by WelcomeController#index as HTML
+  [1m[36mUser Load (0.2ms)[0m  [1m[34mSELECT  "users".* FROM "users" WHERE "users"."id" = ? ORDER BY "users"."id" ASC LIMIT ?[0m  [["id", 14], ["LIMIT", 1]]
+  Rendering welcome/index.html.erb within layouts/application
+  Rendered welcome/index.html.erb within layouts/application (1.1ms)
+  [1m[36mUser Load (0.2ms)[0m  [1m[34mSELECT  "users".* FROM "users" WHERE "users"."id" IS NULL LIMIT ?[0m  [["LIMIT", 1]]
+Completed 500 Internal Server Error in 47ms (ActiveRecord: 0.4ms)
+
+
+  
+ActionView::Template::Error (undefined method `avatar_url' for nil:NilClass):
+    17: 
+    18:       <div class="user-info pull-right">
+    19:         <% if user_signed_in? %>
+    20:           <%= image_tag current_user.avatar_url(48), class: "gravatar" %>
+    21:           <div class="pull-right">
+    22:             Hello, <strong><%= link_to current_user.name, user_path(current_user), :class => "navbar-link" %></strong> |
+    23:             <%= link_to "Edit profile", edit_user_registration_path, :class => "navbar-link" %> -
+  
+app/views/layouts/application.html.erb:20:in `_app_views_layouts_application_html_erb___3573092242593346129_70230087684360'
+Started GET "/" for 127.0.0.1 at 2017-11-06 19:48:58 -0500
+  
+ActionController::RoutingError (undefined method `before_actions' for WelcomeController:Class
+Did you mean?  before_action):
+  
+app/controllers/welcome_controller.rb:2:in `<class:WelcomeController>'
+app/controllers/welcome_controller.rb:1:in `<top (required)>'
+Started GET "/" for 127.0.0.1 at 2017-11-06 19:49:06 -0500
+Processing by WelcomeController#index as HTML
+  [1m[36mUser Load (0.2ms)[0m  [1m[34mSELECT  "users".* FROM "users" WHERE "users"."id" = ? ORDER BY "users"."id" ASC LIMIT ?[0m  [["id", 14], ["LIMIT", 1]]
+  Rendering welcome/index.html.erb within layouts/application
+  Rendered welcome/index.html.erb within layouts/application (0.4ms)
+  [1m[36mUser Load (0.3ms)[0m  [1m[34mSELECT  "users".* FROM "users" WHERE "users"."id" IS NULL LIMIT ?[0m  [["LIMIT", 1]]
+Completed 500 Internal Server Error in 51ms (ActiveRecord: 1.4ms)
+
+
+  
+ActionView::Template::Error (undefined method `avatar_url' for nil:NilClass):
+    17: 
+    18:       <div class="user-info pull-right">
+    19:         <% if user_signed_in? %>
+    20:           <%= image_tag current_user.avatar_url(48), class: "gravatar" %>
+    21:           <div class="pull-right">
+    22:             Hello, <strong><%= link_to current_user.name, user_path(current_user), :class => "navbar-link" %></strong> |
+    23:             <%= link_to "Edit profile", edit_user_registration_path, :class => "navbar-link" %> -
+  
+app/views/layouts/application.html.erb:20:in `_app_views_layouts_application_html_erb___3573092242593346129_70230089019820'
+Started GET "/" for 127.0.0.1 at 2017-11-06 19:49:16 -0500
+Processing by WelcomeController#index as HTML
+  [1m[36mUser Load (0.2ms)[0m  [1m[34mSELECT  "users".* FROM "users" WHERE "users"."id" = ? ORDER BY "users"."id" ASC LIMIT ?[0m  [["id", 14], ["LIMIT", 1]]
+  Rendering welcome/index.html.erb within layouts/application
+  Rendered welcome/index.html.erb within layouts/application (0.8ms)
+  [1m[36mUser Load (0.3ms)[0m  [1m[34mSELECT  "users".* FROM "users" WHERE "users"."id" IS NULL LIMIT ?[0m  [["LIMIT", 1]]
+Completed 500 Internal Server Error in 5403ms (ActiveRecord: 1.8ms)
+
+
+  
+ActionView::Template::Error (undefined method `avatar_url' for nil:NilClass):
+    17: 
+    18:       <div class="user-info pull-right">
+    19:         <% if user_signed_in? %>
+    20:           <%= image_tag current_user.avatar_url(48), class: "gravatar" %>
+    21:           <div class="pull-right">
+    22:             Hello, <strong><%= link_to current_user.name, user_path(current_user), :class => "navbar-link" %></strong> |
+    23:             <%= link_to "Edit profile", edit_user_registration_path, :class => "navbar-link" %> -
+  
+app/views/layouts/application.html.erb:20:in `_app_views_layouts_application_html_erb___3573092242593346129_70230046439460'
+Started GET "/" for 127.0.0.1 at 2017-11-06 19:49:47 -0500
+Processing by WelcomeController#index as HTML
+  [1m[36mUser Load (0.1ms)[0m  [1m[34mSELECT  "users".* FROM "users" WHERE "users"."id" = ? ORDER BY "users"."id" ASC LIMIT ?[0m  [["id", 14], ["LIMIT", 1]]
+  Rendering welcome/index.html.erb within layouts/application
+  Rendered welcome/index.html.erb within layouts/application (0.7ms)
+  [1m[36mUser Load (0.2ms)[0m  [1m[34mSELECT  "users".* FROM "users" WHERE "users"."id" IS NULL LIMIT ?[0m  [["LIMIT", 1]]
+Completed 500 Internal Server Error in 21835ms (ActiveRecord: 1.0ms)
+
+
+  
+ActionView::Template::Error (undefined method `avatar_url' for nil:NilClass):
+    17: 
+    18:       <div class="user-info pull-right">
+    19:         <% if user_signed_in? %>
+    20:           <%= image_tag current_user.avatar_url(48), class: "gravatar" %>
+    21:           <div class="pull-right">
+    22:             Hello, <strong><%= link_to current_user.name, user_path(current_user), :class => "navbar-link" %></strong> |
+    23:             <%= link_to "Edit profile", edit_user_registration_path, :class => "navbar-link" %> -
+  
+app/views/layouts/application.html.erb:20:in `_app_views_layouts_application_html_erb___3573092242593346129_70230087639400'
+Started GET "/" for 127.0.0.1 at 2017-11-06 19:50:18 -0500
+Processing by WelcomeController#index as HTML
+  [1m[36mUser Load (0.2ms)[0m  [1m[34mSELECT  "users".* FROM "users" WHERE "users"."id" = ? ORDER BY "users"."id" ASC LIMIT ?[0m  [["id", 14], ["LIMIT", 1]]
+  Rendering welcome/index.html.erb within layouts/application
+  Rendered welcome/index.html.erb within layouts/application (0.4ms)
+  [1m[36mUser Load (0.2ms)[0m  [1m[34mSELECT  "users".* FROM "users" WHERE "users"."id" IS NULL LIMIT ?[0m  [["LIMIT", 1]]
+Completed 500 Internal Server Error in 58ms (ActiveRecord: 1.2ms)
+
+
+  
+ActionView::Template::Error (undefined method `avatar_url' for nil:NilClass):
+    17: 
+    18:       <div class="user-info pull-right">
+    19:         <% if user_signed_in? %>
+    20:           <%= image_tag current_user.avatar_url(48), class: "gravatar" %>
+    21:           <div class="pull-right">
+    22:             Hello, <strong><%= link_to current_user.name, user_path(current_user), :class => "navbar-link" %></strong> |
+    23:             <%= link_to "Edit profile", edit_user_registration_path, :class => "navbar-link" %> -
+  
+app/views/layouts/application.html.erb:20:in `_app_views_layouts_application_html_erb___3573092242593346129_70230090473000'
+Started GET "/" for 127.0.0.1 at 2017-11-06 19:50:21 -0500
+Processing by WelcomeController#index as HTML
+  [1m[36mUser Load (0.2ms)[0m  [1m[34mSELECT  "users".* FROM "users" WHERE "users"."id" = ? ORDER BY "users"."id" ASC LIMIT ?[0m  [["id", 14], ["LIMIT", 1]]
+  Rendering welcome/index.html.erb within layouts/application
+  Rendered welcome/index.html.erb within layouts/application (1.6ms)
+  [1m[36mUser Load (0.2ms)[0m  [1m[34mSELECT  "users".* FROM "users" WHERE "users"."id" IS NULL LIMIT ?[0m  [["LIMIT", 1]]
+Completed 500 Internal Server Error in 46ms (ActiveRecord: 0.3ms)
+
+
+  
+ActionView::Template::Error (undefined method `avatar_url' for nil:NilClass):
+    17: 
+    18:       <div class="user-info pull-right">
+    19:         <% if user_signed_in? %>
+    20:           <%= image_tag current_user.avatar_url(48), class: "gravatar" %>
+    21:           <div class="pull-right">
+    22:             Hello, <strong><%= link_to current_user.name, user_path(current_user), :class => "navbar-link" %></strong> |
+    23:             <%= link_to "Edit profile", edit_user_registration_path, :class => "navbar-link" %> -
+  
+app/views/layouts/application.html.erb:20:in `_app_views_layouts_application_html_erb___3573092242593346129_70230044442880'
+Started GET "/" for 127.0.0.1 at 2017-11-12 19:47:12 -0500
+  [1m[35m (0.7ms)[0m  [1m[34mSELECT "schema_migrations"."version" FROM "schema_migrations" ORDER BY "schema_migrations"."version" ASC[0m
+Processing by WelcomeController#index as HTML
+  Rendering welcome/index.html.erb within layouts/application
+  Rendered welcome/index.html.erb within layouts/application (1.8ms)
+Completed 200 OK in 338ms (Views: 317.7ms | ActiveRecord: 0.0ms)
+
+
+Started GET "/welcome/about" for 127.0.0.1 at 2017-11-12 19:47:16 -0500
+Processing by WelcomeController#about as HTML
+  Rendering welcome/about.html.erb within layouts/application
+  Rendered welcome/about.html.erb within layouts/application (0.4ms)
+Completed 200 OK in 47ms (Views: 37.4ms | ActiveRecord: 0.0ms)
+
+
+Started GET "/" for 127.0.0.1 at 2017-11-12 19:47:19 -0500
+Processing by WelcomeController#index as HTML
+  Rendering welcome/index.html.erb within layouts/application
+  Rendered welcome/index.html.erb within layouts/application (0.7ms)
+Completed 200 OK in 67ms (Views: 65.1ms | ActiveRecord: 0.0ms)
+
+
+Started GET "/users/sign_in" for 127.0.0.1 at 2017-11-12 19:47:23 -0500
+Processing by Devise::SessionsController#new as HTML
+  Rendering devise/sessions/new.html.erb within layouts/application
+  Rendered devise/shared/_links.html.erb (1.8ms)
+  Rendered devise/sessions/new.html.erb within layouts/application (533.6ms)
+Completed 200 OK in 613ms (Views: 591.9ms | ActiveRecord: 1.5ms)
+
+
+Started POST "/users/sign_in" for 127.0.0.1 at 2017-11-12 19:47:32 -0500
+Processing by Devise::SessionsController#create as HTML
+  Parameters: {"utf8"=>"✓", "authenticity_token"=>"cf0wUgbjwH8xvRO9YFswRmHFDETMoV1klXndDRkDkChtyPXfovZKSnqS093EN5JBQKjIQV6JiIqGjarlKNoYlg==", "user"=>{"email"=>"test@test.test", "password"=>"[FILTERED]", "remember_me"=>"0"}, "commit"=>"Log in"}
+  [1m[36mUser Load (0.9ms)[0m  [1m[34mSELECT  "users".* FROM "users" WHERE "users"."email" = ? ORDER BY "users"."id" ASC LIMIT ?[0m  [["email", "test@test.test"], ["LIMIT", 1]]
+  [1m[35m (0.1ms)[0m  [1m[36mbegin transaction[0m
+  [1m[35mSQL (0.4ms)[0m  [1m[33mUPDATE "users" SET "current_sign_in_at" = ?, "sign_in_count" = ?, "updated_at" = ? WHERE "users"."id" = ?[0m  [["current_sign_in_at", "2017-11-13 00:47:32.991021"], ["sign_in_count", 2], ["updated_at", "2017-11-13 00:47:32.992026"], ["id", 14]]
+  [1m[35m (3.6ms)[0m  [1m[36mcommit transaction[0m
+Redirected to http://localhost:3000/
+Completed 302 Found in 145ms (ActiveRecord: 5.0ms)
+
+
+Started GET "/" for 127.0.0.1 at 2017-11-12 19:47:33 -0500
+Processing by WelcomeController#index as HTML
+  Rendering welcome/index.html.erb within layouts/application
+  Rendered welcome/index.html.erb within layouts/application (0.7ms)
+  [1m[36mUser Load (0.2ms)[0m  [1m[34mSELECT  "users".* FROM "users" WHERE "users"."id" = ? ORDER BY "users"."id" ASC LIMIT ?[0m  [["id", 14], ["LIMIT", 1]]
+  [1m[36mUser Load (0.2ms)[0m  [1m[34mSELECT  "users".* FROM "users" WHERE "users"."id" IS NULL LIMIT ?[0m  [["LIMIT", 1]]
+Completed 500 Internal Server Error in 60ms (ActiveRecord: 0.4ms)
+
+
+  
+ActionView::Template::Error (undefined method `avatar_url' for nil:NilClass):
+    17: 
+    18:       <div class="user-info pull-right">
+    19:         <% if user_signed_in? %>
+    20:           <%= image_tag current_user.avatar_url(48), class: "gravatar" %>
+    21:           <div class="pull-right">
+    22:             Hello, <strong><%= link_to current_user.name, user_path(current_user), :class => "navbar-link" %></strong> |
+    23:             <%= link_to "Edit profile", edit_user_registration_path, :class => "navbar-link" %> -
+  
+app/views/layouts/application.html.erb:20:in `_app_views_layouts_application_html_erb___2015339256855780782_70299093284500'
+Started GET "/" for 127.0.0.1 at 2017-11-12 19:51:03 -0500
+Processing by WelcomeController#index as HTML
+  Rendering welcome/index.html.erb within layouts/application
+  Rendered welcome/index.html.erb within layouts/application (0.9ms)
+Completed 500 Internal Server Error in 269ms (ActiveRecord: 0.0ms)
+
+
+  
+ActionView::Template::Error (undefined local variable or method `about_path' for #<#<Class:0x007fdf8ef83570>:0x007fdf90f97208>):
+    18:   <div class="container">
+    19:     <ul class="nav nav-tabs">
+    20:       <li><%= link_to "Blocipedia", root_path %></li>
+    21:       <li><%= link_to "About", about_path %></li>
+    22: 
+    23:       <% if current_user %>
+    24:         <% if current_user.premium? %>
+  
+app/views/layouts/application.html.erb:21:in `_app_views_layouts_application_html_erb___2015339256855780782_70299093311920'
+Started GET "/" for 127.0.0.1 at 2017-11-12 19:52:40 -0500
+Processing by WikisController#index as HTML
+  [1m[36mUser Load (0.2ms)[0m  [1m[34mSELECT  "users".* FROM "users" WHERE "users"."id" = ? ORDER BY "users"."id" ASC LIMIT ?[0m  [["id", 14], ["LIMIT", 1]]
+  Rendering wikis/index.html.erb within layouts/application
+  [1m[36mWiki Load (2.1ms)[0m  [1m[34mSELECT "wikis".* FROM "wikis" WHERE "wikis"."private" = ? ORDER BY created_at DESC[0m  [["private", "f"]]
+  Rendered wikis/index.html.erb within layouts/application (42.5ms)
+  [1m[36mUser Load (0.2ms)[0m  [1m[34mSELECT  "users".* FROM "users" WHERE "users"."id" IS NULL LIMIT ?[0m  [["LIMIT", 1]]
+  [1m[36mCACHE User Load (0.0ms)[0m  [1m[34mSELECT  "users".* FROM "users" WHERE "users"."id" IS NULL LIMIT ?[0m  [["LIMIT", 1]]
+Completed 500 Internal Server Error in 141ms (ActiveRecord: 4.1ms)
+
+
+  
+ActionView::Template::Error (undefined method `email' for nil:NilClass):
+    28:     </ul>
+    29: 
+    30:     <% if user_signed_in? %>
+    31:       Signed in as: <strong><%= current_user.email %></strong>
+    32:       <%= link_to 'Edit profile', edit_user_registration_path, :class => 'navbar-link' %> - <%= link_to "Sign Out", destroy_user_session_path, method: :delete, :class => 'navbar-link' %>
+    33:     <% else %>
+    34:       <%= link_to "Sign Up", new_user_registration_path, :class => 'navbar-link' %> - <%= link_to "Sign In", new_user_session_path, :class => 'navbar-link' %>
+  
+app/views/layouts/application.html.erb:31:in `_app_views_layouts_application_html_erb___2015339256855780782_70299067562400'
+Started GET "/users/sign_in" for 127.0.0.1 at 2017-11-12 20:00:23 -0500
+Processing by Devise::SessionsController#new as HTML
+  [1m[36mUser Load (0.2ms)[0m  [1m[34mSELECT  "users".* FROM "users" WHERE "users"."id" = ? ORDER BY "users"."id" ASC LIMIT ?[0m  [["id", 14], ["LIMIT", 1]]
+Redirected to http://localhost:3000/
+Filter chain halted as :require_no_authentication rendered or redirected
+Completed 302 Found in 3ms (ActiveRecord: 0.2ms)
+
+
+Started GET "/" for 127.0.0.1 at 2017-11-12 20:00:27 -0500
+Processing by WikisController#index as HTML
+  [1m[36mUser Load (0.2ms)[0m  [1m[34mSELECT  "users".* FROM "users" WHERE "users"."id" = ? ORDER BY "users"."id" ASC LIMIT ?[0m  [["id", 14], ["LIMIT", 1]]
+  Rendering wikis/index.html.erb within layouts/application
+  [1m[36mWiki Load (0.5ms)[0m  [1m[34mSELECT "wikis".* FROM "wikis" WHERE "wikis"."private" = ? ORDER BY created_at DESC[0m  [["private", "f"]]
+  Rendered wikis/index.html.erb within layouts/application (13.4ms)
+  [1m[36mUser Load (0.2ms)[0m  [1m[34mSELECT  "users".* FROM "users" WHERE "users"."id" IS NULL LIMIT ?[0m  [["LIMIT", 1]]
+  [1m[36mCACHE User Load (0.0ms)[0m  [1m[34mSELECT  "users".* FROM "users" WHERE "users"."id" IS NULL LIMIT ?[0m  [["LIMIT", 1]]
+Completed 500 Internal Server Error in 56ms (ActiveRecord: 0.9ms)
+
+
+  
+ActionView::Template::Error (undefined method `email' for nil:NilClass):
+    28:     </ul>
+    29: 
+    30:     <% if user_signed_in? %>
+    31:       Signed in as: <strong><%= current_user.email %></strong>
+    32:       <%= link_to 'Edit profile', edit_user_registration_path, :class => 'navbar-link' %> - <%= link_to "Sign Out", destroy_user_session_path, method: :delete, :class => 'navbar-link' %>
+    33:     <% else %>
+    34:       <%= link_to "Sign Up", new_user_registration_path, :class => 'navbar-link' %> - <%= link_to "Sign In", new_user_session_path, :class => 'navbar-link' %>
+  
+app/views/layouts/application.html.erb:31:in `_app_views_layouts_application_html_erb___2015339256855780782_70299059055420'
+Started GET "/" for 127.0.0.1 at 2017-11-12 20:00:29 -0500
+Processing by WikisController#index as HTML
+  [1m[36mUser Load (0.2ms)[0m  [1m[34mSELECT  "users".* FROM "users" WHERE "users"."id" = ? ORDER BY "users"."id" ASC LIMIT ?[0m  [["id", 14], ["LIMIT", 1]]
+  Rendering wikis/index.html.erb within layouts/application
+  [1m[36mWiki Load (0.5ms)[0m  [1m[34mSELECT "wikis".* FROM "wikis" WHERE "wikis"."private" = ? ORDER BY created_at DESC[0m  [["private", "f"]]
+  Rendered wikis/index.html.erb within layouts/application (10.3ms)
+  [1m[36mUser Load (0.2ms)[0m  [1m[34mSELECT  "users".* FROM "users" WHERE "users"."id" IS NULL LIMIT ?[0m  [["LIMIT", 1]]
+  [1m[36mCACHE User Load (0.0ms)[0m  [1m[34mSELECT  "users".* FROM "users" WHERE "users"."id" IS NULL LIMIT ?[0m  [["LIMIT", 1]]
+Completed 500 Internal Server Error in 48ms (ActiveRecord: 1.0ms)
+
+
+  
+ActionView::Template::Error (undefined method `email' for nil:NilClass):
+    28:     </ul>
+    29: 
+    30:     <% if user_signed_in? %>
+    31:       Signed in as: <strong><%= current_user.email %></strong>
+    32:       <%= link_to 'Edit profile', edit_user_registration_path, :class => 'navbar-link' %> - <%= link_to "Sign Out", destroy_user_session_path, method: :delete, :class => 'navbar-link' %>
+    33:     <% else %>
+    34:       <%= link_to "Sign Up", new_user_registration_path, :class => 'navbar-link' %> - <%= link_to "Sign In", new_user_session_path, :class => 'navbar-link' %>
+  
+app/views/layouts/application.html.erb:31:in `_app_views_layouts_application_html_erb___2015339256855780782_70299067374040'
+Started GET "/" for 127.0.0.1 at 2017-11-12 20:00:32 -0500
+Processing by WikisController#index as HTML
+  [1m[36mUser Load (0.2ms)[0m  [1m[34mSELECT  "users".* FROM "users" WHERE "users"."id" = ? ORDER BY "users"."id" ASC LIMIT ?[0m  [["id", 14], ["LIMIT", 1]]
+  Rendering wikis/index.html.erb within layouts/application
+  [1m[36mWiki Load (0.7ms)[0m  [1m[34mSELECT "wikis".* FROM "wikis" WHERE "wikis"."private" = ? ORDER BY created_at DESC[0m  [["private", "f"]]
+  Rendered wikis/index.html.erb within layouts/application (20.5ms)
+  [1m[36mUser Load (0.2ms)[0m  [1m[34mSELECT  "users".* FROM "users" WHERE "users"."id" IS NULL LIMIT ?[0m  [["LIMIT", 1]]
+  [1m[36mCACHE User Load (0.0ms)[0m  [1m[34mSELECT  "users".* FROM "users" WHERE "users"."id" IS NULL LIMIT ?[0m  [["LIMIT", 1]]
+Completed 500 Internal Server Error in 62ms (ActiveRecord: 1.2ms)
+
+
+  
+ActionView::Template::Error (undefined method `email' for nil:NilClass):
+    28:     </ul>
+    29: 
+    30:     <% if user_signed_in? %>
+    31:       Signed in as: <strong><%= current_user.email %></strong>
+    32:       <%= link_to 'Edit profile', edit_user_registration_path, :class => 'navbar-link' %> - <%= link_to "Sign Out", destroy_user_session_path, method: :delete, :class => 'navbar-link' %>
+    33:     <% else %>
+    34:       <%= link_to "Sign Up", new_user_registration_path, :class => 'navbar-link' %> - <%= link_to "Sign In", new_user_session_path, :class => 'navbar-link' %>
+  
+app/views/layouts/application.html.erb:31:in `_app_views_layouts_application_html_erb___2015339256855780782_70299102203200'
+Started GET "/" for 127.0.0.1 at 2017-11-12 20:00:37 -0500
+Processing by WikisController#index as HTML
+  [1m[36mUser Load (0.2ms)[0m  [1m[34mSELECT  "users".* FROM "users" WHERE "users"."id" = ? ORDER BY "users"."id" ASC LIMIT ?[0m  [["id", 14], ["LIMIT", 1]]
+  Rendering wikis/index.html.erb within layouts/application
+  [1m[36mWiki Load (1.0ms)[0m  [1m[34mSELECT "wikis".* FROM "wikis" WHERE "wikis"."private" = ? ORDER BY created_at DESC[0m  [["private", "f"]]
+  Rendered wikis/index.html.erb within layouts/application (13.6ms)
+  [1m[36mUser Load (0.2ms)[0m  [1m[34mSELECT  "users".* FROM "users" WHERE "users"."id" IS NULL LIMIT ?[0m  [["LIMIT", 1]]
+  [1m[36mCACHE User Load (0.0ms)[0m  [1m[34mSELECT  "users".* FROM "users" WHERE "users"."id" IS NULL LIMIT ?[0m  [["LIMIT", 1]]
+Completed 500 Internal Server Error in 50ms (ActiveRecord: 1.4ms)
+
+
+  
+ActionView::Template::Error (undefined method `email' for nil:NilClass):
+    28:     </ul>
+    29: 
+    30:     <% if user_signed_in? %>
+    31:       Signed in as: <strong><%= current_user.email %></strong>
+    32:       <%= link_to 'Edit profile', edit_user_registration_path, :class => 'navbar-link' %> - <%= link_to "Sign Out", destroy_user_session_path, method: :delete, :class => 'navbar-link' %>
+    33:     <% else %>
+    34:       <%= link_to "Sign Up", new_user_registration_path, :class => 'navbar-link' %> - <%= link_to "Sign In", new_user_session_path, :class => 'navbar-link' %>
+  
+app/views/layouts/application.html.erb:31:in `_app_views_layouts_application_html_erb___2015339256855780782_70299066965280'
+Started GET "/" for 127.0.0.1 at 2017-11-12 20:01:15 -0500
+Processing by WikisController#index as HTML
+  [1m[36mUser Load (0.2ms)[0m  [1m[34mSELECT  "users".* FROM "users" WHERE "users"."id" = ? ORDER BY "users"."id" ASC LIMIT ?[0m  [["id", 14], ["LIMIT", 1]]
+  Rendering wikis/index.html.erb within layouts/application
+  [1m[36mWiki Load (0.8ms)[0m  [1m[34mSELECT "wikis".* FROM "wikis" WHERE "wikis"."private" = ? ORDER BY created_at DESC[0m  [["private", "f"]]
+  Rendered wikis/index.html.erb within layouts/application (12.3ms)
+  [1m[36mUser Load (0.2ms)[0m  [1m[34mSELECT  "users".* FROM "users" WHERE "users"."id" IS NULL LIMIT ?[0m  [["LIMIT", 1]]
+  [1m[36mCACHE User Load (0.0ms)[0m  [1m[34mSELECT  "users".* FROM "users" WHERE "users"."id" IS NULL LIMIT ?[0m  [["LIMIT", 1]]
+Completed 500 Internal Server Error in 48ms (ActiveRecord: 1.3ms)
+
+
+  
+ActionView::Template::Error (undefined method `email' for nil:NilClass):
+    28:     </ul>
+    29: 
+    30:     <% if user_signed_in? %>
+    31:       Signed in as: <strong><%= current_user.email %></strong>
+    32:       <%= link_to 'Edit profile', edit_user_registration_path, :class => 'navbar-link' %> - <%= link_to "Sign Out", destroy_user_session_path, method: :delete, :class => 'navbar-link' %>
+    33:     <% else %>
+    34:       <%= link_to "Sign Up", new_user_registration_path, :class => 'navbar-link' %> - <%= link_to "Sign In", new_user_session_path, :class => 'navbar-link' %>
+  
+app/views/layouts/application.html.erb:31:in `_app_views_layouts_application_html_erb___2015339256855780782_70299058347560'
+Started GET "/welcome/about" for 127.0.0.1 at 2017-11-12 20:01:39 -0500
+  
+ActionController::RoutingError (No route matches [GET] "/welcome/about"):
+  
+actionpack (5.1.3) lib/action_dispatch/middleware/debug_exceptions.rb:63:in `call'
+actionpack (5.1.3) lib/action_dispatch/middleware/show_exceptions.rb:31:in `call'
+railties (5.1.3) lib/rails/rack/logger.rb:36:in `call_app'
+railties (5.1.3) lib/rails/rack/logger.rb:24:in `block in call'
+activesupport (5.1.3) lib/active_support/tagged_logging.rb:69:in `block in tagged'
+activesupport (5.1.3) lib/active_support/tagged_logging.rb:26:in `tagged'
+activesupport (5.1.3) lib/active_support/tagged_logging.rb:69:in `tagged'
+railties (5.1.3) lib/rails/rack/logger.rb:24:in `call'
+sprockets-rails (3.2.0) lib/sprockets/rails/quiet_assets.rb:13:in `call'
+actionpack (5.1.3) lib/action_dispatch/middleware/remote_ip.rb:79:in `call'
+actionpack (5.1.3) lib/action_dispatch/middleware/request_id.rb:25:in `call'
+rack (2.0.3) lib/rack/method_override.rb:22:in `call'
+rack (2.0.3) lib/rack/runtime.rb:22:in `call'
+activesupport (5.1.3) lib/active_support/cache/strategy/local_cache_middleware.rb:27:in `call'
+actionpack (5.1.3) lib/action_dispatch/middleware/executor.rb:12:in `call'
+actionpack (5.1.3) lib/action_dispatch/middleware/static.rb:125:in `call'
+rack (2.0.3) lib/rack/sendfile.rb:111:in `call'
+railties (5.1.3) lib/rails/engine.rb:522:in `call'
+puma (3.9.1) lib/puma/configuration.rb:224:in `call'
+puma (3.9.1) lib/puma/server.rb:602:in `handle_request'
+puma (3.9.1) lib/puma/server.rb:435:in `process_client'
+puma (3.9.1) lib/puma/server.rb:299:in `block in run'
+puma (3.9.1) lib/puma/thread_pool.rb:120:in `block in spawn_thread'
+Started GET "/" for 127.0.0.1 at 2017-11-12 20:01:48 -0500
+Processing by WikisController#index as HTML
+  [1m[36mUser Load (0.2ms)[0m  [1m[34mSELECT  "users".* FROM "users" WHERE "users"."id" = ? ORDER BY "users"."id" ASC LIMIT ?[0m  [["id", 14], ["LIMIT", 1]]
+  Rendering wikis/index.html.erb within layouts/application
+  [1m[36mWiki Load (0.5ms)[0m  [1m[34mSELECT "wikis".* FROM "wikis" WHERE "wikis"."private" = ? ORDER BY created_at DESC[0m  [["private", "f"]]
+  Rendered wikis/index.html.erb within layouts/application (16.9ms)
+  [1m[36mUser Load (0.2ms)[0m  [1m[34mSELECT  "users".* FROM "users" WHERE "users"."id" IS NULL LIMIT ?[0m  [["LIMIT", 1]]
+  [1m[36mCACHE User Load (0.0ms)[0m  [1m[34mSELECT  "users".* FROM "users" WHERE "users"."id" IS NULL LIMIT ?[0m  [["LIMIT", 1]]
+Completed 500 Internal Server Error in 53ms (ActiveRecord: 0.8ms)
+
+
+  
+ActionView::Template::Error (undefined method `email' for nil:NilClass):
+    28:     </ul>
+    29: 
+    30:     <% if user_signed_in? %>
+    31:       <!-- Signed in as: <strong><%= current_user.email %></strong> -->
+    32:       <%= link_to 'Edit profile', edit_user_registration_path, :class => 'navbar-link' %> - <%= link_to "Sign Out", destroy_user_session_path, method: :delete, :class => 'navbar-link' %>
+    33:     <% else %>
+    34:       <%= link_to "Sign Up", new_user_registration_path, :class => 'navbar-link' %> - <%= link_to "Sign In", new_user_session_path, :class => 'navbar-link' %>
+  
+app/views/layouts/application.html.erb:31:in `_app_views_layouts_application_html_erb___2015339256855780782_70299067135320'
+Started GET "/" for 127.0.0.1 at 2017-11-12 20:03:03 -0500
+Processing by WikisController#index as HTML
+  [1m[36mUser Load (0.3ms)[0m  [1m[34mSELECT  "users".* FROM "users" WHERE "users"."id" = ? ORDER BY "users"."id" ASC LIMIT ?[0m  [["id", 14], ["LIMIT", 1]]
+  Rendering wikis/index.html.erb within layouts/application
+  [1m[36mWiki Load (0.6ms)[0m  [1m[34mSELECT "wikis".* FROM "wikis" WHERE "wikis"."private" = ? ORDER BY created_at DESC[0m  [["private", "f"]]
+  Rendered wikis/index.html.erb within layouts/application (14.0ms)
+  [1m[36mUser Load (0.2ms)[0m  [1m[34mSELECT  "users".* FROM "users" WHERE "users"."id" IS NULL LIMIT ?[0m  [["LIMIT", 1]]
+  [1m[36mCACHE User Load (0.0ms)[0m  [1m[34mSELECT  "users".* FROM "users" WHERE "users"."id" IS NULL LIMIT ?[0m  [["LIMIT", 1]]
+Completed 500 Internal Server Error in 53ms (ActiveRecord: 1.1ms)
+
+
+  
+ActionView::Template::Error (undefined method `email' for nil:NilClass):
+    28:     </ul>
+    29: 
+    30:     <% if user_signed_in? %>
+    31:       <!-- Signed in as: <strong><%= current_user.email %></strong> -->
+    32:       <%= link_to 'Edit profile', edit_user_registration_path, :class => 'navbar-link' %> - <%= link_to "Sign Out", destroy_user_session_path, method: :delete, :class => 'navbar-link' %>
+    33:     <% else %>
+    34:       <%= link_to "Sign Up", new_user_registration_path, :class => 'navbar-link' %> - <%= link_to "Sign In", new_user_session_path, :class => 'navbar-link' %>
+  
+app/views/layouts/application.html.erb:31:in `_app_views_layouts_application_html_erb___2015339256855780782_70299108198820'
+Started GET "/" for 127.0.0.1 at 2017-11-12 20:07:12 -0500
+Processing by WikisController#index as HTML
+  [1m[36mUser Load (0.2ms)[0m  [1m[34mSELECT  "users".* FROM "users" WHERE "users"."id" = ? ORDER BY "users"."id" ASC LIMIT ?[0m  [["id", 14], ["LIMIT", 1]]
+  Rendering wikis/index.html.erb within layouts/application
+  [1m[36mWiki Load (0.5ms)[0m  [1m[34mSELECT "wikis".* FROM "wikis" WHERE "wikis"."private" = ? ORDER BY created_at DESC[0m  [["private", "f"]]
+  Rendered wikis/index.html.erb within layouts/application (12.6ms)
+  [1m[36mUser Load (0.2ms)[0m  [1m[34mSELECT  "users".* FROM "users" WHERE "users"."id" IS NULL LIMIT ?[0m  [["LIMIT", 1]]
+  [1m[36mCACHE User Load (0.0ms)[0m  [1m[34mSELECT  "users".* FROM "users" WHERE "users"."id" IS NULL LIMIT ?[0m  [["LIMIT", 1]]
+Completed 500 Internal Server Error in 70ms (ActiveRecord: 2.0ms)
+
+
+  
+ActionView::Template::Error (undefined method `email' for nil:NilClass):
+    28:     </ul>
+    29: 
+    30:     <% if user_signed_in? %>
+    31:       Signed in as: <strong><%= current_user.email %></strong>
+    32:       <%= link_to 'Edit profile', edit_user_registration_path, :class => 'navbar-link' %> - <%= link_to "Sign Out", destroy_user_session_path, method: :delete, :class => 'navbar-link' %>
+    33:     <% else %>
+    34:       <%= link_to "Sign Up", new_user_registration_path, :class => 'navbar-link' %> - <%= link_to "Sign In", new_user_session_path, :class => 'navbar-link' %>
+  
+app/views/layouts/application.html.erb:31:in `_app_views_layouts_application_html_erb___2015339256855780782_70299115247820'
+Started GET "/" for 127.0.0.1 at 2017-11-12 20:08:19 -0500
+Processing by WikisController#index as HTML
+  [1m[36mUser Load (0.2ms)[0m  [1m[34mSELECT  "users".* FROM "users" WHERE "users"."id" = ? ORDER BY "users"."id" ASC LIMIT ?[0m  [["id", 14], ["LIMIT", 1]]
+  Rendering wikis/index.html.erb within layouts/application
+  [1m[36mWiki Load (0.5ms)[0m  [1m[34mSELECT "wikis".* FROM "wikis" WHERE "wikis"."private" = ? ORDER BY created_at DESC[0m  [["private", "f"]]
+  Rendered wikis/index.html.erb within layouts/application (14.0ms)
+  [1m[36mUser Load (0.2ms)[0m  [1m[34mSELECT  "users".* FROM "users" WHERE "users"."id" IS NULL LIMIT ?[0m  [["LIMIT", 1]]
+  [1m[36mCACHE User Load (0.0ms)[0m  [1m[34mSELECT  "users".* FROM "users" WHERE "users"."id" IS NULL LIMIT ?[0m  [["LIMIT", 1]]
+Completed 500 Internal Server Error in 66ms (ActiveRecord: 2.1ms)
+
+
+  
+ActionView::Template::Error (undefined method `email' for nil:NilClass):
+    28:     </ul>
+    29: 
+    30:     <% if user_signed_in? %>
+    31:       <!-- Signed in as: <strong><%= current_user.email %></strong> -->
+    32:       <%= link_to 'Edit profile', edit_user_registration_path, :class => 'navbar-link' %> - <%= link_to "Sign Out", destroy_user_session_path, method: :delete, :class => 'navbar-link' %>
+    33:     <% else %>
+    34:       <%= link_to "Sign Up", new_user_registration_path, :class => 'navbar-link' %> - <%= link_to "Sign In", new_user_session_path, :class => 'navbar-link' %>
+  
+app/views/layouts/application.html.erb:31:in `_app_views_layouts_application_html_erb___2015339256855780782_70299055681780'
+Started GET "/" for 127.0.0.1 at 2017-11-12 20:09:19 -0500
+Processing by WikisController#index as HTML
+  [1m[36mUser Load (0.3ms)[0m  [1m[34mSELECT  "users".* FROM "users" WHERE "users"."id" = ? ORDER BY "users"."id" ASC LIMIT ?[0m  [["id", 14], ["LIMIT", 1]]
+  Rendering wikis/index.html.erb within layouts/application
+  [1m[36mWiki Load (0.8ms)[0m  [1m[34mSELECT "wikis".* FROM "wikis" WHERE "wikis"."private" = ? ORDER BY created_at DESC[0m  [["private", "f"]]
+  Rendered wikis/index.html.erb within layouts/application (10.5ms)
+  [1m[36mUser Load (0.2ms)[0m  [1m[34mSELECT  "users".* FROM "users" WHERE "users"."id" IS NULL LIMIT ?[0m  [["LIMIT", 1]]
+  [1m[36mCACHE User Load (0.0ms)[0m  [1m[34mSELECT  "users".* FROM "users" WHERE "users"."id" IS NULL LIMIT ?[0m  [["LIMIT", 1]]
+Completed 200 OK in 45ms (Views: 41.6ms | ActiveRecord: 1.2ms)
+
+
+Started GET "/" for 127.0.0.1 at 2017-11-12 20:09:26 -0500
+Processing by WikisController#index as HTML
+  [1m[36mUser Load (0.2ms)[0m  [1m[34mSELECT  "users".* FROM "users" WHERE "users"."id" = ? ORDER BY "users"."id" ASC LIMIT ?[0m  [["id", 14], ["LIMIT", 1]]
+  Rendering wikis/index.html.erb within layouts/application
+  [1m[36mWiki Load (0.7ms)[0m  [1m[34mSELECT "wikis".* FROM "wikis" WHERE "wikis"."private" = ? ORDER BY created_at DESC[0m  [["private", "f"]]
+  Rendered wikis/index.html.erb within layouts/application (13.1ms)
+  [1m[36mUser Load (0.2ms)[0m  [1m[34mSELECT  "users".* FROM "users" WHERE "users"."id" IS NULL LIMIT ?[0m  [["LIMIT", 1]]
+  [1m[36mCACHE User Load (0.0ms)[0m  [1m[34mSELECT  "users".* FROM "users" WHERE "users"."id" IS NULL LIMIT ?[0m  [["LIMIT", 1]]
+Completed 200 OK in 57ms (Views: 52.2ms | ActiveRecord: 1.1ms)
+
+
+Started GET "/" for 127.0.0.1 at 2017-11-12 20:09:27 -0500
+Processing by WikisController#index as HTML
+  [1m[36mUser Load (0.2ms)[0m  [1m[34mSELECT  "users".* FROM "users" WHERE "users"."id" = ? ORDER BY "users"."id" ASC LIMIT ?[0m  [["id", 14], ["LIMIT", 1]]
+  Rendering wikis/index.html.erb within layouts/application
+  [1m[36mWiki Load (0.9ms)[0m  [1m[34mSELECT "wikis".* FROM "wikis" WHERE "wikis"."private" = ? ORDER BY created_at DESC[0m  [["private", "f"]]
+  Rendered wikis/index.html.erb within layouts/application (18.2ms)
+  [1m[36mUser Load (0.2ms)[0m  [1m[34mSELECT  "users".* FROM "users" WHERE "users"."id" IS NULL LIMIT ?[0m  [["LIMIT", 1]]
+  [1m[36mCACHE User Load (0.0ms)[0m  [1m[34mSELECT  "users".* FROM "users" WHERE "users"."id" IS NULL LIMIT ?[0m  [["LIMIT", 1]]
+Completed 200 OK in 79ms (Views: 66.6ms | ActiveRecord: 1.4ms)
+
+
+Started GET "/" for 127.0.0.1 at 2017-11-12 20:09:28 -0500
+Processing by WikisController#index as HTML
+  [1m[36mUser Load (0.2ms)[0m  [1m[34mSELECT  "users".* FROM "users" WHERE "users"."id" = ? ORDER BY "users"."id" ASC LIMIT ?[0m  [["id", 14], ["LIMIT", 1]]
+  Rendering wikis/index.html.erb within layouts/application
+  [1m[36mWiki Load (0.7ms)[0m  [1m[34mSELECT "wikis".* FROM "wikis" WHERE "wikis"."private" = ? ORDER BY created_at DESC[0m  [["private", "f"]]
+  Rendered wikis/index.html.erb within layouts/application (21.6ms)
+  [1m[36mUser Load (0.2ms)[0m  [1m[34mSELECT  "users".* FROM "users" WHERE "users"."id" IS NULL LIMIT ?[0m  [["LIMIT", 1]]
+  [1m[36mCACHE User Load (0.0ms)[0m  [1m[34mSELECT  "users".* FROM "users" WHERE "users"."id" IS NULL LIMIT ?[0m  [["LIMIT", 1]]
+Completed 200 OK in 79ms (Views: 67.0ms | ActiveRecord: 1.2ms)
+
+
+Started GET "/" for 127.0.0.1 at 2017-11-12 20:09:48 -0500
+Processing by WikisController#index as HTML
+  [1m[36mUser Load (0.4ms)[0m  [1m[34mSELECT  "users".* FROM "users" WHERE "users"."id" = ? ORDER BY "users"."id" ASC LIMIT ?[0m  [["id", 14], ["LIMIT", 1]]
+  Rendering wikis/index.html.erb within layouts/application
+  [1m[36mWiki Load (0.5ms)[0m  [1m[34mSELECT "wikis".* FROM "wikis" WHERE "wikis"."private" = ? ORDER BY created_at DESC[0m  [["private", "f"]]
+  Rendered wikis/index.html.erb within layouts/application (11.5ms)
+  [1m[36mUser Load (0.2ms)[0m  [1m[34mSELECT  "users".* FROM "users" WHERE "users"."id" IS NULL LIMIT ?[0m  [["LIMIT", 1]]
+  [1m[36mCACHE User Load (0.0ms)[0m  [1m[34mSELECT  "users".* FROM "users" WHERE "users"."id" IS NULL LIMIT ?[0m  [["LIMIT", 1]]
+Completed 500 Internal Server Error in 53ms (ActiveRecord: 1.1ms)
+
+
+  
+ActionView::Template::Error (undefined method `name' for nil:NilClass):
+    28:     </ul>
+    29: 
+    30:     <% if user_signed_in? %>
+    31:       Signed in as: <strong><%= current_user.name %></strong>
+    32:       <%= link_to 'Edit profile', edit_user_registration_path, :class => 'navbar-link' %> - <%= link_to "Sign Out", destroy_user_session_path, method: :delete, :class => 'navbar-link' %>
+    33:     <% else %>
+    34:       <%= link_to "Sign Up", new_user_registration_path, :class => 'navbar-link' %> - <%= link_to "Sign In", new_user_session_path, :class => 'navbar-link' %>
+  
+app/views/layouts/application.html.erb:31:in `_app_views_layouts_application_html_erb___2015339256855780782_70299066438400'
+Started GET "/" for 127.0.0.1 at 2017-11-12 20:10:14 -0500
+Processing by WikisController#index as HTML
+  [1m[36mUser Load (0.3ms)[0m  [1m[34mSELECT  "users".* FROM "users" WHERE "users"."id" = ? ORDER BY "users"."id" ASC LIMIT ?[0m  [["id", 14], ["LIMIT", 1]]
+  Rendering wikis/index.html.erb within layouts/application
+  [1m[36mWiki Load (0.5ms)[0m  [1m[34mSELECT "wikis".* FROM "wikis" WHERE "wikis"."private" = ? ORDER BY created_at DESC[0m  [["private", "f"]]
+  Rendered wikis/index.html.erb within layouts/application (11.4ms)
+  [1m[36mUser Load (0.2ms)[0m  [1m[34mSELECT  "users".* FROM "users" WHERE "users"."id" IS NULL LIMIT ?[0m  [["LIMIT", 1]]
+  [1m[36mCACHE User Load (0.0ms)[0m  [1m[34mSELECT  "users".* FROM "users" WHERE "users"."id" IS NULL LIMIT ?[0m  [["LIMIT", 1]]
+Completed 200 OK in 48ms (Views: 42.3ms | ActiveRecord: 1.1ms)
+
+
+Started GET "/" for 127.0.0.1 at 2017-11-12 20:10:16 -0500
+Processing by WikisController#index as HTML
+  [1m[36mUser Load (0.3ms)[0m  [1m[34mSELECT  "users".* FROM "users" WHERE "users"."id" = ? ORDER BY "users"."id" ASC LIMIT ?[0m  [["id", 14], ["LIMIT", 1]]
+  Rendering wikis/index.html.erb within layouts/application
+  [1m[36mWiki Load (0.7ms)[0m  [1m[34mSELECT "wikis".* FROM "wikis" WHERE "wikis"."private" = ? ORDER BY created_at DESC[0m  [["private", "f"]]
+  Rendered wikis/index.html.erb within layouts/application (16.6ms)
+  [1m[36mUser Load (0.2ms)[0m  [1m[34mSELECT  "users".* FROM "users" WHERE "users"."id" IS NULL LIMIT ?[0m  [["LIMIT", 1]]
+  [1m[36mCACHE User Load (0.0ms)[0m  [1m[34mSELECT  "users".* FROM "users" WHERE "users"."id" IS NULL LIMIT ?[0m  [["LIMIT", 1]]
+Completed 200 OK in 67ms (Views: 60.4ms | ActiveRecord: 1.3ms)
+
+
+Started GET "/about" for 127.0.0.1 at 2017-11-12 20:10:16 -0500
+Processing by WelcomeController#about as HTML
+  Rendering welcome/about.html.erb within layouts/application
+  Rendered welcome/about.html.erb within layouts/application (1.1ms)
+  [1m[36mUser Load (0.2ms)[0m  [1m[34mSELECT  "users".* FROM "users" WHERE "users"."id" IS NULL LIMIT ?[0m  [["LIMIT", 1]]
+  [1m[36mUser Load (0.2ms)[0m  [1m[34mSELECT  "users".* FROM "users" WHERE "users"."id" = ? ORDER BY "users"."id" ASC LIMIT ?[0m  [["id", 14], ["LIMIT", 1]]
+  [1m[36mCACHE User Load (0.0ms)[0m  [1m[34mSELECT  "users".* FROM "users" WHERE "users"."id" IS NULL LIMIT ?[0m  [["LIMIT", 1]]
+Completed 200 OK in 55ms (Views: 49.3ms | ActiveRecord: 0.4ms)
+
+
+Started GET "/" for 127.0.0.1 at 2017-11-12 20:10:18 -0500
+Processing by WikisController#index as HTML
+  [1m[36mUser Load (0.3ms)[0m  [1m[34mSELECT  "users".* FROM "users" WHERE "users"."id" = ? ORDER BY "users"."id" ASC LIMIT ?[0m  [["id", 14], ["LIMIT", 1]]
+  Rendering wikis/index.html.erb within layouts/application
+  [1m[36mWiki Load (0.8ms)[0m  [1m[34mSELECT "wikis".* FROM "wikis" WHERE "wikis"."private" = ? ORDER BY created_at DESC[0m  [["private", "f"]]
+  Rendered wikis/index.html.erb within layouts/application (25.6ms)
+  [1m[36mUser Load (0.3ms)[0m  [1m[34mSELECT  "users".* FROM "users" WHERE "users"."id" IS NULL LIMIT ?[0m  [["LIMIT", 1]]
+  [1m[36mCACHE User Load (0.0ms)[0m  [1m[34mSELECT  "users".* FROM "users" WHERE "users"."id" IS NULL LIMIT ?[0m  [["LIMIT", 1]]
+Completed 200 OK in 77ms (Views: 70.3ms | ActiveRecord: 1.3ms)
+
+
+Started GET "/wikis/new" for 127.0.0.1 at 2017-11-12 20:10:26 -0500
+Processing by WikisController#new as HTML
+  Rendering wikis/new.html.erb within layouts/application
+  [1m[36mUser Load (0.2ms)[0m  [1m[34mSELECT  "users".* FROM "users" WHERE "users"."id" IS NULL LIMIT ?[0m  [["LIMIT", 1]]
+  Rendered wikis/_form.html.erb (8.8ms)
+  Rendered wikis/new.html.erb within layouts/application (10.8ms)
+Completed 500 Internal Server Error in 25ms (ActiveRecord: 0.2ms)
+
+
+  
+ActionView::Template::Error (undefined method `admin?' for nil:NilClass):
+    21:         <%= f.text_area :body, rows: 8, class: 'form-control', placeholder: "Enter wiki body" %>
+    22:       </div>
+    23: 
+    24:         <% if current_user.admin? || current_user.premium? %>
+    25:           <div class="form-group">
+    26:             <%= f.label :private, class: 'checkbox' do %>
+    27:             <%= f.check_box :private %> Private wiki
+  
+app/views/wikis/_form.html.erb:24:in `block in _app_views_wikis__form_html_erb___1924529903696668820_70299102431040'
+app/views/wikis/_form.html.erb:12:in `_app_views_wikis__form_html_erb___1924529903696668820_70299102431040'
+app/views/wikis/new.html.erb:1:in `_app_views_wikis_new_html_erb___2124539902633823578_70299102446000'
+Started GET "/wikis/new" for 127.0.0.1 at 2017-11-12 20:11:16 -0500
+Processing by WikisController#new as HTML
+  Rendering wikis/new.html.erb within layouts/application
+  [1m[36mUser Load (0.2ms)[0m  [1m[34mSELECT  "users".* FROM "users" WHERE "users"."id" IS NULL LIMIT ?[0m  [["LIMIT", 1]]
+  Rendered wikis/_form.html.erb (4.3ms)
+  Rendered wikis/new.html.erb within layouts/application (6.0ms)
+Completed 500 Internal Server Error in 14ms (ActiveRecord: 0.2ms)
+
+
+  
+ActionView::Template::Error (undefined method `admin?' for nil:NilClass):
+    21:         <%= f.text_area :body, rows: 8, class: 'form-control', placeholder: "Enter wiki body" %>
+    22:       </div>
+    23: 
+    24:         <% if current_user.admin? || current_user.premium? %>
+    25:           <div class="form-group">
+    26:             <%= f.label :private, class: 'checkbox' do %>
+    27:             <%= f.check_box :private %> Private wiki
+  
+app/views/wikis/_form.html.erb:24:in `block in _app_views_wikis__form_html_erb___1924529903696668820_70299114970620'
+app/views/wikis/_form.html.erb:12:in `_app_views_wikis__form_html_erb___1924529903696668820_70299114970620'
+app/views/wikis/new.html.erb:1:in `_app_views_wikis_new_html_erb___2124539902633823578_70299115014220'
+Started GET "/" for 127.0.0.1 at 2017-11-12 20:11:22 -0500
+Processing by WikisController#index as HTML
+  [1m[36mUser Load (0.2ms)[0m  [1m[34mSELECT  "users".* FROM "users" WHERE "users"."id" = ? ORDER BY "users"."id" ASC LIMIT ?[0m  [["id", 14], ["LIMIT", 1]]
+  Rendering wikis/index.html.erb within layouts/application
+  [1m[36mWiki Load (0.9ms)[0m  [1m[34mSELECT "wikis".* FROM "wikis" WHERE "wikis"."private" = ? ORDER BY created_at DESC[0m  [["private", "f"]]
+  Rendered wikis/index.html.erb within layouts/application (9.8ms)
+  [1m[36mUser Load (0.2ms)[0m  [1m[34mSELECT  "users".* FROM "users" WHERE "users"."id" IS NULL LIMIT ?[0m  [["LIMIT", 1]]
+  [1m[36mCACHE User Load (0.0ms)[0m  [1m[34mSELECT  "users".* FROM "users" WHERE "users"."id" IS NULL LIMIT ?[0m  [["LIMIT", 1]]
+Completed 500 Internal Server Error in 47ms (ActiveRecord: 1.4ms)
+
+
+  
+ActionView::Template::Error (undefined method `email' for nil:NilClass):
+    28:     </ul>
+    29: 
+    30:     <% if user_signed_in? %>
+    31:       Signed in as: <strong><%= current_user.email %></strong>
+    32:       <%= link_to 'Edit profile', edit_user_registration_path, :class => 'navbar-link' %> - <%= link_to "Sign Out", destroy_user_session_path, method: :delete, :class => 'navbar-link' %>
+    33:     <% else %>
+    34:       <%= link_to "Sign Up", new_user_registration_path, :class => 'navbar-link' %> - <%= link_to "Sign In", new_user_session_path, :class => 'navbar-link' %>
+  
+app/views/layouts/application.html.erb:31:in `_app_views_layouts_application_html_erb___2015339256855780782_70299067374520'
+Started GET "/" for 127.0.0.1 at 2017-11-12 20:11:24 -0500
+Processing by WikisController#index as HTML
+  [1m[36mUser Load (0.3ms)[0m  [1m[34mSELECT  "users".* FROM "users" WHERE "users"."id" = ? ORDER BY "users"."id" ASC LIMIT ?[0m  [["id", 14], ["LIMIT", 1]]
+  Rendering wikis/index.html.erb within layouts/application
+  [1m[36mWiki Load (0.8ms)[0m  [1m[34mSELECT "wikis".* FROM "wikis" WHERE "wikis"."private" = ? ORDER BY created_at DESC[0m  [["private", "f"]]
+  Rendered wikis/index.html.erb within layouts/application (9.8ms)
+  [1m[36mUser Load (0.2ms)[0m  [1m[34mSELECT  "users".* FROM "users" WHERE "users"."id" IS NULL LIMIT ?[0m  [["LIMIT", 1]]
+  [1m[36mCACHE User Load (0.0ms)[0m  [1m[34mSELECT  "users".* FROM "users" WHERE "users"."id" IS NULL LIMIT ?[0m  [["LIMIT", 1]]
+Completed 500 Internal Server Error in 45ms (ActiveRecord: 1.3ms)
+
+
+  
+ActionView::Template::Error (undefined method `email' for nil:NilClass):
+    28:     </ul>
+    29: 
+    30:     <% if user_signed_in? %>
+    31:       Signed in as: <strong><%= current_user.email %></strong>
+    32:       <%= link_to 'Edit profile', edit_user_registration_path, :class => 'navbar-link' %> - <%= link_to "Sign Out", destroy_user_session_path, method: :delete, :class => 'navbar-link' %>
+    33:     <% else %>
+    34:       <%= link_to "Sign Up", new_user_registration_path, :class => 'navbar-link' %> - <%= link_to "Sign In", new_user_session_path, :class => 'navbar-link' %>
+  
+app/views/layouts/application.html.erb:31:in `_app_views_layouts_application_html_erb___2015339256855780782_70299103275680'
+Started GET "/" for 127.0.0.1 at 2017-11-12 20:11:27 -0500
+Processing by WikisController#index as HTML
+  [1m[36mUser Load (0.2ms)[0m  [1m[34mSELECT  "users".* FROM "users" WHERE "users"."id" = ? ORDER BY "users"."id" ASC LIMIT ?[0m  [["id", 14], ["LIMIT", 1]]
+  Rendering wikis/index.html.erb within layouts/application
+  [1m[36mWiki Load (0.4ms)[0m  [1m[34mSELECT "wikis".* FROM "wikis" WHERE "wikis"."private" = ? ORDER BY created_at DESC[0m  [["private", "f"]]
+  Rendered wikis/index.html.erb within layouts/application (9.7ms)
+  [1m[36mUser Load (0.2ms)[0m  [1m[34mSELECT  "users".* FROM "users" WHERE "users"."id" IS NULL LIMIT ?[0m  [["LIMIT", 1]]
+  [1m[36mCACHE User Load (0.0ms)[0m  [1m[34mSELECT  "users".* FROM "users" WHERE "users"."id" IS NULL LIMIT ?[0m  [["LIMIT", 1]]
+Completed 500 Internal Server Error in 44ms (ActiveRecord: 0.9ms)
+
+
+  
+ActionView::Template::Error (undefined method `email' for nil:NilClass):
+    28:     </ul>
+    29: 
+    30:     <% if user_signed_in? %>
+    31:       Signed in as: <strong><%= current_user.email %></strong>
+    32:       <%= link_to 'Edit profile', edit_user_registration_path, :class => 'navbar-link' %> - <%= link_to "Sign Out", destroy_user_session_path, method: :delete, :class => 'navbar-link' %>
+    33:     <% else %>
+    34:       <%= link_to "Sign Up", new_user_registration_path, :class => 'navbar-link' %> - <%= link_to "Sign In", new_user_session_path, :class => 'navbar-link' %>
+  
+app/views/layouts/application.html.erb:31:in `_app_views_layouts_application_html_erb___2015339256855780782_70299059391880'
+Started GET "/" for 127.0.0.1 at 2017-11-12 20:13:59 -0500
+Processing by WikisController#index as HTML
+  [1m[36mUser Load (0.2ms)[0m  [1m[34mSELECT  "users".* FROM "users" WHERE "users"."id" = ? ORDER BY "users"."id" ASC LIMIT ?[0m  [["id", 14], ["LIMIT", 1]]
+  Rendering wikis/index.html.erb within layouts/application
+  [1m[36mWiki Load (0.5ms)[0m  [1m[34mSELECT "wikis".* FROM "wikis" WHERE "wikis"."private" = ? ORDER BY created_at DESC[0m  [["private", "f"]]
+  Rendered wikis/index.html.erb within layouts/application (11.8ms)
+  [1m[36mUser Load (0.2ms)[0m  [1m[34mSELECT  "users".* FROM "users" WHERE "users"."id" IS NULL LIMIT ?[0m  [["LIMIT", 1]]
+Completed 500 Internal Server Error in 54ms (ActiveRecord: 0.8ms)
+
+
+  
+ActionView::Template::Error (undefined method `email' for nil:NilClass):
+    11:   <div class="container">
+    12:     <div class="pull-right login">
+    13:       <% if user_signed_in? %>
+    14:         <strong><%= current_user.email %> - <%= current_user.role %></strong> | <%= link_to 'Edit profile', edit_user_registration_path, :class => 'navbar-link' %> - <%= link_to "Sign Out", destroy_user_session_path, method: :delete, :class=> 'navbar-link' %>
+    15:       <% else %>
+    16:         <%= link_to "Sign Up", new_user_registration_path, :class => 'navbar-link' %> - <%= link_to "Sign In", new_user_session_path, :class => 'navbar-link' %>
+    17:       <% end %>
+  
+app/views/layouts/application.html.erb:14:in `_app_views_layouts_application_html_erb___2015339256855780782_70299103723680'
+Started GET "/" for 127.0.0.1 at 2017-11-12 20:14:01 -0500
+Processing by WikisController#index as HTML
+  [1m[36mUser Load (0.2ms)[0m  [1m[34mSELECT  "users".* FROM "users" WHERE "users"."id" = ? ORDER BY "users"."id" ASC LIMIT ?[0m  [["id", 14], ["LIMIT", 1]]
+  Rendering wikis/index.html.erb within layouts/application
+  [1m[36mWiki Load (0.6ms)[0m  [1m[34mSELECT "wikis".* FROM "wikis" WHERE "wikis"."private" = ? ORDER BY created_at DESC[0m  [["private", "f"]]
+  Rendered wikis/index.html.erb within layouts/application (11.5ms)
+  [1m[36mUser Load (0.3ms)[0m  [1m[34mSELECT  "users".* FROM "users" WHERE "users"."id" IS NULL LIMIT ?[0m  [["LIMIT", 1]]
+Completed 500 Internal Server Error in 47ms (ActiveRecord: 1.1ms)
+
+
+  
+ActionView::Template::Error (undefined method `email' for nil:NilClass):
+    11:   <div class="container">
+    12:     <div class="pull-right login">
+    13:       <% if user_signed_in? %>
+    14:         <strong><%= current_user.email %> - <%= current_user.role %></strong> | <%= link_to 'Edit profile', edit_user_registration_path, :class => 'navbar-link' %> - <%= link_to "Sign Out", destroy_user_session_path, method: :delete, :class=> 'navbar-link' %>
+    15:       <% else %>
+    16:         <%= link_to "Sign Up", new_user_registration_path, :class => 'navbar-link' %> - <%= link_to "Sign In", new_user_session_path, :class => 'navbar-link' %>
+    17:       <% end %>
+  
+app/views/layouts/application.html.erb:14:in `_app_views_layouts_application_html_erb___2015339256855780782_70299067797400'
+Started GET "/" for 127.0.0.1 at 2017-11-12 20:15:39 -0500
+Processing by WelcomeController#index as HTML
+  Rendering welcome/index.html.erb within layouts/application
+  Rendered welcome/index.html.erb within layouts/application (234.4ms)
+Completed 500 Internal Server Error in 243ms
+
+
+  
+ActionView::Template::Error (undefined local variable or method `welcome_about_path' for #<#<Class:0x007fdf923d1e08>:0x007fdf923d3190>):
+    3:   <h1>Blocipedia</h2>
+    4:   <h2>Social, Markdown Wikis</h2>
+    5:   <p>
+    6:     <%= link_to "Sign Up", welcome_about_path, class: 'btn btn-primary' %>
+    7:   </p>
+    8: </div>
+    9: 
+  
+app/views/welcome/index.html.erb:6:in `_app_views_welcome_index_html_erb___4599252294394501954_70299103957980'
+Started GET "/" for 127.0.0.1 at 2017-11-12 20:18:31 -0500
+Processing by WelcomeController#index as HTML
+  Rendering welcome/index.html.erb within layouts/application
+  Rendered welcome/index.html.erb within layouts/application (269.8ms)
+Completed 500 Internal Server Error in 278ms
+
+
+  
+ActionView::Template::Error (undefined local variable or method `welcome_about_path' for #<#<Class:0x007fdf923d1e08>:0x007fdf8ef372b0>):
+    3:   <h1>Blocipedia</h2>
+    4:   <h2>Social, Markdown Wikis</h2>
+    5:   <p>
+    6:     <%= link_to "Sign Up", welcome_about_path, class: 'btn btn-primary' %>
+    7:   </p>
+    8: </div>
+    9: 
+  
+app/views/welcome/index.html.erb:6:in `_app_views_welcome_index_html_erb___4599252294394501954_70299056305360'
+Started GET "/" for 127.0.0.1 at 2017-11-12 20:18:34 -0500
+Processing by WelcomeController#index as HTML
+  Rendering welcome/index.html.erb within layouts/application
+  Rendered welcome/index.html.erb within layouts/application (229.2ms)
+Completed 500 Internal Server Error in 234ms
+
+
+  
+ActionView::Template::Error (undefined local variable or method `welcome_about_path' for #<#<Class:0x007fdf923d1e08>:0x007fdf8bd1bdd0>):
+    3:   <h1>Blocipedia</h2>
+    4:   <h2>Social, Markdown Wikis</h2>
+    5:   <p>
+    6:     <%= link_to "Sign Up", welcome_about_path, class: 'btn btn-primary' %>
+    7:   </p>
+    8: </div>
+    9: 
+  
+app/views/welcome/index.html.erb:6:in `_app_views_welcome_index_html_erb___4599252294394501954_70299049905300'
+Started GET "/" for 127.0.0.1 at 2017-11-12 20:18:36 -0500
+Processing by WelcomeController#index as HTML
+  Rendering welcome/index.html.erb within layouts/application
+  Rendered welcome/index.html.erb within layouts/application (254.2ms)
+Completed 500 Internal Server Error in 265ms
+
+
+  
+ActionView::Template::Error (undefined local variable or method `welcome_about_path' for #<#<Class:0x007fdf923d1e08>:0x007fdf8c775538>):
+    3:   <h1>Blocipedia</h2>
+    4:   <h2>Social, Markdown Wikis</h2>
+    5:   <p>
+    6:     <%= link_to "Sign Up", welcome_about_path, class: 'btn btn-primary' %>
+    7:   </p>
+    8: </div>
+    9: 
+  
+app/views/welcome/index.html.erb:6:in `_app_views_welcome_index_html_erb___4599252294394501954_70299055535500'
+Started GET "/" for 127.0.0.1 at 2017-11-12 20:20:40 -0500
+Processing by WelcomeController#index as HTML
+  Rendering welcome/index.html.erb within layouts/application
+  [1m[36mUser Load (0.6ms)[0m  [1m[34mSELECT  "users".* FROM "users" WHERE "users"."id" = ? ORDER BY "users"."id" ASC LIMIT ?[0m  [["id", 14], ["LIMIT", 1]]
+  [1m[36mUser Load (0.5ms)[0m  [1m[34mSELECT  "users".* FROM "users" WHERE "users"."id" IS NULL LIMIT ?[0m  [["LIMIT", 1]]
+  Rendered welcome/index.html.erb within layouts/application (23.3ms)
+Completed 500 Internal Server Error in 28ms (ActiveRecord: 1.9ms)
+
+
+  
+ActionView::Template::Error (undefined method `email' for nil:NilClass):
+    12:     <h3>Create and share Markdown Wikis</h3>
+    13:     <div>
+    14:       <% if user_signed_in? %>
+    15:         <p>Signed in as: <strong><%= current_user.email %></strong></p>
+    16:         <%= link_to "All Wikis", wikis_path, :class => 'btn btn-info' %>
+    17:       <% else %>
+    18:         <%= link_to "Sign Up", new_user_registration_path, :class => 'btn btn-primary'  %> or
+  
+app/views/welcome/index.html.erb:15:in `_app_views_welcome_index_html_erb___4599252294394501954_70299103218060'

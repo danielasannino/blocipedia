@@ -1,57 +1,30 @@
 require 'rails_helper'
 
 RSpec.describe UsersController, type: :controller do
-  let(:my_user)  { create(:user) }
-  let(:premium)  { create(:user, role: 'premium')}
+
+  let(:valid_attributes) {
+    skip("Add a hash of attributes valid for your model")
+  }
+
+  let(:invalid_attributes) {
+    skip("Add a hash of attributes invalid for your model")
+  }
+
+  let(:valid_session) { {} }
 
   describe "GET #index" do
-
-    before :example do
-      sign_in my_user
-    end
-
-    it "returns HTTP status success" do
-      get :index
-      expect(response).to have_http_status(:success)
-    end
-
-    it "sets User.all to my_user" do
-      get :index
-      expect(assigns(:users)).to eq([my_user])
-    end
-   end
-
-  describe "GET #show" do
-
-    before :example do
-      sign_in my_user
-    end
-
-    it "returns HTTP status success" do
-      get :show, params: {id: my_user.id}
-      expect(response).to have_http_status(:success)
-    end
-
-    it "renders the show view" do
-      get :show, params: {id: my_user.id}
-      expect(response).to render_template :show
-    end
-
-    it "assigns my_user to @user" do
-      get :show, params: {id: my_user.id}
-      expect(assigns(:user)).to eq(my_user)
+    it "assigns all users as @users" do
+      user = User.create! valid_attributes
+      get :index, params: {}, session: valid_session
+      expect(assigns(:users)).to eq([user])
     end
   end
 
-  describe "POST downgrade" do
-
-    before :example do
-      sign_in my_user
+  describe "GET #show" do
+    it "assigns the requested user as @user" do
+      user = User.create! valid_attributes
+      get :show, params: {id: user.to_param}, session: valid_session
+      expect(assigns(:user)).to eq(user)
     end
-
-    it "returns http redirect" do
-      post :downgrade
-    end
-    end
-
+  end
 end
