@@ -4,11 +4,6 @@
   <%= devise_error_messages! %>
 
   <div class="field">
-    <%= f.label :name %><br />
-    <%= f.text_field :name, autofocus: true %>
-  </div>
-
-  <div class="field">
     <%= f.label :email %><br />
     <%= f.email_field :email, autofocus: true %>
   </div>
@@ -20,6 +15,10 @@
   <div class="field">
     <%= f.label :password %> <i>(leave blank if you don't want to change it)</i><br />
     <%= f.password_field :password, autocomplete: "off" %>
+    <% if @minimum_password_length %>
+      <br />
+      <em><%= @minimum_password_length %> characters minimum</em>
+    <% end %>
   </div>
 
   <div class="field">
@@ -37,11 +36,27 @@
   </div>
 <% end %>
 
-<h3>Downgrade</h3>
+<h3>Membership</h3>
+<p>Your current membership level is: <strong><%= @user.role.capitalize %></strong></p>
+  <%= form_tag charges_path do %>
+    <article>
+      <% if flash[:error].present? %>
+        <div id="error_explanation">
+          <p><%= flash[:error] %></p>
+        </div>
+      <% end %>
+      <label class="amount">
+        <span>Upgrade to Premium: $15.00</span>
+      </label>
+    </article>
 
- <% if current_user.role == "premium" %>
-  <p> <%= button_to "Downgrade Account to Standard?", downgrade_user_path(current_user), data: { confirm: "Are you sure? Your private wikis will become public."}, method: :post %> </p>
-<% end %>
+    <script src="https://checkout.stripe.com/checkout.js" class="stripe-button"
+            data-key="<%= Rails.configuration.stripe[:publishable_key] %>"
+            data-description="Premium account upgrade"
+            data-amount="1500"
+            data-locale="auto"></script>
+  <% end %>
+
 
 <h3>Cancel my account</h3>
 
